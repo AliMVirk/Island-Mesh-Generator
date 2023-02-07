@@ -34,7 +34,7 @@ public class GraphicRenderer {
             Vertex v1 = aMesh.getVertices(s.getV1Idx());
             Vertex v2 = aMesh.getVertices(s.getV2Idx());
             Color old = canvas.getColor();
-            canvas.setColor(Color.BLACK); // change color to average of v1 and v2
+            canvas.setColor(extractColor(s.getPropertiesList())); // change color to average of v1 and v2
             Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
             canvas.draw(line);
             canvas.setColor(old);
