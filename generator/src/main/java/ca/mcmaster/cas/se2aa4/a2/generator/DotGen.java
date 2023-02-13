@@ -28,9 +28,11 @@ public class DotGen {
                 vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
             }
         }
+        // Create all the segments
         for (int i = 0; i < 25; i++) {
-            for (int j = 0; j < 24; j++) {
-                segments.add(Segment.newBuilder().setV1Idx(j+i*25).setV2Idx(j+i*25+1).build());
+            for (int j = 0; j < 25; j++) {
+                if (j != 24)
+                    segments.add(Segment.newBuilder().setV1Idx(j+i*25).setV2Idx(j+i*25+1).build());
                 if (i != 24)
                     segments.add(Segment.newBuilder().setV1Idx(j+i*25).setV2Idx(j+i*25+25).build());
             }
