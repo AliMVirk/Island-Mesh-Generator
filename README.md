@@ -61,8 +61,15 @@ If a feature works as intended without bugs and the code is clean and concise, i
 
 ### Product Backlog
 
-| Id | Feature title | Who? | Start | End | Status |
-|:--:|---------------|------|-------|-----|--------|
-|    |               |      |       |     |        |
+|  Id   | Feature title                                                                                                                                 | Who?    | Start | End | Status     |
+| :---: | --------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ----- | --- | ---------- |
+|  F01  | All squares in the mesh grid are polygons                                                                                                     | Qamrosh |       |     | P          |
+|  F02  | Polygons includes indexes to all segments, including those shared by neighbours                                                               | Ali     |       |     | B(F01)     |
+|  F03  | Polygons list their segments consecutively                                                                                                    | Ali     |       |     | B(F02)     |
+|  F04  | Polygons include an index to their center vertex                                                                                              | Hamza   |       |     | B(F01)     |
+|  F05  | Mesh contains no duplicate vertices, segments, or polygons                                                                                    | Hamza   |       |     | P          |
+|  F06  | Vertices, segments, and polygons should have colors and thickness information                                                                 | Qamrosh |       |     | P          |
+|  F07  | The default way the renderer displays the mesh is based on color and thickness                                                                | Ali     |       |     | B(F06)     |
+|  F08  | Debug mode, toggled by -X flag as cmd line argument, shows polygons in black, centroids in red, and neighbourhood relationships in light grey | Hamza   |       |     | B(F02,F04) |
 
 
