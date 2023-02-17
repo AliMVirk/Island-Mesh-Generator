@@ -59,9 +59,9 @@ public class DotGen {
             }
         }
         // Add the centroid vertices to their respective polygons
-        for (int i = 0; i < 23; i++) {
-            for (int j = 0; j < 23; j++) {
-                polygonBuilders.set(j+25*i, polygonBuilders.get(j+25*i).setCentroidIdx(j+25*i+vertexBuilders.size()));
+        for (int i = 0; i < 24; i++) {
+            for (int j = 0; j < 24; j++) {
+                polygonBuilders.set(j+24*i, polygonBuilders.get(j+24*i).setCentroidIdx(j+24*i+vertexBuilders.size()));
             }
         }
 
@@ -76,7 +76,7 @@ public class DotGen {
             v.addProperties(color);
         }
 
-        // Set all the centroid vertices colors to black
+        // Set all the centroid vertices colors to black as a default color
         for(Vertex.Builder v : centroidVertexBuilders){
             Property color = Property.newBuilder().setKey("rgb_color").setValue("0,0,0").build();
             v.addProperties(color);
