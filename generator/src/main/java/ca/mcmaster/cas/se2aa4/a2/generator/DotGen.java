@@ -23,14 +23,19 @@ public class DotGen {
     public Mesh generate() {
         // Create list of builders so properties can be added without creating more lists and rebuilding
         ArrayList<Vertex.Builder> vertexBuilders = new ArrayList<>();
+        ArrayList<Vertex.Builder> centroidVertexBuilders = new ArrayList<>();
         ArrayList<Segment.Builder> segmentBuilders = new ArrayList<>();
         ArrayList<Polygon.Builder> polygonBuilders = new ArrayList<>();
         // Create all the vertices builders
         for(int x = 0; x < width; x += square_size) {
             for(int y = 0; y < height; y += square_size) {
                 vertexBuilders.add(Vertex.newBuilder().setX((double) x).setY((double) y));
+                if (x != width-square_size && y != height-square_size)
+                    centroidVertexBuilders.add(Vertex.newBuilder().setX((double) x+10).setY((double) y+10));
+
             }
         }
+
         // Create all the segments builders
         for (int i = 0; i < 25; i++) {
             for (int j = 0; j < 25; j++) {
@@ -87,7 +92,6 @@ public class DotGen {
             segments.add(s.build());
         for (Polygon.Builder p : polygonBuilders)
             polygons.add(p.build());
-
         return Mesh.newBuilder().addAllVertices(vertices).addAllSegments(segments).addAllPolygons(polygons).build();
     }
 
