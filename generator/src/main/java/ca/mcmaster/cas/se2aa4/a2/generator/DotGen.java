@@ -98,14 +98,21 @@ public class DotGen {
         }
         // Build all vertices, segments, and polygons
         ArrayList<Vertex> vertices = new ArrayList<>();
+        ArrayList<Vertex> centroidVertices = new ArrayList<>();
         ArrayList<Segment> segments = new ArrayList<>();
         ArrayList<Polygon> polygons = new ArrayList<>();
         for (Vertex.Builder v : vertexBuilders)
             vertices.add(v.build());
+        for (Vertex.Builder cv: centroidVertexBuilders)
+            centroidVertices.add(cv.build());
         for (Segment.Builder s : segmentBuilders)
             segments.add(s.build());
         for (Polygon.Builder p : polygonBuilders)
             polygons.add(p.build());
+
+        // Add the list of centroidVertices to the list of vertices
+        vertices.addAll(centroidVertices);
+        
         return Mesh.newBuilder().addAllVertices(vertices).addAllSegments(segments).addAllPolygons(polygons).build();
     }
 
