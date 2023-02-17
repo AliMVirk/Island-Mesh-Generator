@@ -61,7 +61,7 @@ public class DotGen {
         // Add the centroid vertices to their respective polygons
         for (int i = 0; i < 23; i++) {
             for (int j = 0; j < 23; j++) {
-                polygonBuilders.get(j+25*i).setCentroidIdx(j+25*i+vertexBuilders.size());
+                polygonBuilders.set(j+25*i, polygonBuilders.get(j+25*i).setCentroidIdx(j+25*i+vertexBuilders.size()));
             }
         }
 
@@ -109,7 +109,7 @@ public class DotGen {
             segments.add(s.build());
         for (Polygon.Builder p : polygonBuilders)
             polygons.add(p.build());
-        
+
         return Mesh.newBuilder().addAllVertices(vertices).addAllSegments(segments).addAllPolygons(polygons).build();
     }
 
