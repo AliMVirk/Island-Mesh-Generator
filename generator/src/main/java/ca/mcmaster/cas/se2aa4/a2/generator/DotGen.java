@@ -32,7 +32,6 @@ public class DotGen {
                 vertexBuilders.add(Vertex.newBuilder().setX((double) x).setY((double) y));
                 if (x != width-square_size && y != height-square_size)
                     centroidVertexBuilders.add(Vertex.newBuilder().setX((double) x+10).setY((double) y+10));
-
             }
         }
 
@@ -62,7 +61,7 @@ public class DotGen {
         // Add the centroid vertices to their respective polygons
         for (int i = 0; i < 23; i++) {
             for (int j = 0; j < 23; j++) {
-                polygonBuilders.get(j+25*i).setCentroidIdx(j+25*i+(vertexBuilders.size()-1));
+                polygonBuilders.get(j+25*i).setCentroidIdx(j+25*i+vertexBuilders.size());
             }
         }
 
@@ -96,23 +95,21 @@ public class DotGen {
             Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
             s.addProperties(color);
         }
+
+        // Add the list of centroidVertices to the list of vertices
+        vertexBuilders.addAll(centroidVertexBuilders);
+
         // Build all vertices, segments, and polygons
         ArrayList<Vertex> vertices = new ArrayList<>();
-        ArrayList<Vertex> centroidVertices = new ArrayList<>();
         ArrayList<Segment> segments = new ArrayList<>();
         ArrayList<Polygon> polygons = new ArrayList<>();
         for (Vertex.Builder v : vertexBuilders)
             vertices.add(v.build());
-        for (Vertex.Builder cv: centroidVertexBuilders)
-            centroidVertices.add(cv.build());
         for (Segment.Builder s : segmentBuilders)
             segments.add(s.build());
         for (Polygon.Builder p : polygonBuilders)
             polygons.add(p.build());
-
-        // Add the list of centroidVertices to the list of vertices
-        vertices.addAll(centroidVertices);
-
+        
         return Mesh.newBuilder().addAllVertices(vertices).addAllSegments(segments).addAllPolygons(polygons).build();
     }
 
