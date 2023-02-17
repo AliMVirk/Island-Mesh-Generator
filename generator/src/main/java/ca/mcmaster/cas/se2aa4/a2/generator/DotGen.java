@@ -21,25 +21,26 @@ public class DotGen {
     private final int square_size = 20;
 
     public Mesh generate() {
-        ArrayList<Vertex> vertices = new ArrayList<>();
-        ArrayList<Segment> segments = new ArrayList<>();
-        ArrayList<Polygon> polygons = new ArrayList<>();
-        // Create all the vertices
+        // Create list of builders so properties can be added without creating more lists and rebuilding
+        ArrayList<Vertex.Builder> vertexBuilders = new ArrayList<>();
+        ArrayList<Segment.Builder> segmentBuilders = new ArrayList<>();
+        ArrayList<Polygon.Builder> polygonBuilders = new ArrayList<>();
+        // Create all the vertices builders
         for(int x = 0; x < width; x += square_size) {
             for(int y = 0; y < height; y += square_size) {
-                vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
+                vertexBuilders.add(Vertex.newBuilder().setX((double) x).setY((double) y));
             }
         }
-        // Create all the segments
+        // Create all the segments builders
         for (int i = 0; i < 25; i++) {
             for (int j = 0; j < 25; j++) {
                 if (j != 24)
-                    segments.add(Segment.newBuilder().setV1Idx(j+i*25).setV2Idx(j+i*25+1).build());
+                    segmentBuilders.add(Segment.newBuilder().setV1Idx(j+i*25).setV2Idx(j+i*25+1));
                 if (i != 24)
-                    segments.add(Segment.newBuilder().setV1Idx(j+i*25).setV2Idx(j+i*25+25).build());
+                    segmentBuilders.add(Segment.newBuilder().setV1Idx(j+i*25).setV2Idx(j+i*25+25));
             }
         }
-        // Create all the polygons
+        // Create all the polygon builders
         for (int i = 0; i < 24; i++) {
             for (int j = 0; j < 47; j += 2) {
                 int left = j + i*49;
@@ -50,26 +51,23 @@ public class DotGen {
                     bottom--;
                 if (i == 23)
                     right -= 0.5 * j;
-                polygons.add(Polygon.newBuilder().addSegmentIdxs(0).addSegmentIdxs(1).addSegmentIdxs(2).addSegmentIdxs(3).setSegmentIdxs(0, left).setSegmentIdxs(1, top).setSegmentIdxs(2, right).setSegmentIdxs(3, bottom).build());
+                polygonBuilders.add(Polygon.newBuilder().addSegmentIdxs(0).addSegmentIdxs(1).addSegmentIdxs(2).addSegmentIdxs(3).setSegmentIdxs(0, left).setSegmentIdxs(1, top).setSegmentIdxs(2, right).setSegmentIdxs(3, bottom));
             }
         }
-        // Distribute colors randomly. Vertices are immutable, need to enrich them
-        ArrayList<Vertex> verticesWithColors = new ArrayList<>();
-        ArrayList<Segment> segmentsWithColors = new ArrayList<>();
+        // Distribute vertex colors randomly
         Random bag = new Random();
-        for(Vertex v: vertices){
+        for(Vertex.Builder v : vertexBuilders){
             int red = bag.nextInt(255);
             int green = bag.nextInt(255);
             int blue = bag.nextInt(255);
             String colorCode = red + "," + green + "," + blue;
             Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
-            Vertex colored = Vertex.newBuilder(v).addProperties(color).build();
-            verticesWithColors.add(colored);
+            v.addProperties(color);
         }
-
-        for(Segment s: segments){
-            Vertex v1 = verticesWithColors.get(s.getV1Idx());
-            Vertex v2 = verticesWithColors.get(s.getV2Idx());
+        // Color segments by averaging out adjacent vertex colors
+        for(Segment.Builder s : segmentBuilders){
+            Vertex.Builder v1 = vertexBuilders.get(s.getV1Idx());
+            Vertex.Builder v2 = vertexBuilders.get(s.getV1Idx());
             Color v1Color = extractColor(v1.getPropertiesList());
             Color v2Color = extractColor(v2.getPropertiesList());
             int segmentRed = (v1Color.getRed() + v2Color.getRed())/2;
@@ -77,11 +75,20 @@ public class DotGen {
             int segmentBlue = (v1Color.getBlue() + v2Color.getBlue())/2;
             String colorCode = segmentRed + "," + segmentGreen + "," + segmentBlue;
             Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
-            Segment colored = Segment.newBuilder(s).addProperties(color).build();
-            segmentsWithColors.add(colored);
+            s.addProperties(color);
         }
+        // Build all vertices, segments, and polygons
+        ArrayList<Vertex> vertices = new ArrayList<>();
+        ArrayList<Segment> segments = new ArrayList<>();
+        ArrayList<Polygon> polygons = new ArrayList<>();
+        for (Vertex.Builder v : vertexBuilders)
+            vertices.add(v.build());
+        for (Segment.Builder s : segmentBuilders)
+            segments.add(s.build());
+        for (Polygon.Builder p : polygonBuilders)
+            polygons.add(p.build());
 
-        return Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segmentsWithColors).addAllPolygons(polygons).build();
+        return Mesh.newBuilder().addAllVertices(vertices).addAllSegments(segments).addAllPolygons(polygons).build();
     }
 
 
