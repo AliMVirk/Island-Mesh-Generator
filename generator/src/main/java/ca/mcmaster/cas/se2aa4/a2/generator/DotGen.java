@@ -76,6 +76,13 @@ public class DotGen {
             Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
             v.addProperties(color);
         }
+
+        // Set all the centroid vertices colors to black
+        for(Vertex.Builder v : centroidVertexBuilders){
+            Property color = Property.newBuilder().setKey("rgb_color").setValue("0,0,0").build();
+            v.addProperties(color);
+        }
+
         // Color segments by averaging out adjacent vertex colors
         for(Segment.Builder s : segmentBuilders){
             Vertex.Builder v1 = vertexBuilders.get(s.getV1Idx());
