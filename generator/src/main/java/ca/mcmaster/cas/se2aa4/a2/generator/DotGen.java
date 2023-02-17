@@ -59,6 +59,13 @@ public class DotGen {
                 polygonBuilders.add(Polygon.newBuilder().addSegmentIdxs(0).addSegmentIdxs(1).addSegmentIdxs(2).addSegmentIdxs(3).setSegmentIdxs(0, left).setSegmentIdxs(1, top).setSegmentIdxs(2, right).setSegmentIdxs(3, bottom));
             }
         }
+        // Add the centroid vertices to their respective polygons
+        for (int i = 0; i < 24; i++) {
+            for (int j = 0; j < 24; j++) {
+                polygonBuilders.get(j+25*i).setCentroidIdx(j+25*i+(vertexBuilders.size()));
+            }
+        }
+
         // Distribute vertex colors randomly
         Random bag = new Random();
         for(Vertex.Builder v : vertexBuilders){
