@@ -45,16 +45,19 @@ public class GraphicRenderer {
         }
         // Draw polygons
         /*canvas.setColor(Color.RED);
+        canvas.setStroke(new BasicStroke(2));
         for (Polygon p : aMesh.getPolygonsList()) {
-            Segment s1 = aMesh.getSegments(p.getSegmentIdxs(0));
-            Segment s2 = aMesh.getSegments(p.getSegmentIdxs(1));
-            Segment s3 = aMesh.getSegments(p.getSegmentIdxs(2));
-            Segment s4 = aMesh.getSegments(p.getSegmentIdxs(3));
-            for (Segment s : new Segment[] {s1, s2, s3, s4}) {
-                Vertex v1 = aMesh.getVertices(s.getV1Idx());
-                Vertex v2 = aMesh.getVertices(s.getV2Idx());
-                Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
-                canvas.draw(line);
+            for (int q : p.getNeighborIdxsList()) {
+                Segment s1 = aMesh.getSegments(aMesh.getPolygons(q).getSegmentIdxs(0));
+                Segment s2 = aMesh.getSegments(aMesh.getPolygons(q).getSegmentIdxs(1));
+                Segment s3 = aMesh.getSegments(aMesh.getPolygons(q).getSegmentIdxs(2));
+                Segment s4 = aMesh.getSegments(aMesh.getPolygons(q).getSegmentIdxs(3));
+                for (Segment s : new Segment[] {s1, s2, s3, s4}) {
+                    Vertex v1 = aMesh.getVertices(s.getV1Idx());
+                    Vertex v2 = aMesh.getVertices(s.getV2Idx());
+                    Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
+                    canvas.draw(line);
+                }
             }
         }*/
     }

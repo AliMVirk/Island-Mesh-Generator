@@ -26,6 +26,7 @@ public class DotGen {
         ArrayList<Vertex.Builder> centroidVertexBuilders = new ArrayList<>();
         ArrayList<Segment.Builder> segmentBuilders = new ArrayList<>();
         ArrayList<Polygon.Builder> polygonBuilders = new ArrayList<>();
+
         // Create all the vertices builders
         for(int x = 0; x < width; x += square_size) {
             for(int y = 0; y < height; y += square_size) {
@@ -34,7 +35,6 @@ public class DotGen {
                     centroidVertexBuilders.add(Vertex.newBuilder().setX((double) x+10).setY((double) y+10));
             }
         }
-
         // Create all the segments builders
         for (int i = 0; i < 25; i++) {
             for (int j = 0; j < 25; j++) {
@@ -64,6 +64,36 @@ public class DotGen {
                 polygonBuilders.set(j+24*i, polygonBuilders.get(j+24*i).setCentroidIdx(j+24*i+vertexBuilders.size()));
             }
         }
+        // Include neighbor indices for all polygons in no particular order
+        for (int i = 0; i < 24; i++) {
+            for (int j = 0; j < 24; j++) {
+                int current = j + 24*i;
+                int left = current - 24;
+                int top = current - 1;
+                int right = current + 24;
+                int bottom = current + 1;
+                Polygon.Builder p = polygonBuilders.get(current);
+                if (i == 0 && j == 0)
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).setNeighborIdxs(0, bottom).setNeighborIdxs(1, right); // no left or top
+                else if (i == 0 && j == 23)
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).setNeighborIdxs(0, top).setNeighborIdxs(1, right); // no left or bottom
+                else if (i == 23 && j == 0)
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).setNeighborIdxs(0, bottom).setNeighborIdxs(1, left); // no right or top
+                else if (i == 23 && j == 23)
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).setNeighborIdxs(0, top).setNeighborIdxs(1, left); // no right or bottom
+                else if (i == 0)
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).setNeighborIdxs(0, top).setNeighborIdxs(1, bottom).setNeighborIdxs(2, right); // no left
+                else if (i == 23)
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).setNeighborIdxs(0, top).setNeighborIdxs(1, bottom).setNeighborIdxs(2, left); // no right
+                else if (j == 0)
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).setNeighborIdxs(0, bottom).setNeighborIdxs(1, left).setNeighborIdxs(2, right); // no top
+                else if (j == 23)
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).setNeighborIdxs(0, top).setNeighborIdxs(1, left).setNeighborIdxs(2, right); // no bottom
+                else
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).addNeighborIdxs(3).setNeighborIdxs(0, left).setNeighborIdxs(1, top).setNeighborIdxs(2, right).setNeighborIdxs(3, bottom); // all 4 neighbours
+                polygonBuilders.set(current, p);
+            }
+        }
 
         // Distribute vertex colors randomly
         Random bag = new Random();
@@ -75,7 +105,6 @@ public class DotGen {
             Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
             v.addProperties(color);
         }
-
         // Set all the centroid vertices colors to black as a default color
         for(Vertex.Builder v : centroidVertexBuilders){
             Property color = Property.newBuilder().setKey("rgb_color").setValue("0,0,0").build();
