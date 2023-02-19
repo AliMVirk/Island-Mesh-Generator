@@ -95,24 +95,28 @@ public class DotGen {
             }
         }
 
-        // Distribute vertex colors randomly
         Random bag = new Random();
         for(Vertex.Builder v : vertexBuilders){
+            // Distribute vertex colors randomly
             int red = bag.nextInt(255);
             int green = bag.nextInt(255);
             int blue = bag.nextInt(255);
             String colorCode = red + "," + green + "," + blue;
             Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
             v.addProperties(color);
+            // Assign regular vertex thickness
+            v.addProperties(Property.newBuilder().setKey("thickness").setValue("3").build());
         }
-        // Set all the centroid vertices colors to black as a default color
         for(Vertex.Builder v : centroidVertexBuilders){
+            // Set all the centroid vertices colors to black as a default color
             Property color = Property.newBuilder().setKey("rgb_color").setValue("0,0,0").build();
             v.addProperties(color);
+            // Assign centroid vertex thickness
+            v.addProperties(Property.newBuilder().setKey("thickness").setValue("1.5").build());
         }
 
-        // Color segments by averaging out adjacent vertex colors
         for(Segment.Builder s : segmentBuilders){
+            // Color segments by averaging out adjacent vertex colors
             Vertex.Builder v1 = vertexBuilders.get(s.getV1Idx());
             Vertex.Builder v2 = vertexBuilders.get(s.getV1Idx());
             Color v1Color = extractColor(v1.getPropertiesList());
@@ -123,7 +127,13 @@ public class DotGen {
             String colorCode = segmentRed + "," + segmentGreen + "," + segmentBlue;
             Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
             s.addProperties(color);
+            // Assign segment thickness
+            s.addProperties(Property.newBuilder().setKey("thickness").setValue("0.25").build());
         }
+
+        // Assign polygon thickness
+        for (Polygon.Builder p : polygonBuilders)
+            p.addProperties(Property.newBuilder().setKey("thickness").setValue("0.5").build());
 
         // Add the list of centroidVertices to the list of vertices
         vertexBuilders.addAll(centroidVertexBuilders);
