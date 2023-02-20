@@ -17,31 +17,35 @@ import java.awt.geom.Line2D;
 
 public class GraphicRenderer {
 
-    public void render(Mesh aMesh, Graphics2D canvas) {
+    public void render(Mesh aMesh, Graphics2D canvas, boolean debugMode) {
         canvas.setColor(Color.BLACK);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
-        // Draw vertices
-        for (Vertex v: aMesh.getVerticesList()) {
-            float thickness = extractThickness(v.getPropertiesList());
-            double centre_x = v.getX() - (thickness/2.0d);
-            double centre_y = v.getY() - (thickness/2.0d);
-            Color old = canvas.getColor();
-            canvas.setColor(extractColor(v.getPropertiesList()));
-            Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, thickness, thickness);
-            canvas.fill(point);
-            canvas.setColor(old);
-        }
-        // Draw segments
-        for (Segment s : aMesh.getSegmentsList()) {
-            canvas.setStroke(new BasicStroke(extractThickness(s.getPropertiesList()))); // Set new stroke according to thickness
-            Vertex v1 = aMesh.getVertices(s.getV1Idx());
-            Vertex v2 = aMesh.getVertices(s.getV2Idx());
-            Color old = canvas.getColor();
-            canvas.setColor(extractColor(s.getPropertiesList())); // change color to average of v1 and v2
-            Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
-            canvas.draw(line);
-            canvas.setColor(old);
+        if (debugMode){
+            
+        } else {
+            // Draw vertices
+            for (Vertex v : aMesh.getVerticesList()) {
+                float thickness = extractThickness(v.getPropertiesList());
+                double centre_x = v.getX() - (thickness / 2.0d);
+                double centre_y = v.getY() - (thickness / 2.0d);
+                Color old = canvas.getColor();
+                canvas.setColor(extractColor(v.getPropertiesList()));
+                Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, thickness, thickness);
+                canvas.fill(point);
+                canvas.setColor(old);
+            }
+            // Draw segments
+            for (Segment s : aMesh.getSegmentsList()) {
+                canvas.setStroke(new BasicStroke(extractThickness(s.getPropertiesList()))); // Set new stroke according to thickness
+                Vertex v1 = aMesh.getVertices(s.getV1Idx());
+                Vertex v2 = aMesh.getVertices(s.getV2Idx());
+                Color old = canvas.getColor();
+                canvas.setColor(extractColor(s.getPropertiesList())); // change color to average of v1 and v2
+                Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
+                canvas.draw(line);
+                canvas.setColor(old);
+            }
         }
     }
 
