@@ -132,8 +132,10 @@ public class DotGen {
         }
 
         // Assign polygon thickness
-        for (Polygon.Builder p : polygonBuilders)
+        for (Polygon.Builder p : polygonBuilders) {
             p.addProperties(Property.newBuilder().setKey("thickness").setValue("0.5").build());
+            p.addProperties(Property.newBuilder().setKey("rgb_color").setValue("0,0,0").build());
+        }
 
         // Add the list of centroidVertices to the list of vertices
         vertexBuilders.addAll(centroidVertexBuilders);

@@ -22,7 +22,42 @@ public class GraphicRenderer {
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
         if (debugMode){
-            
+            // Draw centroid vertices in red when debug mode is active
+            for (int i = 625; i < aMesh.getVerticesCount(); i++) {
+                Vertex v = aMesh.getVertices(i);
+                float thickness = extractThickness(v.getPropertiesList());
+                double centre_x = v.getX() - (thickness/2.0d);
+                double centre_y = v.getY() - (thickness/2.0d);
+                canvas.setColor(Color.RED);
+                Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, thickness, thickness);
+                canvas.fill(point);
+            }
+            // Draw polygons in black when debug mode is active
+            for (Polygon p : aMesh.getPolygonsList()) {
+                canvas.setColor(extractColor(p.getPropertiesList()));
+                canvas.setStroke(new BasicStroke(extractThickness(p.getPropertiesList())));
+                Segment s1 = aMesh.getSegments(p.getSegmentIdxs(0));
+                Segment s2 = aMesh.getSegments(p.getSegmentIdxs(1));
+                Segment s3 = aMesh.getSegments(p.getSegmentIdxs(2));
+                Segment s4 = aMesh.getSegments(p.getSegmentIdxs(3));
+                for (Segment s : new Segment[] {s1, s2, s3, s4}) {
+                    Vertex v1 = aMesh.getVertices(s.getV1Idx());
+                    Vertex v2 = aMesh.getVertices(s.getV2Idx());
+                    Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
+                    canvas.draw(line);
+                }
+            }
+            // Draw neighboring relations in grey when debug mode is active
+            canvas.setColor(new Color(150, 150, 150));
+            canvas.setStroke(new BasicStroke(0.25f));
+            for (Polygon p : aMesh.getPolygonsList()) {
+                Vertex v1 = aMesh.getVertices(p.getCentroidIdx());
+                for (int q : p.getNeighborIdxsList()) {
+                    Vertex v2 = aMesh.getVertices(aMesh.getPolygons(q).getCentroidIdx());
+                    Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
+                    canvas.draw(line);
+                }
+            }
         } else {
             // Draw vertices
             for (Vertex v : aMesh.getVerticesList()) {
