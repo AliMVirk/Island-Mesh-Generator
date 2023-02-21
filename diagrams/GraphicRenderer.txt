@@ -8,6 +8,8 @@ class GraphicRenderer {
     #void drawNeighborRelations(Mesh, Graphics2D)
     -Color extractColor(List<Property>)
     -float extractThickness(List<Property>)
+    ~double getX(Vertex)
+    ~double getY(Vertex)
 }
 
 @enduml
