@@ -124,4 +124,12 @@ public class GraphicRenderer {
         return Math.round(Float.parseFloat(val) * 100 / 100);
     }
 
+    private double getX(Vertex v) {
+        return Math.round(v.getX() * 100 / 100);
+    }
+
+    private double getY(Vertex v) {
+        return Math.round(v.getY() * 100 / 100);
+    }
+
 }
