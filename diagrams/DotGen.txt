@@ -1,0 +1,20 @@
+@startuml
+
+class DotGen {
+    -int width
+    -int height
+    -int square_size
+    ~Mesh generate()
+    #ArrayList<Vertex.Builder> initializeVertices()
+    #ArrayList<Vertex.Builder> initializeCentroidVertices()
+    #ArrayList<Segment.Builder> initializeSegments()
+    #ArrayList<Polygon.Builder> initializePolygons()
+    -ArrayList<Polygon.Builder> addCentroidVertices(ArrayList<Polygon.Builder>)
+    -ArrayList<Polygon.Builder> addNeighbors(ArrayList<Polygon.Builder>)
+    ~ArrayList<Vertex.Builder> addVertexProperties(ArrayList<Vertex.Builder>)
+    ~ArrayList<Segment.Builder> addSegmentProperties(ArrayList<Segment.Builder>)
+    ~ArrayList<Polygon.Builder> addPolygonProperties(ArrayList<Polygon.Builder>)
+    #Color extractColor(List<Property>)
+}
+
+@enduml
