@@ -6,7 +6,7 @@
 
 ## How to run the product
 
-_This section needs to be edited to reflect how the user can interact with the feature released in your project_
+The following information shows the necessary commands to create a mesh and visualize the mesh in an SVG file. If needed, the mesh can be visualized in debug mode by including a `-X` flag.
 
 ### Installation instructions
 
@@ -47,7 +47,7 @@ ls -lh sample.svg
 To viualize the SVG file:
 
   - Open it with a web browser
-  - Convert it into something else with tool slike `rsvg-convert`
+  - Convert it into something else with tools like `rsvg-convert`
 
 
 ### Visualizer in debug mode
@@ -61,10 +61,6 @@ java -jar visualizer.jar ../generator/sample.mesh sample.svg -X
 ls -lh sample.svg
 -rw-r--r--  1 mosser  staff    56K 29 Jan 10:53 sample.svg
 ```
-To viualize the SVG file:
-
-- Open it with a web browser
-- Convert it into something else with tool slike `rsvg-convert`
 
 ## How to contribute to the project
 
