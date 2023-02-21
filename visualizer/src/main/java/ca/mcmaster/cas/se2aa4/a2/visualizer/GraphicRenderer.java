@@ -121,7 +121,7 @@ public class GraphicRenderer {
         }
         if (val == null)
             return 0.5f;
-        return Float.parseFloat(val);
+        return Math.round(Float.parseFloat(val) * 100 / 100);
     }
 
 }
