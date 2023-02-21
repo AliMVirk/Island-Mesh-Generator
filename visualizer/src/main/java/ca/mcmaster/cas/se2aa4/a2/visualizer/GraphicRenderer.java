@@ -40,8 +40,8 @@ public class GraphicRenderer {
         for (int i = offset; i < aMesh.getVerticesCount(); i++) {
             Vertex v = aMesh.getVertices(i);
             float thickness = extractThickness(v.getPropertiesList());
-            double centre_x = v.getX() - (thickness / 2.0d);
-            double centre_y = v.getY() - (thickness / 2.0d);
+            double centre_x = getX(v) - (thickness / 2.0d);
+            double centre_y = getY(v) - (thickness / 2.0d);
             Color old = canvas.getColor();
             // If there is no static color choice, get color from vertex properties
             if (staticColor == null)
@@ -61,7 +61,7 @@ public class GraphicRenderer {
             Vertex v2 = aMesh.getVertices(s.getV2Idx());
             Color old = canvas.getColor();
             canvas.setColor(extractColor(s.getPropertiesList()));
-            Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
+            Line2D line = new Line2D.Double(getX(v1), getY(v1), getX(v2), getY(v2));
             canvas.draw(line);
             canvas.setColor(old);
         }
@@ -78,7 +78,7 @@ public class GraphicRenderer {
             for (Segment s : new Segment[] {s1, s2, s3, s4}) {
                 Vertex v1 = aMesh.getVertices(s.getV1Idx());
                 Vertex v2 = aMesh.getVertices(s.getV2Idx());
-                Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
+                Line2D line = new Line2D.Double(getX(v1), getY(v1), getX(v2), getY(v2));
                 canvas.draw(line);
             }
         }
@@ -91,7 +91,7 @@ public class GraphicRenderer {
             Vertex v1 = aMesh.getVertices(p.getCentroidIdx());
             for (int q : p.getNeighborIdxsList()) {
                 Vertex v2 = aMesh.getVertices(aMesh.getPolygons(q).getCentroidIdx());
-                Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
+                Line2D line = new Line2D.Double(getX(v1), getY(v1), getX(v2), getY(v2));
                 canvas.draw(line);
             }
         }
