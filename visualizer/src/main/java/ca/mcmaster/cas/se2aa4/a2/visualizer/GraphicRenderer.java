@@ -121,15 +121,15 @@ public class GraphicRenderer {
         }
         if (val == null)
             return 0.5f;
-        return Math.round(Float.parseFloat(val) * 100 / 100);
+        return (float) Math.round(Float.parseFloat(val) * 100) / 100;
     }
 
     private double getX(Vertex v) {
-        return Math.round(v.getX() * 100 / 100);
+        return Math.round(v.getX() * 100) / 100;
     }
 
     private double getY(Vertex v) {
-        return Math.round(v.getY() * 100 / 100);
+        return Math.round(v.getY() * 100) / 100;
     }
 
 }
