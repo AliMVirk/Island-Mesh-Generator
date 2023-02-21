@@ -100,9 +100,8 @@ public class GraphicRenderer {
     private Color extractColor(List<Property> properties) {
         String val = null;
         for(Property p: properties) {
-            if (p.getKey().equals("rgb_color")) {
+            if (p.getKey().equals("rgb_color"))
                 val = p.getValue();
-            }
         }
         if (val == null)
             return Color.BLACK;
@@ -110,7 +109,10 @@ public class GraphicRenderer {
         int red = Integer.parseInt(raw[0]);
         int green = Integer.parseInt(raw[1]);
         int blue = Integer.parseInt(raw[2]);
-        return new Color(red, green, blue);
+        int transparency = 255;
+        if (raw.length == 4)
+            transparency = Integer.parseInt(raw[3]);
+        return new Color(red, green, blue, transparency);
     }
 
     private float extractThickness(List<Property> properties) {
