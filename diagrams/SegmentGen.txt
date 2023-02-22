@@ -1,0 +1,10 @@
+@startuml
+
+class SegmentGen {
+    ~Mesh generate()
+    #ArrayList<Segment.Builder> initializeSegments()
+    ~ArrayList<Segment.Builder> addSegmentProperties(ArrayList<Segment.Builder>)
+    #Color extractColor(List<Property>)
+}
+
+@enduml

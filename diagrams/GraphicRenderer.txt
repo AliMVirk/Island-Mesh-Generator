@@ -2,7 +2,7 @@
 
 class GraphicRenderer {
     ~void render(Mesh, Graphics2D, boolean)
-    #void drawVertices(Mesh, Graphics2D, int, Color)
+    #void drawVertices(Mesh, Graphics2D, int, int, Color)
     #void drawSegments(Mesh, Graphics2D)
     #void drawPolygons(Mesh, Graphics2D)
     #void drawNeighborRelations(Mesh, Graphics2D)
