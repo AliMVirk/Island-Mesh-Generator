@@ -23,21 +23,21 @@ public class GraphicRenderer {
         canvas.setStroke(stroke);
         if (debugMode){
             // Draw centroid vertices in red when debug mode is active
-            drawVertices(aMesh, canvas, 625, Color.RED);
+            drawVertices(aMesh, canvas, 625, aMesh.getVerticesCount(), Color.RED);
             // Draw polygons in black when debug mode is active
             drawPolygons(aMesh, canvas);
             // Draw neighboring relations in grey when debug mode is active
             drawNeighborRelations(aMesh, canvas);
         } else {
             // Draw vertices
-            drawVertices(aMesh, canvas, 0, null);
+            drawVertices(aMesh, canvas, 0, 625, null);
             // Draw segments
             drawSegments(aMesh, canvas);
         }
     }
 
-    private void drawVertices(Mesh aMesh, Graphics2D canvas, int offset, Color staticColor) {
-        for (int i = offset; i < aMesh.getVerticesCount(); i++) {
+    private void drawVertices(Mesh aMesh, Graphics2D canvas, int start, int end, Color staticColor) {
+        for (int i = start; i < end; i++) {
             Vertex v = aMesh.getVertices(i);
             float thickness = extractThickness(v.getPropertiesList());
             double centre_x = getX(v) - (thickness / 2.0d);
