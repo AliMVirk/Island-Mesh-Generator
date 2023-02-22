@@ -18,6 +18,8 @@ public class PolygonGen {
         // Include neighbor indices for all polygons in no particular order
         polygonBuilders = addNeighbors(polygonBuilders);
         ArrayList<Polygon> polygons = new ArrayList<>();
+
+        // Build all the segments
         for (Polygon.Builder p : polygonBuilders)
             polygons.add(p.build());
 

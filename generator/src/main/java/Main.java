@@ -1,4 +1,6 @@
 import ca.mcmaster.cas.se2aa4.a2.generator.DotGen;
+import ca.mcmaster.cas.se2aa4.a2.generator.PolygonGen;
+import ca.mcmaster.cas.se2aa4.a2.generator.SegmentGen;
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 
@@ -7,8 +9,12 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        DotGen generator = new DotGen();
-        Mesh myMesh = generator.generate();
+        DotGen dotGenerator = new DotGen();
+        SegmentGen segmentGenerator = new SegmentGen();
+        PolygonGen polygonGenerator = new PolygonGen();
+        Mesh myMesh = dotGenerator.generate();
+        myMesh = segmentGenerator.generate(myMesh);
+        myMesh = polygonGenerator.generate(myMesh);
         MeshFactory factory = new MeshFactory();
         factory.write(myMesh, args[0]);
     }
