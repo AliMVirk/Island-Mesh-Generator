@@ -8,7 +8,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 
 public class PolygonGen {
-    public Mesh generate(Mesh mesh){
+    public Mesh.Builder generatePolygons(Mesh.Builder mesh){
         // Create all the polygon builders
         ArrayList<Structs.Polygon.Builder> polygonBuilders = initializePolygons();
         // Attribute thickness and color to polygons
@@ -17,13 +17,12 @@ public class PolygonGen {
         polygonBuilders = addCentroidVertices(polygonBuilders);
         // Include neighbor indices for all polygons in no particular order
         polygonBuilders = addNeighbors(polygonBuilders);
-        ArrayList<Polygon> polygons = new ArrayList<>();
 
-        // Build all the segments
+        // Build all the vertices and add them to mesh
         for (Polygon.Builder p : polygonBuilders)
-            polygons.add(p.build());
+            mesh.addPolygons(p.build());
 
-        return Mesh.newBuilder().addAllVertices(mesh.getVerticesList()).addAllSegments(mesh.getSegmentsList()).addAllPolygons(polygons).build();
+        return mesh;
     }
 
     private ArrayList<Polygon.Builder> initializePolygons() {

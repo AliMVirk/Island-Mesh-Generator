@@ -12,9 +12,12 @@ public class Main {
         DotGen dotGenerator = new DotGen();
         SegmentGen segmentGenerator = new SegmentGen();
         PolygonGen polygonGenerator = new PolygonGen();
-        Mesh myMesh = dotGenerator.generate();
-        myMesh = segmentGenerator.generate(myMesh);
-        myMesh = polygonGenerator.generate(myMesh);
+        Mesh.Builder myMeshBuilder = Mesh.newBuilder();
+        myMeshBuilder = dotGenerator.generateVertices(myMeshBuilder);
+        myMeshBuilder = segmentGenerator.generateSegments(myMeshBuilder);
+        myMeshBuilder = polygonGenerator.generatePolygons(myMeshBuilder);
+        Mesh myMesh = myMeshBuilder.build();
+
         MeshFactory factory = new MeshFactory();
         factory.write(myMesh, args[0]);
     }

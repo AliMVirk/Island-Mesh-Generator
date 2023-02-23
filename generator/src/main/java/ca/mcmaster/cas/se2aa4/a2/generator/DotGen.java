@@ -13,7 +13,7 @@ public class DotGen {
     private final int height = 500;
     private final int square_size = 20;
 
-    public Mesh generate() {
+    public Mesh.Builder generateVertices(Mesh.Builder mesh) {
         // Create all the vertices builders
         ArrayList<Vertex.Builder> vertexBuilders = initializeVertices();
         ArrayList<Vertex.Builder> centroidVertexBuilders = initializeCentroidVertices();
@@ -25,12 +25,11 @@ public class DotGen {
         // Add the list of centroidVertices to the list of vertices
         vertexBuilders.addAll(centroidVertexBuilders);
 
-        // Build all the vertices
-        ArrayList<Vertex> vertices = new ArrayList<>();
+        // Build all the vertices and add them to mesh
         for (Vertex.Builder v : vertexBuilders)
-            vertices.add(v.build());
+            mesh.addVertices(v.build());
 
-        return Mesh.newBuilder().addAllVertices(vertices).build();
+        return mesh;
     }
 
     private ArrayList<Vertex.Builder> initializeVertices() {

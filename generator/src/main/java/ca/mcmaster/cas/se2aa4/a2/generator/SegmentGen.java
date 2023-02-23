@@ -11,18 +11,17 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 
 public class SegmentGen {
 
-    public Mesh generate(Mesh mesh){
+    public Mesh.Builder generateSegments(Mesh.Builder mesh){
         //Create all the segments builders
         ArrayList<Segment.Builder> segmentBuilders = initializeSegments();
         // Attribute thickness and color to segments
         segmentBuilders = addSegmentProperties(segmentBuilders, mesh.getVerticesList(), null, 0.25f);
 
-        // Build all the segments
-        ArrayList<Segment> segments = new ArrayList<>();
+        // Build all the vertices and add them to mesh
         for (Segment.Builder s : segmentBuilders)
-            segments.add(s.build());
+            mesh.addSegments(s.build());
 
-        return Mesh.newBuilder().addAllVertices(mesh.getVerticesList()).addAllSegments(segments).build();
+        return mesh;
     }
 
     private ArrayList<Segment.Builder> initializeSegments() {
