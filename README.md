@@ -64,14 +64,12 @@ ls -lh sample.svg
 
 ### Below is a sample of a mesh displayed regularly and a mesh displayed in debug mode
 
-<img src="./diagrams/Mesh_No_Debug_Mode_Part2.jpg" width="500" />
-<br>
+<img src="./diagrams/Mesh_No_Debug_Mode_Part2.jpg" width="400" />
 Figure 1.0: Mesh rendered regularly
 <br>
 <br>
 <br>
-<img src="./diagrams/Mesh_Debug_Mode_Part2.jpg" width="500" />
-<br>
+<img src="./diagrams/Mesh_Debug_Mode_Part2.jpg" width="400" />
 Figure 1.1: Mesh rendered in debug mode
 
 
