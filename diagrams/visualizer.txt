@@ -12,4 +12,16 @@ class GraphicRenderer {
     ~double getY(Vertex)
 }
 
+class SVGCanvas {
+    ~Graphics2D build(int, int)
+    ~void write(Graphics2D, String)
+}
+
+class Main {
+    -void main(String[])
+}
+
+GraphicRenderer <.. Main : _'uses'
+SVGCanvas <.. Main : _'uses'
+
 @enduml
