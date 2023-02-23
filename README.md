@@ -86,7 +86,7 @@ If a feature works as intended without bugs and the code is clean and concise, i
 ### Product Backlog
 
 |  Id   | Feature title                                                                                                                                 | Who?    | Start     | End       | Status |
-| :---: | --------------------------------------------------------------------------------------------------------------------------------------------- | ------- |-----------|-----------|--------|
+|:-----:| --------------------------------------------------------------------------------------------------------------------------------------------- | ------- |-----------|-----------|--------|
 |  F01  | All squares in the mesh grid are polygons                                                                                                     | Qamrosh | 2/15/2023 | 2/15/2023 | D      |
 |  F02  | Polygons includes indexes to all segments, including those shared by neighbours                                                               | Ali     | 2/17/2023 | 2/17/2023 | D      |
 |  F03  | Polygons list their segments consecutively                                                                                                    | Qamrosh | 2/15/2023 | 2/15/2023 | D      |
@@ -94,5 +94,10 @@ If a feature works as intended without bugs and the code is clean and concise, i
 |  F05  | Mesh contains no duplicate vertices, segments, or polygons                                                                                    | Qamrosh | 2/15/2023 | 2/15/2023 | D      |
 |  F06  | Vertices, segments, and polygons should have colors and thickness information                                                                 | Ali     | 2/18/2023 | 2/18/2023 | D      |
 |  F07  | Debug mode, toggled by -X flag as cmd line argument, shows polygons in black, centroids in red, and neighbourhood relationships in light grey | Hamza   | 2/19/2023 | 2/19/2023 | D      |
+| F08   | Generate random points, one for each expected polygon                                                                                         |         |           |           | P      |
+|  F09  | Compute the Voronoi Diagram of the generated points to create a mesh                                                                          |         |           |           | B(F08) |
+|  F10  | Apply and repeat Lloyd relaxation to the mesh until it is smoothened                                                                          |         |           |           | B(F09) |
+|  F11  | Compute neighbourhood relationships using Delaunay’s triangulation                                                                            |         |           |           | B(F10) |
+|  F12  | For each irregular polygon, reorder its segments by computing its Convex Hull so that the consecutiveness invariants holds                    |         |           |           | B(F11) |
 
 
