@@ -21,19 +21,18 @@ public class CentroidGen {
         Random bag = new Random();
         PrecisionModel round = new PrecisionModel(100);
         for (int i = 0; i < numVertices; i++) {
-            float x = bag.nextFloat() * 500;
-            float y = bag.nextFloat() * 500;
+            float x = bag.nextFloat() * width;
+            float y = bag.nextFloat() * height;
             round.makePrecise(x);
             round.makePrecise(y);
             vertexBuilders.add(Vertex.newBuilder().setX(x).setY(y));
         }
 
         vertexBuilders = addVertexProperties(vertexBuilders, 2.75f);
-        ArrayList<Vertex> vertices = new ArrayList<>();
         for (Vertex.Builder v : vertexBuilders)
-            vertices.add(v.build());
+            mesh.addVertices(v.build());
 
-        return mesh.addAllVertices(vertices);
+        return mesh;
     }
 
     private ArrayList<Vertex.Builder> addVertexProperties(ArrayList<Vertex.Builder> vertexBuilders, float thickness) {
