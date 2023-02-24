@@ -37,14 +37,9 @@ public class CentroidGen {
     }
 
     private ArrayList<Vertex.Builder> addVertexProperties(ArrayList<Vertex.Builder> vertexBuilders, float thickness) {
+        // All centroid vertices are colored red
+        String colorCode = "255,0,0";
         for(Vertex.Builder v : vertexBuilders){
-            String colorCode;
-            // Distribute vertex colors randomly if there is no given color
-            Random bag = new Random();
-            int red = bag.nextInt(255);
-            int green = bag.nextInt(255);
-            int blue = bag.nextInt(255);
-            colorCode = red + "," + green + "," + blue;
             // Set vertex color
             Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
             v.addProperties(color);
