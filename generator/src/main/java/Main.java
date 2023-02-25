@@ -18,6 +18,11 @@ public class Main {
         VoronoiGen vgen = new VoronoiGen();
         gen.generateVertices(myMeshBuilder);
         vgen.generate(myMeshBuilder);
+        // Apply Lloyd relaxation
+        for (int i = 0; i < 5; i++) {
+            myMeshBuilder = gen.generateVertices(myMeshBuilder, vgen.getPolygons());
+            vgen.generate(myMeshBuilder);
+        }
         Mesh myMesh = myMeshBuilder.build();
 
         MeshFactory factory = new MeshFactory();

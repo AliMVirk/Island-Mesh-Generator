@@ -2,12 +2,7 @@ package ca.mcmaster.cas.se2aa4.a2.generator;
 
 import java.util.ArrayList;
 
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.GeometryCollection;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Polygon;
-import org.locationtech.jts.geom.PrecisionModel;
+import org.locationtech.jts.geom.*;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
@@ -16,6 +11,8 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 
 public class VoronoiGen {
+
+    private ArrayList<Geometry> polygons = new ArrayList<>();
 
     public Mesh.Builder generate(Mesh.Builder mesh) {
 
@@ -27,7 +24,7 @@ public class VoronoiGen {
             coords.add(new Coordinate(v.getX(), v.getY()));
         diagram.setSites(coords);
 
-        ArrayList<Geometry> polygons = new ArrayList<>();
+        polygons.clear();
         GeometryFactory factory = new GeometryFactory(round);
         Geometry g = new GeometryCollection(null, factory);
         // Compute Voronoi diagram and add each polygon to ArrayList
@@ -56,6 +53,10 @@ public class VoronoiGen {
 
         return mesh;
 
+    }
+
+    public ArrayList<Geometry> getPolygons() {
+        return polygons;
     }
 
 }

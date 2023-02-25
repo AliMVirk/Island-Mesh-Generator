@@ -3,6 +3,9 @@ package ca.mcmaster.cas.se2aa4.a2.generator;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.PrecisionModel;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
@@ -14,17 +17,17 @@ public class CentroidGen {
     private final int width = 500;
     private final int height = 500;
     private final int numVertices = 100;
+    private PrecisionModel round = new PrecisionModel(100);
 
     public Mesh.Builder generateVertices(Mesh.Builder mesh) {
 
         ArrayList<Vertex.Builder> vertexBuilders = new ArrayList<>();
         Random bag = new Random();
-        PrecisionModel round = new PrecisionModel(100);
         for (int i = 0; i < numVertices; i++) {
             float x = bag.nextFloat() * width;
             float y = bag.nextFloat() * height;
-            round.makePrecise(x);
-            round.makePrecise(y);
+            x = (float) round.makePrecise(x);
+            y = (float) round.makePrecise(y);
             vertexBuilders.add(Vertex.newBuilder().setX(x).setY(y));
         }
 
@@ -33,6 +36,32 @@ public class CentroidGen {
             mesh.addVertices(v.build());
 
         return mesh;
+    }
+
+    public Mesh.Builder generateVertices(Mesh.Builder mesh, ArrayList<Geometry> polygons) {
+
+        Mesh.Builder rMesh = Mesh.newBuilder();
+        ArrayList<Vertex.Builder> vertexBuilders = new ArrayList<>();
+        PrecisionModel round = new PrecisionModel(100);
+
+        for (int i = 0; i < polygons.size(); i++) {
+            Geometry p = polygons.get(i);
+            Point centroid = p.getCentroid();
+            double x = centroid.getX();
+            double y = centroid.getY();
+            x = round.makePrecise(x);
+            y = round.makePrecise(y);
+            if (x < 0 || x > width || y < 0 || y > height)
+                vertexBuilders.add(computeCentroid(p.getCoordinates())); // RECOMPUTE CENTROID
+            else
+                vertexBuilders.add(Vertex.newBuilder().setX(x).setY(y));
+        }
+
+        vertexBuilders = addVertexProperties(vertexBuilders, 2.75f);
+        for (Vertex.Builder v : vertexBuilders)
+            rMesh.addVertices(v.build());
+
+        return rMesh;
     }
 
     private ArrayList<Vertex.Builder> addVertexProperties(ArrayList<Vertex.Builder> vertexBuilders, float thickness) {
@@ -46,6 +75,31 @@ public class CentroidGen {
             v.addProperties(Property.newBuilder().setKey("thickness").setValue(String.valueOf(thickness)).build());
         }
         return vertexBuilders;
+    }
+
+    private Vertex.Builder computeCentroid(Coordinate[] coords) {
+        int centroidX = 0;
+        int centroidY = 0;
+        for (Coordinate c : coords) {
+            if (c.x < 0)
+                centroidX += 0;
+            else if (c.x > width)
+                centroidX += width;
+            else
+                centroidX += c.x;
+            if (c.y < 0)
+                centroidY += 0;
+            else if (c.y > height)
+                centroidY += height;
+            else
+                centroidY += c.y;
+        }
+        centroidX /= coords.length;
+        centroidY /= coords.length;
+        round.makePrecise(centroidX);
+        round.makePrecise(centroidY);
+
+        return Vertex.newBuilder().setX(centroidX).setY(centroidY);
     }
 
 }
