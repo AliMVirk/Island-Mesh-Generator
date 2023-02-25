@@ -19,7 +19,8 @@ public class Main {
         Structs.Mesh aMesh = new MeshFactory().read(input);
         double max_x = Double.MIN_VALUE;
         double max_y = Double.MIN_VALUE;
-        for (Structs.Vertex v: aMesh.getVerticesList()) {
+        for (int i = 0; i < 100; i++) {
+            Structs.Vertex v = aMesh.getVertices(i);
             max_x = (Double.compare(max_x, v.getX()) < 0? v.getX(): max_x);
             max_y = (Double.compare(max_y, v.getY()) < 0? v.getY(): max_y);
         }
