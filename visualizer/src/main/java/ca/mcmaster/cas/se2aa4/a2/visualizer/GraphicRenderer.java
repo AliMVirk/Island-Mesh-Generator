@@ -21,7 +21,7 @@ public class GraphicRenderer {
         canvas.setColor(Color.BLACK);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
-        /*if (debugMode){
+        if (debugMode){
             // Draw centroid vertices in red when debug mode is active
             drawVertices(aMesh, canvas, 625, aMesh.getVerticesCount(), Color.RED);
             // Draw polygons in black when debug mode is active
@@ -30,11 +30,10 @@ public class GraphicRenderer {
             drawNeighborRelations(aMesh, canvas);
         } else {
             // Draw vertices
-            drawVertices(aMesh, canvas, 0, 625, null);
+            drawVertices(aMesh, canvas, 0, aMesh.getVerticesCount() /* 625 for grid */, null);
             // Draw segments
             drawSegments(aMesh, canvas);
-        }*/
-        drawVertices(aMesh, canvas, 0, aMesh.getVerticesCount(), null);
+        }
     }
 
     private void drawVertices(Mesh aMesh, Graphics2D canvas, int start, int end, Color staticColor) {

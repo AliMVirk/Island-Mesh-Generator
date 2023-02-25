@@ -1,7 +1,4 @@
-import ca.mcmaster.cas.se2aa4.a2.generator.CentroidGen;
-import ca.mcmaster.cas.se2aa4.a2.generator.DotGen;
-import ca.mcmaster.cas.se2aa4.a2.generator.PolygonGen;
-import ca.mcmaster.cas.se2aa4.a2.generator.SegmentGen;
+import ca.mcmaster.cas.se2aa4.a2.generator.*;
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 
@@ -18,7 +15,9 @@ public class Main {
         myMeshBuilder = segmentGenerator.generateSegments(myMeshBuilder);
         myMeshBuilder = polygonGenerator.generatePolygons(myMeshBuilder);*/
         CentroidGen gen = new CentroidGen();
+        VoronoiGen vgen = new VoronoiGen();
         gen.generateVertices(myMeshBuilder);
+        vgen.generate(myMeshBuilder);
         Mesh myMesh = myMeshBuilder.build();
 
         MeshFactory factory = new MeshFactory();
