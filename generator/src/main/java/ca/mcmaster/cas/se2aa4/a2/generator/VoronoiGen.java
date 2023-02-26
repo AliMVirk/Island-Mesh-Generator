@@ -2,6 +2,7 @@ package ca.mcmaster.cas.se2aa4.a2.generator;
 
 import java.util.ArrayList;
 
+import org.locationtech.jts.algorithm.ConvexHull;
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 
@@ -33,10 +34,10 @@ public class VoronoiGen {
         for (int i = 0; i < g.getNumGeometries(); i++)
             polygons.add(g.getGeometryN(i));
 
-        // Add segments with appropriate vertices from Voronoi diagram
+        // Add polygons and segments with appropriate vertex, segment, and centroid indices to mesh based on Voronoi diagram
         int pointsMapped = 0;
         for (int i = 0; i < polygons.size(); i++) {
-            int polygonSideNum = polygons.get(i).getCoordinates().length;
+            int polygonSideNum = polygons.get(i).getCoordinates().length - 1;
             Polygon.Builder p = Polygon.newBuilder();
             for (int j = pointsMapped; j < polygonSideNum + pointsMapped; j++) {
                 int v1 = j;
@@ -52,9 +53,15 @@ public class VoronoiGen {
             mesh.addPolygons(p.build());
         }
 
-        // Add vertices computed by Voronoi diagram to mesh
-        for (Coordinate c : g.getCoordinates())
-            mesh.addVertices(Vertex.newBuilder().setX(round.makePrecise(c.x)).setY(round.makePrecise(c.y)).build());
+        // Reorder vertices so that segments are consecutive, then add to mesh
+        for (Geometry p : polygons) {
+            ConvexHull reorderedPolygon = new ConvexHull(p);
+            Geometry q = reorderedPolygon.getConvexHull();
+            for (int i = 0; i < q.getCoordinates().length - 1; i++) {
+                Coordinate c = q.getCoordinates()[i];
+                mesh.addVertices(Vertex.newBuilder().setX(round.makePrecise(c.x)).setY(round.makePrecise(c.y)).build());
+            }
+        }
 
         return mesh;
 
