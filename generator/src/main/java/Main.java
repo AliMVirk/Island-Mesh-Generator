@@ -16,6 +16,7 @@ public class Main {
         myMeshBuilder = polygonGenerator.generatePolygons(myMeshBuilder);*/
         CentroidGen gen = new CentroidGen();
         VoronoiGen vgen = new VoronoiGen();
+        DelaunayTriangulationGen dgen = new DelaunayTriangulationGen();
         gen.generateVertices(myMeshBuilder);
         vgen.generate(myMeshBuilder);
         // Apply Lloyd relaxation
@@ -23,6 +24,7 @@ public class Main {
             myMeshBuilder = gen.generateVertices(myMeshBuilder, vgen.getPolygons());
             vgen.generate(myMeshBuilder);
         }
+        dgen.generate(myMeshBuilder);
         Mesh myMesh = myMeshBuilder.build();
 
         MeshFactory factory = new MeshFactory();
