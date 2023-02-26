@@ -97,7 +97,7 @@ If a feature works as intended without bugs and the code is clean and concise, i
 | F08 | Generate random points, one for each expected polygon                                                                                         | Hamza   | 2/23/2023 | 2/23/2023 | D      |
 | F09 | Compute the Voronoi Diagram of the generated points to create a mesh                                                                          | Qamrosh | 2/24/2023 | 2/25/2023 | D      |
 | F10 | Apply and repeat Lloyd relaxation to the mesh until it is smoothened                                                                          | Qamrosh | 2/25/2023 | 2/25/2023 | D      |
-| F11 | Compute neighbourhood relationships using Delaunay’s triangulation                                                                            | Hamza   |           |           | B(F10) |
+| F11 | Compute neighbourhood relationships using Delaunay’s triangulation                                                                            | Hamza   | 2/25/2023 | 2/26/2023 | D      |
 | F12 | For each irregular polygon, reorder its segments by computing its Convex Hull so that the consecutiveness invariants holds                    | Ali     |           |           | B(F11) |
 | F13 | User can control the type of mesh and relevant configurations                                                                                 | Qamrosh |           |           | B(F12) |
 
