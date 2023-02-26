@@ -71,11 +71,8 @@ public class GraphicRenderer {
         for (Polygon p : aMesh.getPolygonsList()) {
             canvas.setColor(extractColor(p.getPropertiesList()));
             canvas.setStroke(new BasicStroke(extractThickness(p.getPropertiesList())));
-            Segment s1 = aMesh.getSegments(p.getSegmentIdxs(0));
-            Segment s2 = aMesh.getSegments(p.getSegmentIdxs(1));
-            Segment s3 = aMesh.getSegments(p.getSegmentIdxs(2));
-            Segment s4 = aMesh.getSegments(p.getSegmentIdxs(3));
-            for (Segment s : new Segment[] {s1, s2, s3, s4}) {
+            for (int i : p.getSegmentIdxsList()) {
+                Segment s = aMesh.getSegments(i);
                 Vertex v1 = aMesh.getVertices(s.getV1Idx());
                 Vertex v2 = aMesh.getVertices(s.getV2Idx());
                 Line2D line = new Line2D.Double(getX(v1), getY(v1), getX(v2), getY(v2));
