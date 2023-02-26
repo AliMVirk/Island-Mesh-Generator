@@ -80,6 +80,12 @@ public class DelaunayTriangulationGen {
             }
             polygonBuilders.add(poly);
         }
+        // Clear the old polygons with no neighbors
+        mesh.clearPolygons();
+        // Build and add the new polygons with neighbors
+        for (Structs.Polygon.Builder polyBuilder : polygonBuilders) {
+            mesh.addPolygons(polyBuilder.build());
+        }
 
         return mesh;
     }
