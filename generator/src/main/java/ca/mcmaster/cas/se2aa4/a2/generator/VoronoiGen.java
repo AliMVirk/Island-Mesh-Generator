@@ -9,6 +9,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 
 public class VoronoiGen {
 
@@ -36,6 +37,7 @@ public class VoronoiGen {
         int pointsMapped = 0;
         for (int i = 0; i < polygons.size(); i++) {
             int polygonSideNum = polygons.get(i).getCoordinates().length;
+            Polygon.Builder p = Polygon.newBuilder();
             for (int j = pointsMapped; j < polygonSideNum + pointsMapped; j++) {
                 int v1 = j;
                 int v2 = j+1;
@@ -43,8 +45,11 @@ public class VoronoiGen {
                     v2 = pointsMapped;
                 Segment s = Segment.newBuilder().setV1Idx(v1 + mesh.getVerticesCount()).setV2Idx(v2 + mesh.getVerticesCount()).build();
                 mesh.addSegments(s);
+                p.addSegmentIdxs(j - pointsMapped).setSegmentIdxs(j - pointsMapped, j);
             }
+            p.setCentroidIdx(i);
             pointsMapped += polygonSideNum;
+            mesh.addPolygons(p.build());
         }
 
         // Add vertices computed by Voronoi diagram to mesh
