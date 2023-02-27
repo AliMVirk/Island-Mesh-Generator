@@ -19,7 +19,10 @@ public class Main {
         Structs.Mesh aMesh = new MeshFactory().read(input);
         double max_x = Double.MIN_VALUE;
         double max_y = Double.MIN_VALUE;
-        for (int i = 0; i < 100; i++) {
+        int canvasVertexLimit = aMesh.getVerticesCount();
+        if (Boolean.parseBoolean(aMesh.getProperties(1).getValue()))
+            canvasVertexLimit = Integer.parseInt(aMesh.getProperties(0).getValue());
+        for (int i = 0; i < canvasVertexLimit; i++) {
             Structs.Vertex v = aMesh.getVertices(i);
             max_x = (Double.compare(max_x, v.getX()) < 0? v.getX(): max_x);
             max_y = (Double.compare(max_y, v.getY()) < 0? v.getY(): max_y);

@@ -23,14 +23,17 @@ public class GraphicRenderer {
         canvas.setStroke(stroke);
         if (debugMode){
             // Draw centroid vertices in red when debug mode is active
-            drawVertices(aMesh, canvas, 625, aMesh.getVerticesCount(), Color.RED);
+            if (Boolean.parseBoolean(aMesh.getProperties(1).getValue()))
+                drawVertices(aMesh, canvas, 0, Integer.parseInt(aMesh.getProperties(0).getValue()), null);
+            else
+                drawVertices(aMesh, canvas, Integer.parseInt(aMesh.getProperties(0).getValue()), aMesh.getVerticesCount(), Color.RED);
             // Draw polygons in black when debug mode is active
             drawPolygons(aMesh, canvas);
             // Draw neighboring relations in grey when debug mode is active
             drawNeighborRelations(aMesh, canvas);
         } else {
             // Draw vertices
-            drawVertices(aMesh, canvas, 0, aMesh.getVerticesCount() /* 625 for grid */, null);
+            drawVertices(aMesh, canvas, 0, Integer.parseInt(aMesh.getProperties(0).getValue()), null);
             // Draw segments
             drawSegments(aMesh, canvas);
         }
