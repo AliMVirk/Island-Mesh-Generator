@@ -14,10 +14,16 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 
 public class CentroidGen {
 
-    private final int width = 500;
-    private final int height = 500;
-    private final int numVertices = 100;
+    private final int width;
+    private final int height;
+    private final int numVertices;
     private PrecisionModel round = new PrecisionModel(100);
+
+    public CentroidGen(int numPolygons, int x, int y) {
+        width = x;
+        height = y;
+        numVertices = numPolygons;
+    }
 
     public Mesh.Builder generateVertices(Mesh.Builder mesh) {
 
@@ -31,6 +37,10 @@ public class CentroidGen {
             vertexBuilders.add(Vertex.newBuilder().setX(x).setY(y));
         }
 
+        // Add index to differentiate between regular vertices and centroid vertices
+        Property centroidDivider = Property.newBuilder().setKey("divider").setValue(String.valueOf(vertexBuilders.size())).build();
+        mesh.addProperties(centroidDivider);
+        
         vertexBuilders = addVertexProperties(vertexBuilders, 2.75f);
         for (Vertex.Builder v : vertexBuilders)
             mesh.addVertices(v.build());
@@ -56,6 +66,10 @@ public class CentroidGen {
             else
                 vertexBuilders.add(Vertex.newBuilder().setX(x).setY(y));
         }
+
+        // Add index to differentiate between regular vertices and centroid vertices
+        Property centroidDivider = Property.newBuilder().setKey("divider").setValue(String.valueOf(vertexBuilders.size())).build();
+        rMesh.addProperties(centroidDivider);
 
         vertexBuilders = addVertexProperties(vertexBuilders, 2.75f);
         for (Vertex.Builder v : vertexBuilders)
