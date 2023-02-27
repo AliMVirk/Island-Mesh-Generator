@@ -9,9 +9,15 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 
 public class DotGen {
 
-    private final int width = 500;
-    private final int height = 500;
-    private final int square_size = 20;
+    private final int width;
+    private final int height;
+    private final int square_size;
+
+    public DotGen(int x, int y, int size) {
+        width = x;
+        height = y;
+        square_size = size;
+    }
 
     public Mesh.Builder generateVertices(Mesh.Builder mesh) {
         // Create all the vertices builders
@@ -22,6 +28,9 @@ public class DotGen {
         // Attribute thickness and color to centroid vertices
         centroidVertexBuilders = addVertexProperties(centroidVertexBuilders, "0,0,0", 1.5f);
 
+        // Add index to differentiate between regular vertices and centroid vertices
+        Property centroidDivider = Property.newBuilder().setKey("divider").setValue(String.valueOf(vertexBuilders.size())).build();
+        mesh.addProperties(centroidDivider);
         // Add the list of centroidVertices to the list of vertices
         vertexBuilders.addAll(centroidVertexBuilders);
 
@@ -46,7 +55,7 @@ public class DotGen {
         for(int x = 0; x < width; x += square_size) {
             for(int y = 0; y < height; y += square_size) {
                 if (x != width-square_size && y != height-square_size)
-                    vertexBuilders.add(Vertex.newBuilder().setX((double) x+10).setY((double) y+10));
+                    vertexBuilders.add(Vertex.newBuilder().setX((double) x+square_size/2).setY((double) y+square_size/2));
             }
         }
         return vertexBuilders;
