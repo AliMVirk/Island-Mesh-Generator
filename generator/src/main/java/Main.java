@@ -8,7 +8,6 @@ import java.io.IOException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
@@ -17,6 +16,7 @@ public class Main {
     public static void main(String[] args) throws IOException, ParseException {
 
         Options options = new Options();
+        // Add command line options
         options.addOption("h", "help", false, "print this message");
         options.addOption("t", true, "type of mesh");
         options.addOption("w", true, "canvas width");
@@ -28,17 +28,19 @@ public class Main {
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(options, args);
         
+        // -h output
         if (cmd.hasOption("h")) {
-            HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("generator", options);
+            System.out.println("usage: generator <mesh path>\n-d <height>    canvas height (integer value)\n-h,--help      print this message\n-n <amount>    number of polygons (integer value)\n-r <level>     relaxation level (integer value)\n-s <size>      square size (integer value)\n-t <type>      type of mesh: '-t i' or '-t irregular' for irregular mesh, regular mesh is the default\n-w <width>     canvas width (integer value)");
             return;
         }
+        // Store appropriate command line arguments
         String meshType = cmd.getOptionValue("t");
         String canvasWidth = cmd.getOptionValue("w");
         String canvasHeight = cmd.getOptionValue("d");
         String squareSize = cmd.getOptionValue("s");
         String relaxationLevel = cmd.getOptionValue("r");
         String polygonCount = cmd.getOptionValue("n");
+        // Default options
         boolean irregular = false;
         int width = 500;
         int height = 500;
@@ -46,6 +48,7 @@ public class Main {
         int numRelaxations = 5;
         int numPolygons = 150;
 
+        // User options
         if (meshType != null && (meshType.toLowerCase().equals("irregular") || meshType.toLowerCase().equals("i")))
             irregular = true;
         if (canvasWidth != null)
@@ -61,6 +64,7 @@ public class Main {
 
         Mesh.Builder myMeshBuilder = Mesh.newBuilder();
         if (irregular) {
+            // Irregular mesh generation
             CentroidGen gen = new CentroidGen(numPolygons, width, height);
             VoronoiGen vgen = new VoronoiGen();
             DelaunayTriangulationGen dgen = new DelaunayTriangulationGen();
@@ -73,6 +77,7 @@ public class Main {
             }
             dgen.generate(myMeshBuilder);
         } else {
+            // Grid mesh generation
             DotGen dotGenerator = new DotGen(width, height, size);
             SegmentGen segmentGenerator = new SegmentGen(width, height, size);
             PolygonGen polygonGenerator = new PolygonGen(width, height, size);
