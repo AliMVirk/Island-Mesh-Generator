@@ -92,6 +92,7 @@ public class CentroidGen {
     }
 
     private Vertex.Builder computeCentroid(Coordinate[] coords) {
+        // If centroid of polygon is outside canvas width x height space, recompute centroid by limiting polygon points to width x height space
         int centroidX = 0;
         int centroidY = 0;
         for (Coordinate c : coords) {
