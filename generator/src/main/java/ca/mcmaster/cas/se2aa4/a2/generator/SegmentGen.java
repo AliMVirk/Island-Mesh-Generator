@@ -11,6 +11,16 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 
 public class SegmentGen {
 
+    private final int width;
+    private final int height;
+    private final int square_size;
+
+    public SegmentGen(int x, int y, int size) {
+        width = x;
+        height = y;
+        square_size = size;
+    }
+
     public Mesh.Builder generateSegments(Mesh.Builder mesh){
         //Create all the segments builders
         ArrayList<Segment.Builder> segmentBuilders = initializeSegments();
@@ -26,12 +36,12 @@ public class SegmentGen {
 
     private ArrayList<Segment.Builder> initializeSegments() {
         ArrayList<Segment.Builder> segmentBuilders = new ArrayList<>();
-        for (int i = 0; i < 25; i++) {
-            for (int j = 0; j < 25; j++) {
-                if (j != 24)
-                    segmentBuilders.add(Segment.newBuilder().setV1Idx(j+i*25).setV2Idx(j+i*25+1));
-                if (i != 24)
-                    segmentBuilders.add(Segment.newBuilder().setV1Idx(j+i*25).setV2Idx(j+i*25+25));
+        for (int i = 0; i < width / square_size; i++) {
+            for (int j = 0; j < height / square_size; j++) {
+                if (j != height / square_size - 1)
+                    segmentBuilders.add(Segment.newBuilder().setV1Idx(j+i*(height/square_size)).setV2Idx(j+i*(height/square_size) + 1));
+                if (i != width / square_size - 1)
+                    segmentBuilders.add(Segment.newBuilder().setV1Idx(j+i*(height/square_size)).setV2Idx(j+(i+1)*(height/square_size)));
             }
         }
         return segmentBuilders;
