@@ -8,6 +8,36 @@
 
 The following information shows the necessary commands to create a mesh and visualize the mesh in an SVG file. If needed, the mesh can be visualized in debug mode by including a `-X` flag.
 
+Running the commands with no extra arguments will result in a grid mesh composed of squares, where the canvas size is 500x500 with a square size of 20. 
+
+When running the generator, the following arguments can be used to control the mesh generation:
+
+```
+java -jar generator/generator.jar generator/sample.mesh -t <mesh type> -d <canvas height> -w <canvas width> -s <square size> -n <number of polygons> -r <relaxation level>
+```
+
+To see all possible user configurations, run the above with argument ```-h``` or ```--help```
+
+The following is an example of generating and visualizing a **regular** mesh:
+
+```mvn install```
+
+```java -jar generator/generator.jar generator/sample.mesh -t regular -d 600 -w 600 -s 15```
+
+```java -jar visualizer/visualizer.jar generator/sample.mesh visualizer/sample.svg```
+
+```java -jar visualizer/visualizer.jar generator/sample.mesh visualizer/sample.svg -X```
+
+The following is an example of generating and visualizing an **irregular** mesh:
+
+```mvn install```
+
+```java -jar generator/generator.jar generator/sample.mesh -t irregular -n 300 -r 3```
+
+```java -jar visualizer/visualizer.jar generator/sample.mesh visualizer/sample.svg```
+
+```java -jar visualizer/visualizer.jar generator/sample.mesh visualizer/sample.svg -X```
+
 ### Installation instructions
 
 This product is handled by Maven, as a multi-module project. We assume here that you have cloned the project in a directory named `A2`
