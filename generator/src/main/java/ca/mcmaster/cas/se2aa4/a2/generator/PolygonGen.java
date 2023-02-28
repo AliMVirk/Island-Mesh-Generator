@@ -37,20 +37,22 @@ public class PolygonGen {
     }
 
     private ArrayList<Polygon.Builder> initializePolygons() {
-        ArrayList<Polygon.Builder> polygonBuilders = new ArrayList<Polygon.Builder>();
-        for (int i = 0; i < width/square_size - 1; i++) {
-            for (int j = 0; j < (height/square_size - 1)*2-1; j += 2) {
-                int left = j + i * (height/square_size - 1)*2+1;
+        ArrayList<Polygon.Builder> polygonBuilders = new ArrayList<>();
+        
+        for (int i = 0; i < (width/square_size)-1; i++) {
+            for (int j = 0; j < ((height/square_size)-1)*2-1; j += 2) {
+                int left = j + i*((height/square_size)*2-1);
                 int top = left + 1;
-                int right = left + (height/square_size - 1)*2+1;
+                int right = left + ((height/square_size)*2-1);
                 int bottom = left + 3;
-                if (j == (height/square_size - 1)*2-2)
+                if (j == (height/square_size)*2-4)
                     bottom--;
-                if (i == width/square_size - 2)
+                if (i == width/square_size-2)
                     right -= 0.5 * j;
                 polygonBuilders.add(Polygon.newBuilder().addSegmentIdxs(0).addSegmentIdxs(1).addSegmentIdxs(2).addSegmentIdxs(3).setSegmentIdxs(0, left).setSegmentIdxs(1, top).setSegmentIdxs(2, right).setSegmentIdxs(3, bottom));
             }
         }
+
         return polygonBuilders;
     }
 
