@@ -27,6 +27,16 @@ The following is an example of generating and visualizing a **regular** mesh:
 ```java -jar visualizer/visualizer.jar generator/sample.mesh visualizer/sample.svg```
 
 ```java -jar visualizer/visualizer.jar generator/sample.mesh visualizer/sample.svg -X```
+<br>
+<img src="./diagrams/regular_mesh_example.png" width="400" />
+<br>
+Figure 1.0: Regular mesh rendered regularly
+<br>
+<br>
+<br>
+<img src="./diagrams/regular_mesh_debug_example.png" width="400" />
+<br>
+Figure 1.1: Regular mesh rendered in debug mode
 
 The following is an example of generating and visualizing an **irregular** mesh:
 
@@ -37,6 +47,16 @@ The following is an example of generating and visualizing an **irregular** mesh:
 ```java -jar visualizer/visualizer.jar generator/sample.mesh visualizer/sample.svg```
 
 ```java -jar visualizer/visualizer.jar generator/sample.mesh visualizer/sample.svg -X```
+<br>
+<img src="./diagrams/irregular_mesh_example.png" width="400" />
+<br>
+Figure 2.0: Regular mesh rendered regularly
+<br>
+<br>
+<br>
+<img src="./diagrams/irregular_mesh_debug_example.png" width="400" />
+<br>
+Figure 2.1: Regular mesh rendered in debug mode
 
 ### Installation instructions
 
@@ -95,12 +115,12 @@ ls -lh sample.svg
 ### Below is a sample of a mesh displayed regularly and a mesh displayed in debug mode
 
 <img src="./diagrams/Mesh_No_Debug_Mode_Part2.jpg" width="400" />
-Figure 1.0: Mesh rendered regularly
+Figure 3.0: Mesh rendered regularly
 <br>
 <br>
 <br>
 <img src="./diagrams/Mesh_Debug_Mode_Part2.jpg" width="400" />
-Figure 1.1: Mesh rendered in debug mode
+Figure 3.1: Mesh rendered in debug mode
 
 
 ## How to contribute to the project
