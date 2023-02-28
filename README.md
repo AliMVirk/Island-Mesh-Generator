@@ -48,13 +48,13 @@ The following is an example of generating and visualizing an **irregular** mesh:
 
 ```java -jar visualizer/visualizer.jar generator/sample.mesh visualizer/sample.svg -X```
 <br>
-<img src="./diagrams/irregular_mesh_example.png" width="400" />
+<img src="./diagrams/Irregular_mesh_example.png" width="400" />
 <br>
 Figure 2.0: Regular mesh rendered regularly
 <br>
 <br>
 <br>
-<img src="./diagrams/irregular_mesh_debug_example.png" width="400" />
+<img src="./diagrams/Irregular_mesh_debug_example.png" width="400" />
 <br>
 Figure 2.1: Regular mesh rendered in debug mode
 
