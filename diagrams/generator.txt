@@ -4,25 +4,60 @@ class DotGen {
     -int width
     -int height
     -int square_size
-    +Mesh generate()
+    +DotGen(int, int, int)
+    +Mesh.Builder generateVertices(Mesh.Builder)
     -ArrayList<Vertex.Builder> initializeVertices()
     -ArrayList<Vertex.Builder> initializeCentroidVertices()
-    -ArrayList<Vertex.Builder> addVertexProperties(ArrayList<Vertex.Builder>)
+    -ArrayList<Vertex.Builder> addVertexProperties(ArrayList<Vertex.Builder>, String, float)
 }
 
 class SegmentGen {
-    +Mesh generate()
+    -int width
+    -int height
+    -int square_size
+    +SegmentGen(int, int, int)
+    +Mesh.Builder generateSegments(Mesh.Builder)
     -ArrayList<Segment.Builder> initializeSegments()
-    -ArrayList<Segment.Builder> addSegmentProperties(ArrayList<Segment.Builder>)
+    -ArrayList<Segment.Builder> addSegmentProperties(ArrayList<Segment.Builder>, List<Vertex>, String, float)
     -Color extractColor(List<Property>)
 }
 
 class PolygonGen {
-    +Mesh generate()
+    -int width
+    -int height
+    -int square_size
+    +PolygonGen(int, int, int)
+    +Mesh.Builder generatePolygons(Mesh.Builder)
     -ArrayList<Polygon.Builder> initializePolygons()
     -ArrayList<Polygon.Builder> addCentroidVertices(ArrayList<Polygon.Builder>)
     -ArrayList<Polygon.Builder> addNeighbors(ArrayList<Polygon.Builder>)
-    -ArrayList<Polygon.Builder> addPolygonProperties(ArrayList<Polygon.Builder>)
+    -ArrayList<Polygon.Builder> addPolygonProperties(ArrayList<Polygon.Builder>, String, float)
+}
+
+class CentroidGen {
+    -int width
+    -int height
+    -int numVertices
+    -PrecisionModel round
+    +CentroidGen(int, int, int)
+    +Mesh.Builder generateVertices(Mesh.Builder)
+    +Mesh.Builder generateVertices(Mesh.Builder, ArrayList<Geometry>)
+    -ArrayList<Vertex.Builder> addVertexProperties(ArrayList<Vertex.Builder>, float)
+    -Vertex.Builder computeCentroid(Coordinate[])
+}
+
+class VoronoiGen {
+    -ArrayList<Geometry> polygons
+    +Mesh.Builder generate(Mesh.Builder)
+    +ArrayList<Geometry> getPolygons()
+}
+
+class DelaunayTriangulationGen {
+    +List<Polygon> generate(Mesh.Builder)
+}
+
+class IrregularNeighborGen {
+    +Mesh.Builder generate(Mesh.Builder, List<Polygon>)
 }
 
 class Main {
@@ -32,5 +67,9 @@ class Main {
 DotGen <.. Main : _'uses'
 SegmentGen <.. Main : _'uses'
 PolygonGen <.. Main : _'uses'
+CentroidGen <.. Main : _'uses'
+VoronoiGen <.. Main : _'uses'
+DelaunayTriangulationGen <.. Main : _'uses'
+IrregularNeighborGen <.. Main : _'uses'
 
 @enduml
