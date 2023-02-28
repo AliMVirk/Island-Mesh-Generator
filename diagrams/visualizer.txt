@@ -1,24 +1,24 @@
 @startuml
 
 class GraphicRenderer {
-    ~void render(Mesh, Graphics2D, boolean)
-    #void drawVertices(Mesh, Graphics2D, int, int, Color)
-    #void drawSegments(Mesh, Graphics2D)
-    #void drawPolygons(Mesh, Graphics2D)
-    #void drawNeighborRelations(Mesh, Graphics2D)
+    +void render(Mesh, Graphics2D, boolean)
+    -void drawVertices(Mesh, Graphics2D, int, int, Color)
+    -void drawSegments(Mesh, Graphics2D)
+    -void drawPolygons(Mesh, Graphics2D)
+    -void drawNeighborRelations(Mesh, Graphics2D)
     -Color extractColor(List<Property>)
     -float extractThickness(List<Property>)
-    ~double getX(Vertex)
-    ~double getY(Vertex)
+    -double getX(Vertex)
+    -double getY(Vertex)
 }
 
 class SVGCanvas {
-    ~Graphics2D build(int, int)
-    ~void write(Graphics2D, String)
+    +Graphics2D build(int, int)
+    +void write(Graphics2D, String)
 }
 
 class Main {
-    -void main(String[])
+    +void main(String[])
 }
 
 GraphicRenderer <.. Main : _'uses'

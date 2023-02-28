@@ -4,29 +4,29 @@ class DotGen {
     -int width
     -int height
     -int square_size
-    ~Mesh generate()
-    #ArrayList<Vertex.Builder> initializeVertices()
-    #ArrayList<Vertex.Builder> initializeCentroidVertices()
-    ~ArrayList<Vertex.Builder> addVertexProperties(ArrayList<Vertex.Builder>)
+    +Mesh generate()
+    -ArrayList<Vertex.Builder> initializeVertices()
+    -ArrayList<Vertex.Builder> initializeCentroidVertices()
+    -ArrayList<Vertex.Builder> addVertexProperties(ArrayList<Vertex.Builder>)
 }
 
 class SegmentGen {
-    ~Mesh generate()
-    #ArrayList<Segment.Builder> initializeSegments()
-    ~ArrayList<Segment.Builder> addSegmentProperties(ArrayList<Segment.Builder>)
-    #Color extractColor(List<Property>)
+    +Mesh generate()
+    -ArrayList<Segment.Builder> initializeSegments()
+    -ArrayList<Segment.Builder> addSegmentProperties(ArrayList<Segment.Builder>)
+    -Color extractColor(List<Property>)
 }
 
 class PolygonGen {
-    ~Mesh generate()
-    #ArrayList<Polygon.Builder> initializePolygons()
+    +Mesh generate()
+    -ArrayList<Polygon.Builder> initializePolygons()
     -ArrayList<Polygon.Builder> addCentroidVertices(ArrayList<Polygon.Builder>)
     -ArrayList<Polygon.Builder> addNeighbors(ArrayList<Polygon.Builder>)
-    ~ArrayList<Polygon.Builder> addPolygonProperties(ArrayList<Polygon.Builder>)
+    -ArrayList<Polygon.Builder> addPolygonProperties(ArrayList<Polygon.Builder>)
 }
 
 class Main {
-    -void main(String[])
+    +void main(String[])
 }
 
 DotGen <.. Main : _'uses'
