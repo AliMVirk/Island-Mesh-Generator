@@ -4,12 +4,14 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.locationtech.jts.geom.Polygon;
 
 public class Main {
 
@@ -75,7 +77,9 @@ public class Main {
                 myMeshBuilder = gen.generateVertices(myMeshBuilder, vgen.getPolygons());
                 vgen.generate(myMeshBuilder);
             }
-            dgen.generate(myMeshBuilder);
+            List<Polygon> trianglesProduced = dgen.generate(myMeshBuilder);
+            IrregularNeighborGen ngen = new IrregularNeighborGen();
+            ngen.generate(myMeshBuilder, trianglesProduced);
         } else {
             // Grid mesh generation
             DotGen dotGenerator = new DotGen(width, height, size);
