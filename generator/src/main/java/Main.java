@@ -65,6 +65,9 @@ public class Main {
             numPolygons = Integer.parseInt(polygonCount);
 
         Mesh.Builder myMeshBuilder = Mesh.newBuilder();
+        myMeshBuilder.addProperties(Property.newBuilder().setKey("width").setValue(String.valueOf(width)).build());
+        myMeshBuilder.addProperties(Property.newBuilder().setKey("height").setValue(String.valueOf(height)).build());
+
         if (irregular) {
             // Irregular mesh generation
             CentroidGen gen = new CentroidGen(numPolygons, width, height);
