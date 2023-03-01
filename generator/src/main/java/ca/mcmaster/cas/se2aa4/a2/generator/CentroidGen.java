@@ -38,7 +38,7 @@ public class CentroidGen {
         }
 
         // Add index to differentiate between regular vertices and centroid vertices
-        Property centroidDivider = Property.newBuilder().setKey("divider").setValue(String.valueOf(vertexBuilders.size())).build();
+        Property centroidDivider = Property.newBuilder().setKey("divider").setValue(String.valueOf(numVertices)).build();
         mesh.addProperties(centroidDivider);
         
         vertexBuilders = addVertexProperties(vertexBuilders, 2.75f);
@@ -48,6 +48,7 @@ public class CentroidGen {
         return mesh;
     }
 
+    // CREATES NEW MESH
     public Mesh.Builder generateVertices(Mesh.Builder mesh, ArrayList<Geometry> polygons) {
 
         Mesh.Builder rMesh = Mesh.newBuilder();
@@ -70,6 +71,11 @@ public class CentroidGen {
         // Add index to differentiate between regular vertices and centroid vertices
         Property centroidDivider = Property.newBuilder().setKey("divider").setValue(String.valueOf(vertexBuilders.size())).build();
         rMesh.addProperties(centroidDivider);
+        for (Property p : mesh.getPropertiesList()) {
+            if (p.getKey().equals("divider"))
+                continue;
+            rMesh.addProperties(p);
+        }
 
         vertexBuilders = addVertexProperties(vertexBuilders, 2.75f);
         for (Vertex.Builder v : vertexBuilders)
