@@ -78,11 +78,11 @@ public class Main {
             // Apply Lloyd relaxation
             for (int i = 0; i < numRelaxations; i++) {
                 myMeshBuilder = gen.generateVertices(myMeshBuilder, vgen.getPolygons());
-                vgen.generate(myMeshBuilder);
+                myMeshBuilder = vgen.generate(myMeshBuilder);
             }
             List<Polygon> trianglesProduced = dgen.generate(myMeshBuilder);
             IrregularNeighborGen ngen = new IrregularNeighborGen();
-            ngen.generate(myMeshBuilder, trianglesProduced);
+            myMeshBuilder = ngen.generate(myMeshBuilder, trianglesProduced);
         } else {
             // Grid mesh generation
             DotGen dotGenerator = new DotGen(width, height, size);
