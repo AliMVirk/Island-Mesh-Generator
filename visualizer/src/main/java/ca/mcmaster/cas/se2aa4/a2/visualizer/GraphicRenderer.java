@@ -21,19 +21,28 @@ public class GraphicRenderer {
         canvas.setColor(Color.BLACK);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
+        // Fetch relevant mesh properties
+        boolean irregular = false;
+        int divider = 0;
+        for (Property p : aMesh.getPropertiesList()) {
+            if (p.getKey().equals("divider"))
+                divider = Integer.parseInt(p.getValue());
+            else if (p.getKey().equals("mesh_type"))
+                irregular = Boolean.parseBoolean(p.getValue());
+        }
         if (debugMode){
             // Draw centroid vertices in red when debug mode is active
-            if (Boolean.parseBoolean(aMesh.getProperties(1).getValue()))
-                drawVertices(aMesh, canvas, 0, Integer.parseInt(aMesh.getProperties(0).getValue()), null);
+            if (irregular)
+                drawVertices(aMesh, canvas, 0, divider, null);
             else
-                drawVertices(aMesh, canvas, Integer.parseInt(aMesh.getProperties(0).getValue()), aMesh.getVerticesCount(), Color.RED);
+                drawVertices(aMesh, canvas, divider, aMesh.getVerticesCount(), Color.RED);
             // Draw polygons in black when debug mode is active
             drawPolygons(aMesh, canvas);
             // Draw neighboring relations in grey when debug mode is active
             drawNeighborRelations(aMesh, canvas);
         } else {
             // Draw vertices
-            drawVertices(aMesh, canvas, 0, Integer.parseInt(aMesh.getProperties(0).getValue()), null);
+            drawVertices(aMesh, canvas, 0, divider, null);
             // Draw segments
             drawSegments(aMesh, canvas);
         }
