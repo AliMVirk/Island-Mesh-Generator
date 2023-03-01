@@ -1,5 +1,6 @@
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.GraphicRenderer;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.MeshDump;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.SVGCanvas;
@@ -17,18 +18,15 @@ public class Main {
         boolean debugToggle = args.length >= 3 && args[2].equals("-X");
         // Getting width and height for the canvas
         Structs.Mesh aMesh = new MeshFactory().read(input);
-        double max_x = Double.MIN_VALUE;
-        double max_y = Double.MIN_VALUE;
-        int canvasVertexLimit = aMesh.getVerticesCount();
-        if (Boolean.parseBoolean(aMesh.getProperties(1).getValue()))
-            canvasVertexLimit = Integer.parseInt(aMesh.getProperties(0).getValue());
-        for (int i = 0; i < canvasVertexLimit; i++) {
-            Structs.Vertex v = aMesh.getVertices(i);
-            max_x = (Double.compare(max_x, v.getX()) < 0? v.getX(): max_x);
-            max_y = (Double.compare(max_y, v.getY()) < 0? v.getY(): max_y);
+        int width = 0; int height = 0;
+        for (Property p : aMesh.getPropertiesList()) {
+            if (p.getKey().equals("width"))
+                width = Integer.parseInt(p.getValue());
+            else if (p.getKey().equals("height"))
+                height = Integer.parseInt(p.getValue());
         }
         // Creating the Canvas to draw the mesh
-        Graphics2D canvas = SVGCanvas.build((int) Math.ceil(max_x), (int) Math.ceil(max_y));
+        Graphics2D canvas = SVGCanvas.build(width, height);
         GraphicRenderer renderer = new GraphicRenderer();
         // Painting the mesh on the canvas
         renderer.render(aMesh, canvas, debugToggle);
