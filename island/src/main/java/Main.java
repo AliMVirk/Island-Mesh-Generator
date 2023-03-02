@@ -27,9 +27,12 @@ public class Main {
             System.out.println("usage: island -i <file path> -o <file path>\n-h,--help           print this message\n-i <file path>      mesh input\n-m,--mode <arg>     island generation mode\n-o <file path>      mesh output");
             return;
         }
+        String mode = cmd.getOptionValue("m");
+        if (mode == null) mode = "lagoon";
         
         MeshFactory factory = new MeshFactory();
         Mesh originalMesh = factory.read(cmd.getOptionValue("i"));
+        Mesh.Builder myMeshBuilder = Mesh.newBuilder();
 
         int width = 0; int height = 0;
         for (Property p : originalMesh.getPropertiesList()) {
@@ -39,8 +42,10 @@ public class Main {
                 height = Integer.parseInt(p.getValue());
         }
 
-        LagoonGen lgn = new LagoonGen(width, height, width / 4, width / 2);
-        Mesh.Builder myMeshBuilder = lgn.transform(originalMesh);
+        if (mode.equals("lagoon")) {
+            LagoonGen lgn = new LagoonGen(width, height, width / 4, width / 2);
+            myMeshBuilder = lgn.transform(originalMesh);
+        }
 
         factory.write(myMeshBuilder.build(), cmd.getOptionValue("o"));
 
