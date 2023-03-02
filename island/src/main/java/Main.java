@@ -1,12 +1,19 @@
+import java.io.IOException;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
+import island.*;
+
 public class Main {
     
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException, IOException {
         
         Options options = new Options();
         options.addOption("i", true, "mesh input");
@@ -21,6 +28,21 @@ public class Main {
             return;
         }
         
+        MeshFactory factory = new MeshFactory();
+        Mesh originalMesh = factory.read(cmd.getOptionValue("i"));
+
+        int width = 0; int height = 0;
+        for (Property p : originalMesh.getPropertiesList()) {
+            if (p.getKey().equals("width"))
+                width = Integer.parseInt(p.getValue());
+            else if (p.getKey().equals("height"))
+                height = Integer.parseInt(p.getValue());
+        }
+
+        LagoonGen lgn = new LagoonGen(width, height, width / 4, width / 2);
+        Mesh.Builder myMeshBuilder = lgn.transform(originalMesh);
+
+        factory.write(myMeshBuilder.build(), cmd.getOptionValue("o"));
 
     }
 }
