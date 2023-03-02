@@ -111,8 +111,8 @@ public class GraphicRenderer {
     }
 
     private void drawTiles(Mesh aMesh, Graphics2D canvas, boolean isIrregular) {
-        Color color = Color.BLACK;
         for (Polygon p : aMesh.getPolygonsList()) {
+            Color color = Color.WHITE;
             // Set color based on polygon tile type
             for (Property q : p.getPropertiesList()) {
                 if (q.getKey().equals("tile_type")) {
