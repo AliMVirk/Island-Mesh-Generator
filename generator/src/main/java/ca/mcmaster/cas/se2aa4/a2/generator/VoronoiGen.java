@@ -34,7 +34,7 @@ public class VoronoiGen {
         for (int i = 0; i < g.getNumGeometries(); i++)
             polygons.add(g.getGeometryN(i));
 
-        // Add polygons and segments with appropriate vertex, segment, and centroid indices to mesh based on Voronoi diagram
+        // Add polygons and segments with appropriate vertex and segment indices to mesh based on Voronoi diagram
         int pointsMapped = 0;
         for (int i = 0; i < polygons.size(); i++) {
             int polygonSideNum = polygons.get(i).getCoordinates().length - 1;
@@ -48,7 +48,15 @@ public class VoronoiGen {
                 mesh.addSegments(s);
                 p.addSegmentIdxs(j - pointsMapped).setSegmentIdxs(j - pointsMapped, j);
             }
-            p.setCentroidIdx(i);
+            // Set centroid index
+            for (int k = 0; k < mesh.getVerticesCount(); k++) {
+                Vertex v = mesh.getVertices(k);
+                Coordinate c = new Coordinate(v.getX(), v.getY());
+                if (polygons.get(i).contains(factory.createPoint(c))) {
+                    p.setCentroidIdx(k);
+                    break;
+                }
+            }
             pointsMapped += polygonSideNum;
             mesh.addPolygons(p.build());
         }
