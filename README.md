@@ -139,7 +139,7 @@ If a feature works as intended without bugs and the code is clean and concise, i
 |  F11  | Compute neighbourhood relationships using Delaunay’s triangulation                                                                            | Hamza   | 2/25/2023 | 2/26/2023 | D      |
 |  F12  | For each irregular polygon, reorder its segments by computing its Convex Hull so that the consecutiveness invariants holds                    | Ali     | 2/26/2023 | 2/26/2023 | D      |
 |  F13  | User can control the type of mesh and relevant configurations                                                                                 | Qamrosh | 2/26/2023 | 2/27/2023 | D      |
-|  F14  | Introduce a property to differentiate types of polygon tiles as "water and "land" tiles                                                       | Ali     | 2/28/2023 |           | P      |
+|  F14  | Introduce a property to differentiate types of polygon tiles as "water and "land" tiles                                                       | Ali     | 2/28/2023 | 3/03/2023 | D      |
 |  F15  | Add "lagoon" tiles                                                                                                                            | Hamza   |           |           | P      |
 |  F16  | Modify tiles on the boundary to be "beach" tiles                                                                                              | Qamrosh |           |           | P      |
 |  F17  | Implement command line configuration of input and output mesh                                                                                 | Ali     | 2/28/2023 | 3/02/2023 | D      |
