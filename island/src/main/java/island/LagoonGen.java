@@ -47,6 +47,18 @@ public class LagoonGen {
             polygonBuilders.add(p);
         }
 
+        // Look for land tiles adjacent to water
+        for (int i = 0; i < polygonBuilders.size(); i++) {
+            if (tileTypeList.get(i).getValue().equals("land")) {
+                for (int j : polygonBuilders.get(i).getNeighborIdxsList()) {
+                    if (tileTypeList.get(j).getValue().equals("water") || tileTypeList.get(j).getValue().equals("lagoon")) {
+                        tileTypeList.set(i, tileTypeList.get(i).setValue("beach"));
+                        break;
+                    }
+                }
+            }
+        }
+
         // Add tile type properties to polygons and add polygons to mesh
         for (int i = 0; i < polygonBuilders.size(); i++) {
             Polygon.Builder p = polygonBuilders.get(i);
