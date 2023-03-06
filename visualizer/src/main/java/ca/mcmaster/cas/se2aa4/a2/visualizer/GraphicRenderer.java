@@ -122,6 +122,8 @@ public class GraphicRenderer {
                         color = Color.BLUE;
                     else if (q.getValue().equals("lagoon"))
                         color = Color.CYAN;
+                    else if (q.getValue().equals("beach"))
+                        color = Color.YELLOW;
                 }
             }
             canvas.setColor(color);
