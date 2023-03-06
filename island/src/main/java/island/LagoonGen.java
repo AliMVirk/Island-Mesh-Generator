@@ -36,7 +36,9 @@ public class LagoonGen {
             Polygon.Builder p = Polygon.newBuilder().addAllNeighborIdxs(oPoly.getNeighborIdxsList()).addAllSegmentIdxs(oPoly.getSegmentIdxsList()).addAllProperties(oPoly.getPropertiesList()).setCentroidIdx(oPoly.getCentroidIdx());
             Vertex v = oMesh.getVertices(oPoly.getCentroidIdx());
             // Check if centroid of polygon is within appropriate circle
-            if (Math.pow(v.getX() - (width / 2), 2) + Math.pow(v.getY() - (height / 2), 2) <= Math.pow(landRadius, 2))
+            if (Math.pow(v.getX() - (width / 2), 2) + Math.pow(v.getY() - (height / 2), 2) <= Math.pow(lagoonRadius, 2))
+                tile = "lagoon";
+            else if (Math.pow(v.getX() - (width / 2), 2) + Math.pow(v.getY() - (height / 2), 2) <= Math.pow(landRadius, 2))
                 tile = "land";
             else
                 tile = "water";

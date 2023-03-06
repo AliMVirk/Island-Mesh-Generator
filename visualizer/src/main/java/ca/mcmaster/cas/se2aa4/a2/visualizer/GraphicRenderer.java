@@ -120,6 +120,8 @@ public class GraphicRenderer {
                         color = Color.ORANGE;
                     else if (q.getValue().equals("water"))
                         color = Color.BLUE;
+                    else if (q.getValue().equals("lagoon"))
+                        color = Color.CYAN;
                 }
             }
             canvas.setColor(color);
