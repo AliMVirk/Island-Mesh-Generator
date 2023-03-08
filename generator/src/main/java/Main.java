@@ -68,11 +68,12 @@ public class Main {
         myMeshBuilder.addProperties(Property.newBuilder().setKey("width").setValue(String.valueOf(width)).build());
         myMeshBuilder.addProperties(Property.newBuilder().setKey("height").setValue(String.valueOf(height)).build());
 
+        DelaunayTriangulationGen dgen = new DelaunayTriangulationGen();
+        IrregularNeighborGen ngen = new IrregularNeighborGen();
         if (irregular) {
             // Irregular mesh generation
             CentroidGen gen = new CentroidGen(numPolygons, width, height);
             VoronoiGen vgen = new VoronoiGen();
-            DelaunayTriangulationGen dgen = new DelaunayTriangulationGen();
             myMeshBuilder = gen.generateVertices(myMeshBuilder);
             myMeshBuilder = vgen.generate(myMeshBuilder); // Compute Voronoi diagram
             // Apply Lloyd relaxation
@@ -80,9 +81,6 @@ public class Main {
                 myMeshBuilder = gen.generateVertices(myMeshBuilder, vgen.getPolygons());
                 myMeshBuilder = vgen.generate(myMeshBuilder);
             }
-            List<Polygon> trianglesProduced = dgen.generate(myMeshBuilder);
-            IrregularNeighborGen ngen = new IrregularNeighborGen();
-            myMeshBuilder = ngen.generate(myMeshBuilder, trianglesProduced);
         } else {
             // Grid mesh generation
             DotGen dotGenerator = new DotGen(width, height, size);
@@ -92,6 +90,8 @@ public class Main {
             myMeshBuilder = segmentGenerator.generateSegments(myMeshBuilder);
             myMeshBuilder = polygonGenerator.generatePolygons(myMeshBuilder);
         }
+        List<Polygon> trianglesProduced = dgen.generate(myMeshBuilder);
+        myMeshBuilder = ngen.generate(myMeshBuilder, trianglesProduced);
         
         Property meshIrregularity = Property.newBuilder().setKey("mesh_type").setValue(String.valueOf(irregular)).build();
         myMeshBuilder.addProperties(meshIrregularity);
