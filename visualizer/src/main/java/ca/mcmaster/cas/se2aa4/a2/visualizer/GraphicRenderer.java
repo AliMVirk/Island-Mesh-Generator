@@ -32,6 +32,8 @@ public class GraphicRenderer {
             else if (p.getKey().equals("mesh_type"))
                 irregular = Boolean.parseBoolean(p.getValue());
         }
+        // Draw tiles
+        drawTiles(aMesh, canvas, irregular);
         if (debugMode){
             // Draw centroid vertices in red when debug mode is active
             if (irregular)
@@ -43,8 +45,6 @@ public class GraphicRenderer {
             // Draw neighboring relations in grey when debug mode is active
             drawNeighborRelations(aMesh, canvas);
         } else {
-            // Draw tiles
-            drawTiles(aMesh, canvas, irregular);
             // Draw vertices
             drawVertices(aMesh, canvas, 0, divider, null);
             // Draw segments
@@ -117,13 +117,13 @@ public class GraphicRenderer {
             for (Property q : p.getPropertiesList()) {
                 if (q.getKey().equals("tile_type")) {
                     if (q.getValue().equals("land"))
-                        color = Color.ORANGE;
+                        color = new Color(144, 137, 53);
                     else if (q.getValue().equals("water"))
-                        color = Color.BLUE;
+                        color = new Color(1, 64, 98);
                     else if (q.getValue().equals("lagoon"))
-                        color = Color.CYAN;
+                        color = new Color(4, 100, 151);
                     else if (q.getValue().equals("beach"))
-                        color = Color.YELLOW;
+                        color = new Color(255, 255, 217);
                 }
             }
             canvas.setColor(color);
