@@ -75,23 +75,23 @@ public class PolygonGen {
                 int bottom = current + 1;
                 Polygon.Builder p = polygonBuilders.get(current);
                 if (i == 0 && j == 0)
-                    p.addNeighborIdxs(0).addNeighborIdxs(1).setNeighborIdxs(0, bottom).setNeighborIdxs(1, right); // no left or top
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).setNeighborIdxs(0, bottom).setNeighborIdxs(1, right).setNeighborIdxs(2, right + 1); // no left or top
                 else if (i == 0 && j == height/square_size - 2)
-                    p.addNeighborIdxs(0).addNeighborIdxs(1).setNeighborIdxs(0, top).setNeighborIdxs(1, right); // no left or bottom
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).setNeighborIdxs(0, top).setNeighborIdxs(1, right).setNeighborIdxs(2, right-1); // no left or bottom
                 else if (i == width/square_size - 2 && j == 0)
-                    p.addNeighborIdxs(0).addNeighborIdxs(1).setNeighborIdxs(0, bottom).setNeighborIdxs(1, left); // no right or top
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).setNeighborIdxs(0, bottom).setNeighborIdxs(1, left).setNeighborIdxs(2, left+1); // no right or top
                 else if (i == width/square_size - 2 && j == height/square_size - 2)
-                    p.addNeighborIdxs(0).addNeighborIdxs(1).setNeighborIdxs(0, top).setNeighborIdxs(1, left); // no right or bottom
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).setNeighborIdxs(0, top).setNeighborIdxs(1, left).setNeighborIdxs(2, left - 1); // no right or bottom
                 else if (i == 0)
-                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).setNeighborIdxs(0, top).setNeighborIdxs(1, bottom).setNeighborIdxs(2, right); // no left
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).addNeighborIdxs(3).addNeighborIdxs(4).setNeighborIdxs(0, top).setNeighborIdxs(1, bottom).setNeighborIdxs(2, right).setNeighborIdxs(3, right-1).setNeighborIdxs(4, right+1); // no left
                 else if (i == width/square_size - 2)
-                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).setNeighborIdxs(0, top).setNeighborIdxs(1, bottom).setNeighborIdxs(2, left); // no right
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).addNeighborIdxs(3).addNeighborIdxs(4).setNeighborIdxs(0, top).setNeighborIdxs(1, bottom).setNeighborIdxs(2, left).setNeighborIdxs(3, left+1).setNeighborIdxs(4, left-1); // no right
                 else if (j == 0)
-                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).setNeighborIdxs(0, bottom).setNeighborIdxs(1, left).setNeighborIdxs(2, right); // no top
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).addNeighborIdxs(3).addNeighborIdxs(4).setNeighborIdxs(0, bottom).setNeighborIdxs(1, left).setNeighborIdxs(2, right).setNeighborIdxs(3, left+1).setNeighborIdxs(4, right+1); // no top
                 else if (j == height/square_size - 2)
-                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).setNeighborIdxs(0, top).setNeighborIdxs(1, left).setNeighborIdxs(2, right); // no bottom
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).addNeighborIdxs(3).addNeighborIdxs(4).setNeighborIdxs(0, top).setNeighborIdxs(1, left).setNeighborIdxs(2, right).setNeighborIdxs(3, left-1).setNeighborIdxs(4, right-1); // no bottom
                 else
-                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).addNeighborIdxs(3).setNeighborIdxs(0, left).setNeighborIdxs(1, top).setNeighborIdxs(2, right).setNeighborIdxs(3, bottom); // all 4 neighbours
+                    p.addNeighborIdxs(0).addNeighborIdxs(1).addNeighborIdxs(2).addNeighborIdxs(3).addNeighborIdxs(4).addNeighborIdxs(5).addNeighborIdxs(6).addNeighborIdxs(7).setNeighborIdxs(0, left).setNeighborIdxs(1, top).setNeighborIdxs(2, right).setNeighborIdxs(3, bottom).setNeighborIdxs(4, right+1).setNeighborIdxs(5, right-1).setNeighborIdxs(6, left+1).setNeighborIdxs(7, left-1); // all 8 neighbours
                 polygonBuilders.set(current, p);
             }
         }
