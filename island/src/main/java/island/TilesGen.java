@@ -1,21 +1,24 @@
 package island;
 
+import java.awt.*;
 import java.util.ArrayList;
 
+import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
-import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
+import island.Tile.Tile;
+import island.Tile.Type;
 
-public class LagoonGen {
+public class TilesGen {
     
     private final int width;
     private final int height;
     private final int lagoonRadius;
     private final int landRadius;
 
-    public LagoonGen(int x, int y, int innerRadius, int outerRadius) {
+    public TilesGen(int x, int y, int innerRadius, int outerRadius) {
         width = x;
         height = y;
         lagoonRadius = innerRadius;
@@ -29,30 +32,34 @@ public class LagoonGen {
         mesh.addAllVertices(oMesh.getVerticesList()).addAllSegments(oMesh.getSegmentsList()).addAllProperties(oMesh.getPropertiesList());
         ArrayList<Polygon.Builder> polygonBuilders = new ArrayList<>();
         ArrayList<Property.Builder> tileTypeList = new ArrayList<>();
-        
+        ArrayList<Structs.Property.Builder> tileColorList = new ArrayList<>();
+
+        Tile tile;
         for (Polygon oPoly : oMesh.getPolygonsList()) {
-            String tile = "";
             // Duplicate polygon from original mesh
             Polygon.Builder p = Polygon.newBuilder().addAllNeighborIdxs(oPoly.getNeighborIdxsList()).addAllSegmentIdxs(oPoly.getSegmentIdxsList()).addAllProperties(oPoly.getPropertiesList()).setCentroidIdx(oPoly.getCentroidIdx());
             Vertex v = oMesh.getVertices(oPoly.getCentroidIdx());
             // Check if centroid of polygon is within appropriate circle
             if (Math.pow(v.getX() - (width / 2), 2) + Math.pow(v.getY() - (height / 2), 2) <= Math.pow(lagoonRadius, 2))
-                tile = "lagoon";
+                tile = new Tile(Type.LAGOON, new Color(4, 100, 151));
             else if (Math.pow(v.getX() - (width / 2), 2) + Math.pow(v.getY() - (height / 2), 2) <= Math.pow(landRadius, 2))
-                tile = "land";
+                tile = new Tile(Type.LAND, new Color(144, 137, 53));
             else
-                tile = "water";
+                tile = new Tile(Type.WATER, new Color(1, 64, 98));
             // Set tile type property for corresponding polygon
-            tileTypeList.add(Property.newBuilder().setKey("tile_type").setValue(tile));
+            tileTypeList.add(Property.newBuilder().setKey("tile_type").setValue(tile.getType()));
+            tileColorList.add(Structs.Property.newBuilder().setKey("tile_color").setValue(tile.getColor()));
             polygonBuilders.add(p);
         }
 
         // Look for land tiles adjacent to water
+        Tile beachTile = new Tile(Type.BEACH, new Color(255, 255, 217));
         for (int i = 0; i < polygonBuilders.size(); i++) {
             if (tileTypeList.get(i).getValue().equals("land")) {
                 for (int j : polygonBuilders.get(i).getNeighborIdxsList()) {
                     if (tileTypeList.get(j).getValue().equals("water") || tileTypeList.get(j).getValue().equals("lagoon")) {
-                        tileTypeList.set(i, tileTypeList.get(i).setValue("beach"));
+                        tileTypeList.set(i, tileTypeList.get(i).setValue(beachTile.getType()));
+                        tileColorList.set(i, tileColorList.get(i).setValue(beachTile.getColor()));
                         break;
                     }
                 }
@@ -63,6 +70,7 @@ public class LagoonGen {
         for (int i = 0; i < polygonBuilders.size(); i++) {
             Polygon.Builder p = polygonBuilders.get(i);
             p.addProperties(tileTypeList.get(i).build());
+            p.addProperties(tileColorList.get(i).build());
             mesh.addPolygons(p.build());
         }
 

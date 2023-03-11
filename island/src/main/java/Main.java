@@ -43,8 +43,8 @@ public class Main {
         }
 
         if (mode.equals("lagoon")) {
-            LagoonGen lgn = new LagoonGen(width, height, width / 4, width / 2);
-            myMeshBuilder = lgn.transform(originalMesh);
+            TilesGen tgen = new TilesGen(width, height, width / 4, width / 2);
+            myMeshBuilder = tgen.transform(originalMesh);
         }
 
         factory.write(myMeshBuilder.build(), cmd.getOptionValue("o"));

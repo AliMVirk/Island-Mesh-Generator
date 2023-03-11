@@ -114,18 +114,10 @@ public class GraphicRenderer {
         for (Polygon p : aMesh.getPolygonsList()) {
             Color color = Color.WHITE;
             // Set color based on polygon tile type
-            for (Property q : p.getPropertiesList()) {
-                if (q.getKey().equals("tile_type")) {
-                    if (q.getValue().equals("land"))
-                        color = new Color(144, 137, 53);
-                    else if (q.getValue().equals("water"))
-                        color = new Color(1, 64, 98);
-                    else if (q.getValue().equals("lagoon"))
-                        color = new Color(4, 100, 151);
-                    else if (q.getValue().equals("beach"))
-                        color = new Color(255, 255, 217);
-                }
-            }
+            for (Property q : p.getPropertiesList())
+                if (q.getKey().equals("tile_color"))
+                    color = new Color(Integer.parseInt(q.getValue()));
+
             canvas.setColor(color);
             canvas.setStroke(new BasicStroke(extractThickness(p.getPropertiesList())));
             // Create polygon shape to fill

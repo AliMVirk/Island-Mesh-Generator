@@ -1,6 +1,5 @@
 package island;
 
-import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
@@ -10,9 +9,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class LagoonGenTest {
+public class TilesGenTest {
 
-    private LagoonGen lgn = new LagoonGen(500, 500, 100, 200);
+    private TilesGen lgn = new TilesGen(500, 500, 100, 200);
 
     @Test
     public void meshIsNotNull() {
@@ -118,7 +117,7 @@ public class LagoonGenTest {
 
     @Test
     public void beachExists() {
-        
+
     }
 
 }
