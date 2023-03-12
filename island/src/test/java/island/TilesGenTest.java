@@ -117,7 +117,23 @@ public class TilesGenTest {
 
     @Test
     public void beachExists() {
+        // Create test mesh
+        Vertex v1 = Vertex.newBuilder().setX(0).setY(0).build();
+        Vertex v2 = Vertex.newBuilder().setX(100).setY(250).build(); // Halfway in left edge of ring
+        Polygon p1 = Polygon.newBuilder().setCentroidIdx(0).build(); // Water polygon
+        Polygon p2 = Polygon.newBuilder().setCentroidIdx(1).addNeighborIdxs(0).setNeighborIdxs(0, 0).build(); // Land polygon
+        Mesh aMesh = Mesh.newBuilder().addVertices(v1).addVertices(v2).addPolygons(p1).addPolygons(p2).build();
 
+        // Check for correct polygon types
+        aMesh = lgn.transform(aMesh).build();
+        for (Property p : aMesh.getPolygons(0).getPropertiesList()) {
+            if (p.getKey().equals("tile_type"))
+                assertNotEquals(p.getValue(), "land");
+        }
+        for (Property p : aMesh.getPolygons(1).getPropertiesList()) {
+            if (p.getKey().equals("tile_type"))
+                assertEquals(p.getValue(), "beach");
+        }
     }
 
 }
