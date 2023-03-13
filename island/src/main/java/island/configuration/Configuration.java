@@ -19,7 +19,7 @@ public class Configuration {
     }
 
     private void printHelpMessage() {
-        System.out.println("usage: island -i <file path> -o <file path>\n-h,--help           print this message\n-i <file path>      mesh input\n-m,--mode <arg>     island generation mode\n-o <file path>      mesh output");
+        System.out.println("usage: island -i <file path> -o <file path>\n-h,--help               print this message\n-i <file path>          mesh input\n-mode,--mode <arg>      island generation mode\n-o <file path>          mesh output\n-shape,--shape <shape>  island shape");
         System.exit(0);
     }
 
@@ -31,8 +31,9 @@ public class Configuration {
         Options options = new Options();
         options.addOption("i", true, "mesh input");
         options.addOption("o", true, "mesh output");
-        options.addOption("m", "mode", true, "island generation mode");
+        options.addOption("mode", "mode", true, "island generation mode");
         options.addOption("h", "help", false, "print this message");
+        options.addOption("shape", "shape", true, "island shape");
         return options;
     }
 
