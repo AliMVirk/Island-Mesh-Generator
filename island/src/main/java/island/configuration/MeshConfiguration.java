@@ -1,13 +1,20 @@
 package island.configuration;
 
+import java.awt.geom.Path2D;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.cli.ParseException;
+import org.locationtech.jts.geom.Coordinate;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import island.TilesGen;
+import island.shapes.Ellipse;
+import island.shapes.Rectangle;
+import island.LandGen;
 
 public class MeshConfiguration {
     
@@ -17,13 +24,16 @@ public class MeshConfiguration {
         config = new Configuration(args);
     }
 
-    public Mesh generateIsland() throws IOException {
-        String mode = config.export("m");
-        if (mode == null) mode = "lagoon";
+    public void generateIsland() throws IOException {
+        String shape = config.export("shape");
+        if (shape == null) shape = "polygon";
+        String mode = config.export("mode");
+        if (mode == null) mode = "";
         
         MeshFactory factory = new MeshFactory();
         Mesh originalMesh = factory.read(config.export("i")); // Read input mesh
         Mesh.Builder myMeshBuilder = Mesh.newBuilder();
+        Path2D islandBoundary;
 
         int width = 0; int height = 0;
         for (Property p : originalMesh.getPropertiesList()) {
@@ -36,10 +46,31 @@ public class MeshConfiguration {
         if (mode.equals("lagoon")) {
             TilesGen tgen = new TilesGen(width, height, width / 4, width / 2);
             myMeshBuilder = tgen.transform(originalMesh);
+        } else {
+            List<Coordinate> coords = new ArrayList<>();
+            Rectangle rect = new Rectangle();
+            Ellipse ellipse = new Ellipse();
+            switch (shape) {
+                case "rectangle":
+                    coords = rect.generateRectangle(width / 4, height / 4, width / 2, height / 3);
+                    islandBoundary = rect.build(coords);
+                    break;
+                case "square":
+                    coords = rect.generateRectangle(width / 4, height / 4, width / 2, width / 2);
+                    islandBoundary = rect.build(coords);
+                    break;
+                case "ellipse":
+                    islandBoundary = ellipse.build(ellipse.generateEllipse(width / 3, height / 3, width / 3, height / 5));
+                    break;
+                default: // case "circle"
+                    islandBoundary = ellipse.build(ellipse.generateEllipse(width / 3, height / 3, width / 3, height / 3));
+                    break;
+            }
+            LandGen lgn = new LandGen();
+            myMeshBuilder = lgn.createLand(originalMesh, islandBoundary);
         }
 
         factory.write(myMeshBuilder.build(), config.export("o")); // Write to output mesh
-        return myMeshBuilder.build();
     }
 
 }
