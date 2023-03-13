@@ -4,7 +4,7 @@
   - Hamza Abou Jaib [aboujaih@mcmaster.ca]
   - Qamrosh Ahmad [ahmadq2@mcmaster.ca]
 
-## How to run the product
+## Running the generator and visualizer
 
 The following information shows the necessary commands to create a mesh and visualize the mesh in an SVG file. If needed, the mesh can be visualized in debug mode by including a `-X` flag.
 
@@ -26,17 +26,19 @@ The following is an example of generating and visualizing a **regular** mesh:
 
 ```java -jar visualizer/visualizer.jar generator/sample.mesh visualizer/sample.svg```
 
-```java -jar visualizer/visualizer.jar generator/sample.mesh visualizer/sample.svg -X```
 <br>
 <img src="./diagrams/regular_mesh_example.png" width="400" />
 <br>
 Figure 1.0: Regular mesh rendered regularly
-<br>
-<br>
+<br><br>
+
+```java -jar visualizer/visualizer.jar generator/sample.mesh visualizer/sample.svg -X```
+
 <br>
 <img src="./diagrams/regular_mesh_debug_example.png" width="400" />
 <br>
 Figure 1.1: Regular mesh rendered in debug mode
+<br><br>
 
 The following is an example of generating and visualizing an **irregular** mesh:
 
@@ -46,17 +48,47 @@ The following is an example of generating and visualizing an **irregular** mesh:
 
 ```java -jar visualizer/visualizer.jar generator/sample.mesh visualizer/sample.svg```
 
-```java -jar visualizer/visualizer.jar generator/sample.mesh visualizer/sample.svg -X```
 <br>
 <img src="./diagrams/Irregular_mesh_example.png" width="400" />
 <br>
 Figure 2.0: Irregular mesh rendered regularly
-<br>
-<br>
+<br><br>
+
+```java -jar visualizer/visualizer.jar generator/sample.mesh visualizer/sample.svg -X```
+
 <br>
 <img src="./diagrams/Irregular_mesh_debug_example.png" width="400" />
 <br>
 Figure 2.1: Irregular mesh rendered in debug mode
+<br><br>
+
+## Generating islands
+
+The following information shows how to transform an existing mesh by generating terrain.
+
+When running the island generator, the following arguments can be used to control the island generation:
+
+```
+java -jar island/island.jar -i <mesh input path> -o <mesh output path> --mode <generation mode>
+```
+
+To see all possible user configurations, run the above with argument ```-h``` or ```--help```
+
+The following is an example of generating and visualizing an island mesh:
+
+```mvn install```
+
+```java -jar generator/generator.jar generator/sample.mesh -t irregular -d 1000 -w 1000 -n 2000```
+
+```java -jar island/island.jar -i generator/sample.mesh -o island/sample.mesh --mode lagoon```
+
+```java -jar visualizer/visualizer.jar island/sample.mesh visualizer/sample.svg```
+
+<br>
+<img src="./diagrams/lagoon_island_example.png" width="400" />
+<br>
+Figure 3.0: Lagoon island visualized regularly
+<br><br>
 
 ### Installation instructions
 
@@ -77,8 +109,6 @@ To run the generator, go to the `generator` directory, and use `java -jar` to ru
 ```
 cd generator 
 java -jar generator.jar sample.mesh
-ls -lh sample.mesh
--rw-r--r--  1 mosser  staff    29K 29 Jan 10:52 sample.mesh
 ```
 
 ### Visualizer
@@ -90,9 +120,6 @@ cd visualizer
 java -jar visualizer.jar ../generator/sample.mesh sample.svg
 
 ... (lots of debug information printed to stdout) ...
-
-ls -lh sample.svg
--rw-r--r--  1 mosser  staff    56K 29 Jan 10:53 sample.svg
 ```
 To viualize the SVG file:
 
@@ -107,9 +134,6 @@ cd visualizer
 java -jar visualizer.jar ../generator/sample.mesh sample.svg -X
 
 ... (lots of debug information printed to stdout) ...
-
-ls -lh sample.svg
--rw-r--r--  1 mosser  staff    56K 29 Jan 10:53 sample.svg
 ```
 
 ## How to contribute to the project
