@@ -60,7 +60,7 @@ public class MeshConfiguration {
                     islandBoundary = rect.build(coords);
                     break;
                 case "ellipse":
-                    islandBoundary = ellipse.build(ellipse.generateEllipse(width / 3, height / 3, width / 3, height / 5));
+                    islandBoundary = ellipse.build(ellipse.generateEllipse(width / 2, height / 2, width / 1.5, height / 2));
                     break;
                 default: // case "circle"
                     islandBoundary = ellipse.build(ellipse.generateEllipse(width / 3, height / 3, width / 3, height / 3));
