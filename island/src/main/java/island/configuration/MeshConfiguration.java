@@ -79,10 +79,10 @@ public class MeshConfiguration {
         CornerPeaks vly = new CornerPeaks();
         RandomPeaks mtnR = new RandomPeaks();
         switch (altProfile) {
-            case "CentralPeak":
+            case "centralPeak":
                 coords = mtn.build(width, height, 1);
                 break;
-            case "CornerPeaks":
+            case "cornerPeaks":
                 coords = vly.build(width, height, 4);
                 break;
             default: // random mountains

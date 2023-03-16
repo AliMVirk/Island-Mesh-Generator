@@ -69,10 +69,16 @@ The following information shows how to transform an existing mesh by generating 
 When running the island generator, the following arguments can be used to control the island generation:
 
 ```
-java -jar island/island.jar -i <mesh input path> -o <mesh output path> --mode <generation mode>
+java -jar island/island.jar -i <mesh input path> -o <mesh output path> --mode <generation mode> --shape <island shape> --altitude <altitude profile>
 ```
 
 To see all possible user configurations, run the above with argument ```-h``` or ```--help```
+
+Pre-made shapes that can be used:  
+```--shape circle, --shape ellipse, --shape rectangle, --shape square```
+
+Pre-made altitude profiles that can be used:  
+```--altitude centralPeak, --shape cornerPeaks, --shape randomPeaks```
 
 The following is an example of generating and visualizing an island mesh:
 
@@ -90,51 +96,26 @@ The following is an example of generating and visualizing an island mesh:
 Figure 3.0: Lagoon island visualized regularly
 <br><br>
 
-### Installation instructions
+The following is an example of generating and visualizing an ellipse shaped island with four mountains on the edges mesh:
+```mvn install```
 
-This product is handled by Maven, as a multi-module project. We assume here that you have cloned the project in a directory named `A2`
+```java -jar generator/generator.jar generator/sample.mesh -t irregular -d 1000 -w 1000 -n 2000```
 
-To install the different tooling on your computer, simply run:
+```java -jar island/island.jar -i generator/sample.mesh -o island/sample.mesh --shape ellipse --altitude CornerPeaks```
 
-```
-mvn install
-```
+```java -jar visualizer/visualizer.jar island/sample.mesh visualizer/sample.svg```
+<br>
+<img src="./diagrams/ellipseIsland.png" width="400" />
+<br>
+Figure 3.1: Ellipse island with 4 mountains/peaks
+<br><br>
 
-After installation, you'll find an application named `generator.jar` in the `generator` directory, and a file named `visualizer.jar` in the `visualizer` one. 
+<br>
+<img src="./diagrams/ellipseIslandWithAltitudesShowing.png" width="400" />
+<br>
+Figure 3.2: Ellipse island with 4 mountains/peaks showing the altitudes (white is highest point, cyan is lowest point)
+<br><br>
 
-### Generator
-
-To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes one single argument (so far), the name of the file where the generated mesh will be stored as binary.
-
-```
-cd generator 
-java -jar generator.jar sample.mesh
-```
-
-### Visualizer
-
-To visualize an existing mesh, go the the `visualizer` directory, and use `java -jar` to run the product. The product take two arguments (so far): the file containing the mesh, and the name of the file to store the visualization (as an SVG image).
-
-```
-cd visualizer 
-java -jar visualizer.jar ../generator/sample.mesh sample.svg
-
-... (lots of debug information printed to stdout) ...
-```
-To viualize the SVG file:
-
-  - Open it with a web browser
-  - Convert it into something else with tools like `rsvg-convert`
-
-
-### Visualizer in debug mode
-To visualize an existing mesh in debug mode, where it shows polygons in black, centroids in red, and neighbourhood relationships in light grey, simply add '-X' as the third argument when running the visualizer.
-```
-cd visualizer 
-java -jar visualizer.jar ../generator/sample.mesh sample.svg -X
-
-... (lots of debug information printed to stdout) ...
-```
 
 ## How to contribute to the project
 
