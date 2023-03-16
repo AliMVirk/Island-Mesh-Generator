@@ -10,19 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.locationtech.jts.geom.Coordinate;
+import java.awt.Color;
 
 public class AltitudeGen {
     
     public List<Tile> transform(Mesh oMesh, List<Tile> tiles, List<Coordinate> coords, int maxAltitude, double steepnessFactor) {
         List<Integer> assignAltitude = new ArrayList<>();
 
-        // Initialize nearest vertex variable
+        // Initialize nearest vertex variable as centroid of first found land tile
         Vertex nearestPoint = null;
-        int peakIndex = 0;
+        int defaultIndex = 0;
         for (int i = 0; i < tiles.size(); i++) {
             if (!tiles.get(i).getType().equals(Type.WATER.toString())) {
                 nearestPoint = oMesh.getVertices(oMesh.getPolygons(i).getCentroidIdx());
-                peakIndex = i;
+                defaultIndex = i;
                 break;
             }
         }
@@ -31,6 +32,7 @@ public class AltitudeGen {
             return tiles;
         // Find nearest centroid vertices to given peak coordinates
         for (Coordinate c : coords) {
+            int peakIndex = defaultIndex;
             for (int i = 0; i < oMesh.getPolygonsCount(); i++) {
                 if (tiles.get(i).getType().equals(Type.WATER.toString()))
                     continue;
