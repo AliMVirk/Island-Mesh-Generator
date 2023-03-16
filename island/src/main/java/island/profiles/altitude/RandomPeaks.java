@@ -1,11 +1,11 @@
-package island.altitudeProfiles;
+package island.profiles.altitude;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import org.locationtech.jts.geom.Coordinate;
 
-public class RandomPeaks implements altitudeProfile {
+public class RandomPeaks implements AltitudeProfile {
 
     @Override
     public List<Coordinate> build(double width, double height, int numOfMountains) {

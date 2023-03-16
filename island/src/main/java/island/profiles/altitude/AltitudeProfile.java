@@ -1,9 +1,9 @@
-package island.altitudeProfiles;
+package island.profiles.altitude;
 
 import org.locationtech.jts.geom.Coordinate;
 
 import java.util.List;
 
-public abstract interface altitudeProfile {
+public abstract interface AltitudeProfile {
     public List<Coordinate> build(double width, double height, int numOfMountains);
 }

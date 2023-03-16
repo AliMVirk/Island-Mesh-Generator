@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import island.altitudeProfiles.CentralPeak;
-import island.altitudeProfiles.CornerPeaks;
-import island.altitudeProfiles.RandomPeaks;
 import org.apache.commons.cli.ParseException;
 import org.locationtech.jts.geom.Coordinate;
 
@@ -16,6 +13,9 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import island.Tile.Tile;
+import island.profiles.altitude.CentralPeak;
+import island.profiles.altitude.CornerPeaks;
+import island.profiles.altitude.RandomPeaks;
 import island.shapes.Ellipse;
 import island.shapes.Rectangle;
 import island.AltitudeGen;
