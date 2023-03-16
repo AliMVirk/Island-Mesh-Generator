@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import island.altitudeProfiles.CentralPeak;
+import island.altitudeProfiles.CornerPeaks;
+import island.altitudeProfiles.RandomPeaks;
 import org.apache.commons.cli.ParseException;
 import org.locationtech.jts.geom.Coordinate;
 
@@ -12,14 +15,14 @@ import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
-import island.TilesGen;
 import island.Tile.Tile;
 import island.shapes.Ellipse;
 import island.shapes.Rectangle;
+import island.AltitudeGen;
 import island.LandGen;
 
 public class MeshConfiguration {
-    
+
     private Configuration config;
 
     public MeshConfiguration(String[] args) throws ParseException {
@@ -31,7 +34,9 @@ public class MeshConfiguration {
         if (shape == null) shape = "polygon";
         String mode = config.export("mode");
         if (mode == null) mode = "";
-        
+        String altProfile = config.export("altitude");
+        if (altProfile == null) altProfile = "";
+
         MeshFactory factory = new MeshFactory();
         Mesh originalMesh = factory.read(config.export("i")); // Read input mesh
         Path2D islandBoundary;
@@ -45,6 +50,7 @@ public class MeshConfiguration {
                 height = Integer.parseInt(p.getValue());
         }
 
+        // Configure island shape
         List<Coordinate> coords = new ArrayList<>();
         Rectangle rect = new Rectangle();
         Ellipse ellipse = new Ellipse();
@@ -61,11 +67,32 @@ public class MeshConfiguration {
                 islandBoundary = ellipse.build(ellipse.generateEllipse(width / 2, height / 2, width / 1.5, height / 2));
                 break;
             default: // case "circle"
-                islandBoundary = ellipse.build(ellipse.generateEllipse(width / 3, height / 3, width / 3, height / 3));
+                islandBoundary = ellipse.build(ellipse.generateEllipse(width / 2, height / 2, width / 3, height / 3));
                 break;
         }
+        coords.clear();
         LandGen lgn = new LandGen();
         tiles = lgn.createLand(originalMesh, islandBoundary);
+
+        // Configure altitude
+        CentralPeak mtn = new CentralPeak();
+        CornerPeaks vly = new CornerPeaks();
+        RandomPeaks mtnR = new RandomPeaks();
+        switch (altProfile) {
+            case "CentralPeak":
+                coords = mtn.build(width, height, 1);
+                break;
+            case "CornerPeaks":
+                coords = vly.build(width, height, 4);
+                break;
+            default: // random mountains
+                coords = mtnR.build(width, height, 10);
+                break;
+        }
+        AltitudeGen agen = new AltitudeGen();
+        tiles = agen.transform(originalMesh, tiles, coords, 100, 0.9);
+
+        // Turn tiles into polygon properties
         Mesh islandMesh = mutateMesh(originalMesh, tiles);
 
         factory.write(islandMesh, config.export("o")); // Write to output mesh
