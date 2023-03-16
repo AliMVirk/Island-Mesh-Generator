@@ -1,10 +1,9 @@
 package island;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
-import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
-
+import island.Tile.Tile;
 import island.shapes.Ellipse;
 import island.shapes.Rectangle;
 
@@ -42,15 +41,10 @@ public class LandGenTest {
         path.closePath();
 
         // Check for correct polygon types
-        aMesh = lgn.createLand(aMesh, path).build();
-        for (Property p : aMesh.getPolygons(0).getPropertiesList()) {
-            if (p.getKey().equals("tile_type"))
-                assertEquals(p.getValue(), "land");
-        }
-        for (Property p : aMesh.getPolygons(1).getPropertiesList()) {
-            if (p.getKey().equals("tile_type"))
-                assertNotEquals(p.getValue(), "land");
-        }
+        List<Tile> tiles = new ArrayList<>();
+        tiles = lgn.createLand(aMesh, path);
+        assertEquals(tiles.get(0).getType(), "land");
+        assertNotEquals(tiles.get(1).getType(), "land");
     }
 
     @Test
@@ -70,19 +64,11 @@ public class LandGenTest {
         Path2D path = rect.build(coords);
 
         // Check for correct polygon types
-        aMesh = lgn.createLand(aMesh, path).build();
-        for (Property p : aMesh.getPolygons(0).getPropertiesList()) {
-            if (p.getKey().equals("tile_type"))
-                assertEquals(p.getValue(), "land");
-        }
-        for (Property p : aMesh.getPolygons(1).getPropertiesList()) {
-            if (p.getKey().equals("tile_type"))
-                assertEquals(p.getValue(), "land");
-        }
-        for (Property p : aMesh.getPolygons(2).getPropertiesList()) {
-            if (p.getKey().equals("tile_type"))
-                assertNotEquals(p.getValue(), "land");
-        }
+        List<Tile> tiles = new ArrayList<>();
+        tiles = lgn.createLand(aMesh, path);
+        assertEquals(tiles.get(0).getType(), "land");
+        assertEquals(tiles.get(1).getType(), "land");
+        assertNotEquals(tiles.get(2).getType(), "land");
     }
 
 
@@ -102,19 +88,11 @@ public class LandGenTest {
         Path2D path = ellipse.build(shape);
 
         // Check for correct polygon types
-        aMesh = lgn.createLand(aMesh, path).build();
-        for (Property p : aMesh.getPolygons(0).getPropertiesList()) {
-            if (p.getKey().equals("tile_type"))
-                assertEquals(p.getValue(), "land");
-        }
-        for (Property p : aMesh.getPolygons(1).getPropertiesList()) {
-            if (p.getKey().equals("tile_type"))
-                assertEquals(p.getValue(), "land");
-        }
-        for (Property p : aMesh.getPolygons(2).getPropertiesList()) {
-            if (p.getKey().equals("tile_type"))
-                assertNotEquals(p.getValue(), "land");
-        }
+        List<Tile> tiles = new ArrayList<>();
+        tiles = lgn.createLand(aMesh, path);
+        assertEquals(tiles.get(0).getType(), "land");
+        assertEquals(tiles.get(1).getType(), "land");
+        assertNotEquals(tiles.get(2).getType(), "land");
     }
 
 }
