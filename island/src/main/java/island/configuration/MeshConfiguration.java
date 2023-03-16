@@ -10,8 +10,10 @@ import org.locationtech.jts.geom.Coordinate;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import island.TilesGen;
+import island.Tile.Tile;
 import island.shapes.Ellipse;
 import island.shapes.Rectangle;
 import island.LandGen;
@@ -32,8 +34,8 @@ public class MeshConfiguration {
         
         MeshFactory factory = new MeshFactory();
         Mesh originalMesh = factory.read(config.export("i")); // Read input mesh
-        Mesh.Builder myMeshBuilder = Mesh.newBuilder();
         Path2D islandBoundary;
+        List<Tile> tiles = new ArrayList<>();
 
         int width = 0; int height = 0;
         for (Property p : originalMesh.getPropertiesList()) {
@@ -63,9 +65,30 @@ public class MeshConfiguration {
                 break;
         }
         LandGen lgn = new LandGen();
-        myMeshBuilder = lgn.createLand(originalMesh, islandBoundary);
+        tiles = lgn.createLand(originalMesh, islandBoundary);
+        Mesh islandMesh = mutateMesh(originalMesh, tiles);
 
-        factory.write(myMeshBuilder.build(), config.export("o")); // Write to output mesh
+        factory.write(islandMesh, config.export("o")); // Write to output mesh
+    }
+
+    private Mesh mutateMesh(Mesh oMesh, List<Tile> tiles) {
+        // Extract mesh
+        Mesh.Builder mesh = Mesh.newBuilder();
+        mesh.addAllVertices(oMesh.getVerticesList()).addAllSegments(oMesh.getSegmentsList()).addAllProperties(oMesh.getPropertiesList());
+
+        for (int i = 0; i < oMesh.getPolygonsCount(); i++) {
+            Polygon oPoly = oMesh.getPolygons(i);
+            // Duplicate polygon from original mesh
+            Polygon.Builder p = Polygon.newBuilder().addAllNeighborIdxs(oPoly.getNeighborIdxsList()).addAllSegmentIdxs(oPoly.getSegmentIdxsList()).addAllProperties(oPoly.getPropertiesList()).setCentroidIdx(oPoly.getCentroidIdx());
+            // Set tile properties for corresponding polygon
+            Property tileType = Property.newBuilder().setKey("tile_type").setValue(tiles.get(i).getType()).build();
+            Property tileColor = Property.newBuilder().setKey("tile_color").setValue(tiles.get(i).getColor()).build();
+            Property tileAltitude = Property.newBuilder().setKey("tile_altitude").setValue(Double.toString(tiles.get(i).getAltitude())).build();
+            p.addProperties(tileType).addProperties(tileColor).addProperties(tileAltitude);
+            mesh.addPolygons(p.build());
+        }
+
+        return mesh.build();
     }
 
 }
