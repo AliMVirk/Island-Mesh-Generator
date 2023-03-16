@@ -150,7 +150,7 @@ If a feature works as intended without bugs and the code is clean and concise, i
 |  F17  | Implement command line configuration of input and output mesh                                                                                 | Ali     | 2/28/2023 | 3/02/2023 | D               |
 |  F18  | Implement user configurable island shapes                                                                                                     | Ali     | 3/13/2023 | 3/13/2023 | D               |
 |  F19  | Implement differing altitude for tiles                                                                                                        | Qamrosh | 3/15/2023 | 3/15/2023 | D               |
-|  F20  | Allow user to configure altitude profiles                                                                                                     | Hamza   | 3/16/2023 | 2/16/2023 | D               |
+|  F20  | Allow user to configure altitude profiles                                                                                                     | Hamza   | 3/16/2023 | 3/16/2023 | D               |
 |  F21  | Implement water-type tiles as lakes tiles                                                                                                     | Hamza   |           |           | P               |
 |  F22  | Introduce humidity to tiles near lake tiles                                                                                                   | Ali     |           |           | P               |
 |  F23  | Vegetation can be influenced by nearby lake tiles                                                                                             | Qamrosh |           |           | P               |
