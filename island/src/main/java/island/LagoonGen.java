@@ -11,16 +11,16 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import island.Tile.Tile;
 import island.Tile.Type;
 
-public class TilesGen {
+public class LagoonGen {
     
     private final int width;
     private final int height;
     private final int lagoonRadius;
     private final int landRadius;
 
-    public TilesGen(int x, int y, int innerRadius, int outerRadius) {
-        width = x;
-        height = y;
+    public LagoonGen(int canvasWidth, int canvasHeight, int innerRadius, int outerRadius) {
+        width = canvasWidth;
+        height = canvasHeight;
         lagoonRadius = innerRadius;
         landRadius = outerRadius;
     }

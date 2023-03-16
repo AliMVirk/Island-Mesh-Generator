@@ -20,6 +20,7 @@ import island.shapes.Ellipse;
 import island.shapes.Rectangle;
 import island.AltitudeGen;
 import island.LandGen;
+import island.LagoonGen;
 
 public class MeshConfiguration {
 
@@ -94,6 +95,12 @@ public class MeshConfiguration {
 
         // Turn tiles into polygon properties
         Mesh islandMesh = mutateMesh(originalMesh, tiles);
+
+        // Create lagoon island if specified
+        if (mode.equals("lagoon")) {
+            LagoonGen lgngen = new LagoonGen(width, height, width / 5, width / 3);
+            islandMesh = lgngen.transform(originalMesh).build();
+        }
 
         factory.write(islandMesh, config.export("o")); // Write to output mesh
     }

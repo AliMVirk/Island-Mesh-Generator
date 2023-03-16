@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class TilesGenTest {
+public class LagoonGenTest {
 
-    private TilesGen lgn = new TilesGen(500, 500, 100, 200);
+    private LagoonGen lgn = new LagoonGen(500, 500, 100, 200);
 
     @Test
     public void meshIsNotNull() {
