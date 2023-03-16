@@ -29,8 +29,8 @@ public class AltitudeGenTest {
 
         // Create corresponding tiles
         List<Tile> tiles = new ArrayList<>();
-        tiles.add(new Tile(Type.WATER, null));
         tiles.add(new Tile(Type.LAND, null));
+        tiles.add(new Tile(Type.WATER, null));
 
         // Create coordinate peaks
         List<Coordinate> coords = new ArrayList<>();
