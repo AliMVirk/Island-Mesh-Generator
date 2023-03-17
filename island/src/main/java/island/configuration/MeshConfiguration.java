@@ -18,9 +18,10 @@ import island.profiles.altitude.CornerPeaks;
 import island.profiles.altitude.RandomPeaks;
 import island.shapes.Ellipse;
 import island.shapes.Rectangle;
-import island.AltitudeGen;
-import island.LandGen;
-import island.LagoonGen;
+import island.generators.AltitudeGen;
+import island.generators.LandGen;
+import island.generators.LagoonGen;
+import island.generators.LakeGen;
 
 public class MeshConfiguration {
 
@@ -92,6 +93,9 @@ public class MeshConfiguration {
         }
         AltitudeGen agen = new AltitudeGen();
         tiles = agen.transform(originalMesh, tiles, coords, 100, 0.9);
+
+        LakeGen lgen = new LakeGen();
+        tiles = lgen.transform(originalMesh, tiles, 5);
 
         // Turn tiles into polygon properties
         Mesh islandMesh = mutateMesh(originalMesh, tiles);

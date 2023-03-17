@@ -6,6 +6,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import island.Tile.Tile;
 import island.shapes.Ellipse;
 import island.shapes.Rectangle;
+import island.generators.LandGen;
 
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;

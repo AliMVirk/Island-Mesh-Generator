@@ -10,7 +10,7 @@ public class LakeTile extends Tile {
     private final int humidity;
 
     public LakeTile(int humidity) {
-        super(Type.LAKE, new Color(0, 0, 255));
+        super(Type.LAKE, new Color(173, 216, 230));
         this.humidity = humidity;
     }
 

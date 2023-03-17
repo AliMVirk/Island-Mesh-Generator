@@ -1,4 +1,4 @@
-package island;
+package island.generators;
 
 import java.awt.*;
 import java.util.ArrayList;

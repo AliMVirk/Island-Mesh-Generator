@@ -5,6 +5,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import island.Tile.Tile;
 import island.Tile.Type;
+import island.generators.AltitudeGen;
 
 import java.util.ArrayList;
 import java.util.List;
