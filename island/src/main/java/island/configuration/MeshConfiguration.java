@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import island.profiles.altitude.AltitudeData;
 import org.apache.commons.cli.ParseException;
 import org.locationtech.jts.geom.Coordinate;
 
@@ -13,9 +14,9 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import island.Tile.Tile;
-import island.profiles.altitude.CentralPeak;
-import island.profiles.altitude.CornerPeaks;
-import island.profiles.altitude.RandomPeaks;
+import island.profiles.altitude.Volcano;
+import island.profiles.altitude.CornerMountains;
+import island.profiles.altitude.Hills;
 import island.shapes.Ellipse;
 import island.shapes.Rectangle;
 import island.generators.AltitudeGen;
@@ -77,22 +78,25 @@ public class MeshConfiguration {
         tiles = lgn.createLand(originalMesh, islandBoundary);
 
         // Configure altitude
-        CentralPeak mtn = new CentralPeak();
-        CornerPeaks vly = new CornerPeaks();
-        RandomPeaks mtnR = new RandomPeaks();
+        Volcano volcano = new Volcano();
+        CornerMountains valley = new CornerMountains();
+        Hills hills = new Hills();
+
+        AltitudeData altitudeData;
+
         switch (altProfile) {
-            case "centralPeak":
-                coords = mtn.build(width, height, 1);
+            case "volcano":
+                altitudeData = volcano.build(width, height, 1, 100, 0.8);
                 break;
-            case "cornerPeaks":
-                coords = vly.build(width, height, 4);
+            case "Hills":
+                altitudeData = valley.build(width, height, 4, 70, 0.9);
                 break;
-            default: // random mountains
-                coords = mtnR.build(width, height, 10);
+            default: // random hills
+                altitudeData = hills.build(width, height, 10, 50, 0.5);
                 break;
         }
         AltitudeGen agen = new AltitudeGen();
-        tiles = agen.transform(originalMesh, tiles, coords, 100, 0.9);
+        tiles = agen.transform(originalMesh, tiles, altitudeData);
 
         LakeGen lgen = new LakeGen();
         tiles = lgen.transform(originalMesh, tiles, 5);

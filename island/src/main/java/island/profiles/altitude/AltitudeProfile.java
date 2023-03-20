@@ -4,6 +4,9 @@ import org.locationtech.jts.geom.Coordinate;
 
 import java.util.List;
 
-public abstract interface AltitudeProfile {
-    public List<Coordinate> build(double width, double height, int numOfMountains);
+public interface AltitudeProfile {
+
+    List<Coordinate> buildCoordinates(double width, double height, int numOfMountains);
+
+    AltitudeData build(double width, double height, int numOfMountains, double maxAltitude, double steepnessFactor);
 }

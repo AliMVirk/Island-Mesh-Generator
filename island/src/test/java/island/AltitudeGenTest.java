@@ -10,6 +10,7 @@ import island.generators.AltitudeGen;
 import java.util.ArrayList;
 import java.util.List;
 
+import island.profiles.altitude.AltitudeData;
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.Coordinate;
 
@@ -37,7 +38,9 @@ public class AltitudeGenTest {
         List<Coordinate> coords = new ArrayList<>();
         coords.add(new Coordinate(50, 50));
 
-        tiles = agen.transform(aMesh, tiles, coords, 10, 0);
+        AltitudeData altitudeData = new AltitudeData(coords, 10, 0);
+
+        tiles = agen.transform(aMesh, tiles, altitudeData);
         assertEquals(tiles.get(0).getAltitude(), 10);
         assertEquals(tiles.get(1).getAltitude(), 0);
     }
@@ -60,7 +63,10 @@ public class AltitudeGenTest {
         List<Coordinate> coords = new ArrayList<>();
         coords.add(new Coordinate(0, 0));
 
-        tiles = agen.transform(aMesh, tiles, coords, 10, 0.5);
+        AltitudeData altitudeData = new AltitudeData(coords, 10, 0.5);
+
+
+        tiles = agen.transform(aMesh, tiles, altitudeData);
         assertEquals(tiles.get(0).getAltitude(), 10);
         assertEquals(tiles.get(1).getAltitude(), 5);
     }
@@ -85,7 +91,9 @@ public class AltitudeGenTest {
         coords.add(new Coordinate(0, 0));
 
         // Test altitudes with no land tiles
-        tiles = agen.transform(aMesh, tiles, coords, 10, 0.5);
+        AltitudeData altitudeData = new AltitudeData(coords, 10, 0.5);
+
+        tiles = agen.transform(aMesh, tiles, altitudeData);
         assertEquals(tiles.get(0).getAltitude(), 0);
         assertEquals(tiles.get(1).getAltitude(), 0);
 
@@ -93,7 +101,7 @@ public class AltitudeGenTest {
         tiles.clear();
         tiles.add(new Tile(Type.WATER, null));
         tiles.add(new Tile(Type.LAND, null));
-        tiles = agen.transform(aMesh, tiles, coords, 10, 0.5);
+        tiles = agen.transform(aMesh, tiles, altitudeData);
         assertEquals(tiles.get(0).getAltitude(), 0);
     }
 

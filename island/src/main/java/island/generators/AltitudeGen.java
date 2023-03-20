@@ -9,12 +9,16 @@ import island.Tile.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import island.profiles.altitude.AltitudeData;
 import org.locationtech.jts.geom.Coordinate;
 import java.awt.Color;
 
 public class AltitudeGen {
     
-    public List<Tile> transform(Mesh oMesh, List<Tile> tiles, List<Coordinate> coords, int maxAltitude, double steepnessFactor) {
+    public List<Tile> transform(Mesh oMesh, List<Tile> tiles, AltitudeData altitudeData) {
+        List<Coordinate> coords = altitudeData.getCoords();
+        double maxAltitude = altitudeData.getMaxAltitude();
+        double steepnessFactor = altitudeData.getSteepnessFactor();
         List<Integer> assignAltitude = new ArrayList<>();
 
         // Initialize nearest vertex variable as centroid of first found land tile
