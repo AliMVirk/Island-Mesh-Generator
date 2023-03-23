@@ -27,7 +27,7 @@ public class RiverGen {
             int segmentIndex = p.getSegmentIdxs(rnd.nextInt(p.getSegmentIdxsCount()));
             Segment s = oMesh.getSegments(segmentIndex);
             Vertex spring = oMesh.getVertices(s.getV1Idx());
-            int previousDischarge = rnd.nextInt(2) + 1;
+            double previousDischarge = rnd.nextDouble(1.5) + 0.5;
             if (rivers[segmentIndex] != null)
                 previousDischarge += rivers[segmentIndex].getDischarge();
             rivers[segmentIndex] = new River(previousDischarge);
