@@ -69,7 +69,7 @@ public class RiverGen {
 
     private int findLowestTile(Mesh mesh, List<Tile> tiles, int pIndex, Vertex v) {
         Polygon p = mesh.getPolygons(pIndex);
-        int nIndex = p.getNeighborIdxs(0);
+        int nIndex = -1;
         List<Integer> neighbors = new ArrayList<>(p.getNeighborIdxsList());
         do {
             double minAltitude = tiles.get(pIndex).getAltitude();
