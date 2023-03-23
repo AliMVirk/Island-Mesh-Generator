@@ -27,10 +27,10 @@ public class RiverGen {
             int segmentIndex = p.getSegmentIdxs(rnd.nextInt(p.getSegmentIdxsCount()));
             Segment s = oMesh.getSegments(segmentIndex);
             Vertex spring = oMesh.getVertices(s.getV1Idx());
-            if (rivers[segmentIndex] == null)
-                rivers[segmentIndex] = new River(rnd.nextInt(2) + 1);
-            else
-                rivers[segmentIndex].setDischarge(rivers[segmentIndex].getDischarge() * 2);
+            int previousDischarge = rnd.nextInt(2) + 1;
+            if (rivers[segmentIndex] != null)
+                previousDischarge += rivers[segmentIndex].getDischarge();
+            rivers[segmentIndex] = new River(previousDischarge);
 
             // Continue extending river until it reaches water or a lowest point
             while (true) {
@@ -42,10 +42,9 @@ public class RiverGen {
                 spring = (oMesh.getVertices(s.getV1Idx()).equals(spring)) ? oMesh.getVertices(s.getV2Idx()) : oMesh.getVertices(s.getV1Idx());
                 if (tiles.get(pIndex).getType().equals(Type.WATER.toString()) || tiles.get(pIndex).getType().equals(Type.LAKE.toString()))
                     break;
-                if (rivers[segmentIndex] == null)
-                    rivers[segmentIndex] = new River(rnd.nextInt(2) + 1);
-                else
-                    rivers[segmentIndex].setDischarge(rivers[segmentIndex].getDischarge() * 2);
+                if (rivers[segmentIndex] != null)
+                    previousDischarge += rivers[segmentIndex].getDischarge();
+                rivers[segmentIndex] = new River(previousDischarge);
             }
         }
 
