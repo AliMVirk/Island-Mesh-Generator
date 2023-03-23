@@ -24,10 +24,6 @@ public class Tile {
         return this.type.toString();
     }
 
-    public void setType(Type type) {
-        this.type = type;
-    }
-
     public String getColor(){
         return Integer.toString(this.color.getRGB());
     }
