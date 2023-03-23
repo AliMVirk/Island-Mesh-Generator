@@ -1,16 +1,18 @@
 package island.Tile;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class Tile {
     private Type type;
     private Color color;
     private double altitude;
+    private double humidity;
 
     public Tile (Type type, Color color){
         this.type = type;
         this.color = color;
         this.altitude = 0;
+        this.humidity = 0;
     }
 
     public String getType(){
@@ -35,6 +37,14 @@ public class Tile {
 
     public void setAltitude(double altitude) {
         this.altitude = altitude;
+    }
+
+    public double getHumidity() {
+        return this.humidity;
+    }
+
+    public void setHumidity(double humidity) {
+        this.humidity = humidity;
     }
 
 }
