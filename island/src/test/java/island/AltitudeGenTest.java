@@ -67,8 +67,8 @@ public class AltitudeGenTest {
 
 
         tiles = agen.transform(aMesh, tiles, altitudeData);
-        assertEquals(tiles.get(0).getAltitude(), 10);
-        assertEquals(tiles.get(1).getAltitude(), 5);
+        assertEquals(Math.round(tiles.get(0).getAltitude()), 10);
+        assertEquals(Math.round(tiles.get(1).getAltitude()), 5);
     }
 
 

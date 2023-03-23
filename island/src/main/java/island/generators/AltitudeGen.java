@@ -8,6 +8,7 @@ import island.Tile.Type;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import island.profiles.altitude.AltitudeData;
 import org.locationtech.jts.geom.Coordinate;
@@ -52,6 +53,7 @@ public class AltitudeGen {
             assignAltitude.add(peakIndex);
         }
 
+        Random rnd = new Random();
         // Assign max altitude to peaks
         for (int i : assignAltitude)
             tiles.get(i).setAltitude(maxAltitude);
@@ -63,7 +65,7 @@ public class AltitudeGen {
                 Tile nTile = tiles.get(n);
                 if (!nTile.getType().equals(Type.WATER.toString())) {
                     if (nTile.getAltitude() == 0 && nTile.getAltitude() < tiles.get(i).getAltitude()) {
-                        nTile.setAltitude(tiles.get(i).getAltitude() * steepnessFactor);
+                        nTile.setAltitude(tiles.get(i).getAltitude() * steepnessFactor + ((rnd.nextDouble() - 0.5) / 10));
                         pendingTiles.add(n);
                     }
                 }
