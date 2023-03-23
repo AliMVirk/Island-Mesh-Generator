@@ -36,6 +36,7 @@ public class MeshConfiguration {
     }
 
     public void generateIsland() throws IOException {
+        // Fetch command line arguments
         String shape = config.export("shape");
         if (shape == null) shape = "polygon";
         String mode = config.export("mode");
@@ -44,6 +45,8 @@ public class MeshConfiguration {
         if (altProfile == null) altProfile = "";
         String numLakes = config.export("lakes");
         if (numLakes == null) numLakes = "5";
+        String numRivers = config.export("rivers");
+        if (numRivers == null) numRivers = "5";
 
         MeshFactory factory = new MeshFactory();
         Mesh originalMesh = factory.read(config.export("i")); // Read input mesh
@@ -109,7 +112,7 @@ public class MeshConfiguration {
 
         // Create rivers
         RiverGen rgen = new RiverGen();
-        River[] rivers = rgen.createRivers(originalMesh, tiles, 10);
+        River[] rivers = rgen.createRivers(originalMesh, tiles, Integer.parseInt(numRivers));
 
         // Turn tiles into polygon properties
         Mesh islandMesh = mutateMesh(originalMesh, tiles, rivers);
