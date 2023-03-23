@@ -5,10 +5,10 @@ import java.awt.Color;
 public class River {
     
     private final Color color = new Color(1, 64, 98);
-    private int discharge;
+    private double discharge;
     private int humidity;
 
-    public River(int dischargeLevel) {
+    public River(double dischargeLevel) {
         discharge = dischargeLevel;
     }
 
@@ -24,7 +24,7 @@ public class River {
         this.humidity = val;
     }
 
-    public int getDischarge(){
+    public double getDischarge(){
         return this.discharge;
     }
 
