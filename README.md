@@ -69,7 +69,7 @@ The following information shows how to transform an existing mesh by generating 
 When running the island generator, the following arguments can be used to control the island generation:
 
 ```
-java -jar island/island.jar -i <mesh input path> -o <mesh output path> --mode <generation mode> --shape <island shape> --altitude <altitude profile>
+java -jar island/island.jar -i <mesh input path> -o <mesh output path> --mode <generation mode> --shape <island shape> --altitude <altitude profile> --lakes <max number of lakes>
 ```
 
 To see all possible user configurations, run the above with argument ```-h``` or ```--help```
@@ -155,7 +155,7 @@ If a feature works as intended without bugs and the code is clean and concise, i
 |  F22  | Introduce humidity to tiles near lake tiles                                                                                                   | Ali     |           |           | P               |
 |  F23  | Vegetation can be influenced by nearby lake tiles                                                                                             | Qamrosh |           |           | P               |
 |  F24  | The maximum number of lakes can be controlled via command line arguments                                                                      | Hamza   | 3/22/2023 | 3/22/2023 | D               |
-|  F25  | Add rivers that start at a random vertex and follow a line of edges                                                                           | Qamrosh |           |           | P               |
+|  F25  | Add rivers that start at a random vertex and follow a line of edges                                                                           | Qamrosh | 03/21/2023 | 03/22/2023 | D               |
 |  F26  | Rivers stop flowing at lowest point or when an ocean tile is reached                                                                          | Ali     |           |           | B (F25)         |
 |  F27  | Introduce humidity to tiles near the river                                                                                                    | Qamrosh |           |           | P               |
 |  F28  | Vegetation can be influenced by nearby river tiles                                                                                            | Hamza   |           |           | P               |
