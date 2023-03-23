@@ -28,6 +28,19 @@ public class RiverGen {
             Segment s = oMesh.getSegments(segmentIndex);
             Vertex spring = oMesh.getVertices(s.getV1Idx());
             rivers[segmentIndex] = new River(2);
+
+            // Continue extending river until it reaches water or a lowest point
+            while (true) {
+                pIndex = findLowestTile(oMesh, tiles, pIndex, spring);
+                if (pIndex == -1) break;
+                p = oMesh.getPolygons(pIndex);
+                segmentIndex = findConnectingSegment(oMesh, p, spring);
+                s = oMesh.getSegments(segmentIndex);
+                spring = (oMesh.getVertices(s.getV1Idx()).equals(spring)) ? oMesh.getVertices(s.getV2Idx()) : oMesh.getVertices(s.getV1Idx());
+                if (tiles.get(pIndex).getType().equals(Type.WATER.toString()) || tiles.get(pIndex).getType().equals(Type.LAKE.toString()))
+                    break;
+                rivers[segmentIndex] = new River(2);
+            }
         }
 
         return rivers;
@@ -47,6 +60,38 @@ public class RiverGen {
                 validPolygonIdxs.add(i);
         }
         return validPolygonIdxs;
+    }
+
+    private int findLowestTile(Mesh mesh, List<Tile> tiles, int pIndex, Vertex v) {
+        Polygon p = mesh.getPolygons(pIndex);
+        int nIndex = p.getNeighborIdxs(0);
+        List<Integer> neighbors = new ArrayList<>(p.getNeighborIdxsList());
+        do {
+            double minAltitude = tiles.get(pIndex).getAltitude();
+            for (int i : neighbors) {
+                if (tiles.get(i).getAltitude() < minAltitude) {
+                    minAltitude = tiles.get(i).getAltitude();
+                    nIndex = i;
+                }
+            }
+            if (minAltitude == tiles.get(pIndex).getAltitude())
+                return -1;
+            else
+                neighbors.remove((Object) nIndex);
+        } while (findConnectingSegment(mesh, mesh.getPolygons(nIndex), v) == -1);
+        return nIndex;
+    }
+
+    private int findConnectingSegment(Mesh mesh, Polygon n, Vertex v) {
+        for (int i : n.getSegmentIdxsList()) {
+            Segment s = mesh.getSegments(i);
+            Vertex v1 = mesh.getVertices(s.getV1Idx());
+            Vertex v2 = mesh.getVertices(s.getV2Idx());
+            if (v1.equals(v) != v2.equals(v)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }
