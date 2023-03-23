@@ -130,7 +130,7 @@ If a feature works as intended without bugs and the code is clean and concise, i
 ### Product Backlog
 
 |  Id   | Feature title                                                                                                                                 | Who?    | Start     | End       | Status          |
-| :---: | --------------------------------------------------------------------------------------------------------------------------------------------- | ------- |-----------|-----------|-----------------|
+| :---: | --------------------------------------------------------------------------------------------------------------------------------------------- | ------- | --------- | --------- | --------------- |
 |  F01  | All squares in the mesh grid are polygons                                                                                                     | Qamrosh | 2/15/2023 | 2/15/2023 | D               |
 |  F02  | Polygons includes indexes to all segments, including those shared by neighbours                                                               | Ali     | 2/17/2023 | 2/17/2023 | D               |
 |  F03  | Polygons list their segments consecutively                                                                                                    | Qamrosh | 2/15/2023 | 2/15/2023 | D               |
@@ -155,8 +155,8 @@ If a feature works as intended without bugs and the code is clean and concise, i
 |  F22  | Introduce humidity to tiles near lake tiles                                                                                                   | Ali     |           |           | P               |
 |  F23  | Vegetation can be influenced by nearby lake tiles                                                                                             | Qamrosh |           |           | P               |
 |  F24  | The maximum number of lakes can be controlled via command line arguments                                                                      | Hamza   | 3/22/2023 | 3/22/2023 | D               |
-|  F25  | Add rivers that start at a random vertex and follow a line of edges                                                                           | Qamrosh | 03/21/2023 | 03/22/2023 | D               |
-|  F26  | Rivers stop flowing at lowest point or when an ocean tile is reached                                                                          | Ali     |           |           | B (F25)         |
+|  F25  | Add rivers that start at a random vertex and follow a line of edges                                                                           | Qamrosh | 3/21/2023 | 3/22/2023 | D               |
+|  F26  | Rivers stop flowing at lowest point or when an ocean tile is reached                                                                          | Ali     | 3/22/2023 | 3/22/2023 | D               |
 |  F27  | Introduce humidity to tiles near the river                                                                                                    | Qamrosh |           |           | P               |
 |  F28  | Vegetation can be influenced by nearby river tiles                                                                                            | Hamza   |           |           | P               |
 |  F29  | Implement discharge level, which controls thickness, and adjust it when rivers merge                                                          | Ali     |           |           | B (F25)         |
