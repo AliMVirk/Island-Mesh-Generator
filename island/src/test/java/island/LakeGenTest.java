@@ -9,6 +9,7 @@ import island.generators.LakeGen;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,7 +33,7 @@ public class LakeGenTest {
         tiles.add(new Tile(Type.LAND, null));
 
         tiles = lgen.transform(aMesh, tiles, 1);
-        boolean lakeExists = tiles.get(0).getType().equals(Type.LAKE.toString()) || tiles.get(1).getType().equals(Type.LAKE.toString());
+        boolean lakeExists = tiles.get(0).getType().equals(Type.WATER.toString()) || tiles.get(1).getType().equals(Type.WATER.toString());
         assertTrue(lakeExists);
     }
 
@@ -52,6 +53,29 @@ public class LakeGenTest {
 
         tiles = lgen.transform(aMesh, tiles, 1);
         assertEquals(Type.LAND.toString(), tiles.get(1).getType());
+    }
+
+    @Test
+    public void correctHumidity() {
+        // Create test mesh
+        Vertex v1 = Vertex.newBuilder().setX(0).setY(0).build();
+        Vertex v2 = Vertex.newBuilder().setX(250).setY(250).build();
+        Polygon p1 = Polygon.newBuilder().setCentroidIdx(0).build();
+        Polygon p2 = Polygon.newBuilder().setCentroidIdx(1).build();
+        Mesh aMesh = Mesh.newBuilder().addVertices(v1).addVertices(v2).addPolygons(p1).addPolygons(p2).build();
+
+        // Create corresponding tiles
+        List<Tile> tiles = new ArrayList<>();
+        tiles.add(new Tile(Type.LAND, null));
+        tiles.add(new Tile(Type.LAND, null));
+
+        tiles = lgen.transform(aMesh, tiles, new Random().nextInt(tiles.size()));
+        for (Tile t : tiles) {
+            if (t.getType().equals(Type.WATER.toString()))
+                assertEquals(100, t.getHumidity());
+            else
+                assertEquals(0, t.getHumidity());
+        }
     }
 
 }
