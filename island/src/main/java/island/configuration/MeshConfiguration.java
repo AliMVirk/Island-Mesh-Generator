@@ -13,6 +13,8 @@ import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
+import island.Tile.River;
 import island.Tile.Tile;
 import island.profiles.altitude.Volcano;
 import island.profiles.altitude.CornerMountains;
@@ -21,6 +23,7 @@ import island.shapes.Ellipse;
 import island.shapes.Rectangle;
 import island.generators.AltitudeGen;
 import island.generators.LandGen;
+import island.generators.RiverGen;
 import island.generators.LagoonGen;
 import island.generators.LakeGen;
 
@@ -100,12 +103,16 @@ public class MeshConfiguration {
         AltitudeGen agen = new AltitudeGen();
         tiles = agen.transform(originalMesh, tiles, altitudeData);
 
+        // Create lakes
         LakeGen lgen = new LakeGen();
         tiles = lgen.transform(originalMesh, tiles, Integer.parseInt(numLakes));
 
+        // Create rivers
+        RiverGen rgen = new RiverGen();
+        River[] rivers = rgen.createRivers(originalMesh, tiles, 10);
 
         // Turn tiles into polygon properties
-        Mesh islandMesh = mutateMesh(originalMesh, tiles);
+        Mesh islandMesh = mutateMesh(originalMesh, tiles, rivers);
 
         // Create lagoon island if specified
         if (mode.equals("lagoon")) {
@@ -116,11 +123,12 @@ public class MeshConfiguration {
         factory.write(islandMesh, config.export("o")); // Write to output mesh
     }
 
-    private Mesh mutateMesh(Mesh oMesh, List<Tile> tiles) {
+    private Mesh mutateMesh(Mesh oMesh, List<Tile> tiles, River[] rivers) {
         // Extract mesh
         Mesh.Builder mesh = Mesh.newBuilder();
-        mesh.addAllVertices(oMesh.getVerticesList()).addAllSegments(oMesh.getSegmentsList()).addAllProperties(oMesh.getPropertiesList());
+        mesh.addAllVertices(oMesh.getVerticesList()).addAllProperties(oMesh.getPropertiesList());
 
+        // Extract polygon properties from tile attributes
         for (int i = 0; i < oMesh.getPolygonsCount(); i++) {
             Polygon oPoly = oMesh.getPolygons(i);
             // Duplicate polygon from original mesh
@@ -131,6 +139,22 @@ public class MeshConfiguration {
             Property tileAltitude = Property.newBuilder().setKey("tile_altitude").setValue(Double.toString(tiles.get(i).getAltitude())).build();
             p.addProperties(tileType).addProperties(tileColor).addProperties(tileAltitude);
             mesh.addPolygons(p.build());
+        }
+
+        // Extract segment properties from river attributes
+        for (int i = 0; i < oMesh.getSegmentsCount(); i++) {
+            Segment oSegment = oMesh.getSegments(i);
+            // Duplicate segment from original mesh
+            Segment.Builder s = Segment.newBuilder().setV1Idx(oSegment.getV1Idx()).setV2Idx(oSegment.getV2Idx());
+            if (rivers[i] == null) {
+                s.addAllProperties(oSegment.getPropertiesList()); // Non-river segment
+            } else {
+                // Set river properties for corresponding segment
+                Property color = Property.newBuilder().setKey("rgb_color").setValue(rivers[i].getColor()).build();
+                Property thickness = Property.newBuilder().setKey("thickness").setValue(String.valueOf(rivers[i].getDischarge())).build();
+                s.addProperties(color).addProperties(thickness);
+            }
+            mesh.addSegments(s);
         }
 
         return mesh.build();
