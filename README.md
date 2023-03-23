@@ -159,7 +159,7 @@ If a feature works as intended without bugs and the code is clean and concise, i
 |  F26  | Rivers stop flowing at lowest point or when an ocean tile is reached                                                                          | Ali     | 3/22/2023 | 3/22/2023 | D               |
 |  F27  | Introduce humidity to tiles near the river                                                                                                    | Qamrosh |           |           | P               |
 |  F28  | Vegetation can be influenced by nearby river tiles                                                                                            | Hamza   |           |           | P               |
-|  F29  | Implement discharge level, which controls thickness, and adjust it when rivers merge                                                          | Ali     |           |           | B (F25)         |
+|  F29  | Implement discharge level, which controls thickness, and adjust it when rivers merge                                                          | Ali     | 3/22/2023 | 3/22/2023 | D               |
 |  F30  | The number of rivers can be controlled via command line arguments                                                                             | Qamrosh |           |           | B (F25)         |
 |  F31  | The bigger the river the more the more moisture it brings to the surrounding soil                                                             | Hamza   |           |           | B (F29)         |
 |  F32  | Introduce aquifers (underground bodies of water), located randomly around the island                                                          | Ali     |           |           | P               |
