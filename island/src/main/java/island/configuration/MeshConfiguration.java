@@ -39,6 +39,8 @@ public class MeshConfiguration {
         if (mode == null) mode = "";
         String altProfile = config.export("altitude");
         if (altProfile == null) altProfile = "";
+        String numLakes = config.export("lakes");
+        if (numLakes == null) numLakes = "5";
 
         MeshFactory factory = new MeshFactory();
         Mesh originalMesh = factory.read(config.export("i")); // Read input mesh
@@ -99,7 +101,8 @@ public class MeshConfiguration {
         tiles = agen.transform(originalMesh, tiles, altitudeData);
 
         LakeGen lgen = new LakeGen();
-        tiles = lgen.transform(originalMesh, tiles, 5);
+        tiles = lgen.transform(originalMesh, tiles, Integer.parseInt(numLakes));
+
 
         // Turn tiles into polygon properties
         Mesh islandMesh = mutateMesh(originalMesh, tiles);
