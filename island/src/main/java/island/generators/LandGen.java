@@ -5,6 +5,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import island.Tile.Tile;
 import island.Tile.Type;
+import island.Tiles.LandTile;
 
 import java.awt.Color;
 import java.awt.geom.Path2D;
@@ -22,9 +23,9 @@ public class LandGen {
             Vertex v = oMesh.getVertices(oPoly.getCentroidIdx());
             // Check if centroid of polygon is within appropriate circle
             if (shape.contains(v.getX(), v.getY()))
-                tile = new Tile(Type.LAND, new Color(144, 137, 53));
+                tile = new LandTile();
             else
-                tile = new Tile(Type.WATER, new Color(1, 64, 98));
+                tile = new Tile(Type.WATER, new Color(1, 64, 98), 150);
             // Set tile type property for corresponding polygon
             tiles.add(tile);
         }
