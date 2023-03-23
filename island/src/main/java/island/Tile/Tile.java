@@ -15,6 +15,11 @@ public class Tile {
         this.humidity = 0;
     }
 
+    public Tile(Type type, Color color, double humidity) {
+        this(type, color);
+        this.humidity = humidity;
+    }
+
     public String getType(){
         return this.type.toString();
     }
