@@ -12,8 +12,14 @@ public class LandTile extends Tile {
 
     public LandTile() {
         super(Type.LAND, new Color(144, 137, 53));
-        moisture = 0;
-        vegetation = 0;
+        this.moisture = 0;
+        this.vegetation = 0;
+    }
+
+    public LandTile(double humidity) {
+        super(Type.AQUIFER, new Color(144, 137, 53), humidity);
+        this.moisture = 0;
+        this.vegetation = 0;
     }
 
     public double getMoisture() {
