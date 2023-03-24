@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EnrichmentGenTest {
-    
+
     private EnrichmentGen egen = new EnrichmentGen();
 
     @Test
@@ -67,6 +67,10 @@ public class EnrichmentGenTest {
         tiles = egen.enrichLand(aMesh, tiles, rivers);
         // Test humidity
         assertEquals(rivers[0].getDischarge() * 5, tiles.get(0).getHumidity());
+        // Test moisture
+        assertEquals(rivers[0].getDischarge() * 2.5, ((LandTile)tiles.get(0)).getMoisture());
+        // Test vegetation
+        assertEquals(rivers[0].getDischarge() * 1.25, ((LandTile)tiles.get(0)).getVegetation());
     }
 
 }
