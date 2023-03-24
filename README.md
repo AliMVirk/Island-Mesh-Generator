@@ -69,7 +69,7 @@ The following information shows how to transform an existing mesh by generating 
 When running the island generator, the following arguments can be used to control the island generation:
 
 ```
-java -jar island/island.jar -i <mesh input path> -o <mesh output path> --mode <generation mode> --shape <island shape> --altitude <altitude profile> --lakes <max number of lakes> --rivers <number of rivers>
+java -jar island/island.jar -i <mesh input path> -o <mesh output path> --mode <generation mode> --shape <island shape> --altitude <altitude profile> --lakes <max number of lakes> --rivers <number of rivers> --aquifers <number of aquifers>
 ```
 
 To see all possible user configurations, run the above with argument ```-h``` or ```--help```
@@ -163,7 +163,7 @@ If a feature works as intended without bugs and the code is clean and concise, i
 |  F30  | The number of rivers can be controlled via command line arguments                                                                             | Qamrosh | 3/22/2023 | 3/22/2023 | D       |
 |  F31  | The bigger the river the more the more moisture it brings to the surrounding soil                                                             | Hamza   | 3/23/2023 | 3/23/2023 | D       |
 |  F32  | Introduce aquifers (underground bodies of water), located randomly around the island                                                          | Ali     | 3/23/2023 | 3/23/2023 | D       |
-|  F33  | Aquifers bring moisture to surrounding tiles                                                                                                  | Qamrosh |           |           | P       |
+|  F33  | Aquifers bring moisture to surrounding tiles                                                                                                  | Qamrosh | 3/23/2023 | 3/23/2023 | D       |
 |  F34  | The number of aquifers is controlled via command line arguments                                                                               | Hamza   | 3/23/2023 | 3/23/2023 | D       |
 |  F35  | Soil can absorb humidity/moisture from nearby bodies of water                                                                                 | Ali     |           |           | P       |
 |  F36  | The speed at which soil absorbs humidity is dependent on its composition                                                                      | Qamrosh |           |           | B (F35) |
