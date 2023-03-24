@@ -22,13 +22,6 @@ public class AquiferGen {
             int index = polygonIdxs.get(rnd.nextInt(polygonIdxs.size()));
             tiles.set(index, new LandTile(100));
             polygonIdxs.remove((Object) index);
-            // Go through the aquifer's neighbors and randomly set some as aquifers
-            for (int n : oMesh.getPolygons(index).getNeighborIdxsList()){
-                if (rnd.nextBoolean() && polygonIdxs.contains(n)) {
-                    tiles.set(n, new LandTile(100));
-                    polygonIdxs.remove((Object) n);
-                }
-            }
         }
 
         return tiles;

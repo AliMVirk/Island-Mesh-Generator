@@ -49,7 +49,7 @@ public class MeshConfiguration {
         if (numLakes == null) numLakes = "5";
         String numRivers = config.export("rivers");
         if (numRivers == null) numRivers = "5";
-        String numAquifers = config.export("rivers");
+        String numAquifers = config.export("aquifers");
         if (numAquifers == null) numAquifers = "5";
 
         MeshFactory factory = new MeshFactory();
