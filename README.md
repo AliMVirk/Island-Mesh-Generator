@@ -129,48 +129,48 @@ If a feature works as intended without bugs and the code is clean and concise, i
 
 ### Product Backlog
 
-|  Id   | Feature title                                                                                                                                 | Who?    | Start     | End       | Status          |
-| :---: | --------------------------------------------------------------------------------------------------------------------------------------------- | ------- |-----------|-----------|-----------------|
-|  F01  | All squares in the mesh grid are polygons                                                                                                     | Qamrosh | 2/15/2023 | 2/15/2023 | D               |
-|  F02  | Polygons includes indexes to all segments, including those shared by neighbours                                                               | Ali     | 2/17/2023 | 2/17/2023 | D               |
-|  F03  | Polygons list their segments consecutively                                                                                                    | Qamrosh | 2/15/2023 | 2/15/2023 | D               |
-|  F04  | Polygons include an index to their center vertex                                                                                              | Hamza   | 2/17/2023 | 2/17/2023 | D               |
-|  F05  | Mesh contains no duplicate vertices, segments, or polygons                                                                                    | Qamrosh | 2/15/2023 | 2/15/2023 | D               |
-|  F06  | Vertices, segments, and polygons should have colors and thickness information                                                                 | Ali     | 2/18/2023 | 2/18/2023 | D               |
-|  F07  | Debug mode, toggled by -X flag as cmd line argument, shows polygons in black, centroids in red, and neighbourhood relationships in light grey | Hamza   | 2/19/2023 | 2/19/2023 | D               |
-|  F08  | Generate random points, one for each expected polygon                                                                                         | Hamza   | 2/23/2023 | 2/23/2023 | D               |
-|  F09  | Compute the Voronoi Diagram of the generated points to create a mesh                                                                          | Qamrosh | 2/24/2023 | 2/25/2023 | D               |
-|  F10  | Apply and repeat Lloyd relaxation to the mesh until it is smoothened                                                                          | Qamrosh | 2/25/2023 | 2/25/2023 | D               |
-|  F11  | Compute neighbourhood relationships using Delaunay’s triangulation                                                                            | Hamza   | 2/25/2023 | 2/26/2023 | D               |
-|  F12  | For each irregular polygon, reorder its segments by computing its Convex Hull so that the consecutiveness invariants holds                    | Ali     | 2/26/2023 | 2/26/2023 | D               |
-|  F13  | User can control the type of mesh and relevant configurations                                                                                 | Qamrosh | 2/26/2023 | 2/27/2023 | D               |
-|  F14  | Introduce a property to differentiate types of polygon tiles as "water and "land" tiles                                                       | Ali     | 2/28/2023 | 3/03/2023 | D               |
-|  F15  | Add "lagoon" tiles                                                                                                                            | Hamza   | 3/06/2023 | 3/06/2023 | D               |
-|  F16  | Modify tiles on the boundary to be "beach" tiles                                                                                              | Qamrosh | 3/06/2023 | 3/06/2023 | D               |
-|  F17  | Implement command line configuration of input and output mesh                                                                                 | Ali     | 2/28/2023 | 3/02/2023 | D               |
-|  F18  | Implement user configurable island shapes                                                                                                     | Ali     | 3/13/2023 | 3/13/2023 | D               |
-|  F19  | Implement differing altitude for tiles                                                                                                        | Qamrosh | 3/15/2023 | 3/15/2023 | D               |
-|  F20  | Allow user to configure altitude profiles                                                                                                     | Hamza   | 3/16/2023 | 3/18/2023 | D               |
-|  F21  | Implement water-type tiles as lakes tiles                                                                                                     | Hamza   | 3/20/2023 | 3/22/2023 | D               |
-|  F22  | Introduce humidity to tiles near lake tiles                                                                                                   | Ali     | 3/23/2023 | 3/23/2023 | D               |
-|  F23  | Vegetation can be influenced by nearby lake tiles                                                                                             | Qamrosh | 3/23/2023 | 3/23/2023 | D               |
-|  F24  | The maximum number of lakes can be controlled via command line arguments                                                                      | Hamza   | 3/22/2023 | 3/22/2023 | D               |
-|  F25  | Add rivers that start at a random vertex and follow a line of edges                                                                           | Qamrosh | 3/21/2023 | 3/22/2023 | D               |
-|  F26  | Rivers stop flowing at lowest point or when an ocean tile is reached                                                                          | Ali     | 3/22/2023 | 3/22/2023 | D               |
-|  F27  | Introduce humidity to tiles near the river                                                                                                    | Qamrosh | 3/23/2023 | 3/23/2023 | D               |
-|  F28  | Vegetation can be influenced by nearby river tiles                                                                                            | Hamza   | 3/23/2023 | 3/23/2023 | D               |
-|  F29  | Implement discharge level, which controls thickness, and adjust it when rivers merge                                                          | Ali     | 3/22/2023 | 3/22/2023 | D               |
-|  F30  | The number of rivers can be controlled via command line arguments                                                                             | Qamrosh | 3/22/2023 | 3/22/2023 | D               |
-|  F31  | The bigger the river the more the more moisture it brings to the surrounding soil                                                             | Hamza   | 3/23/2023 | 3/23/2023 | D               |
-|  F32  | Introduce aquifers (underground bodies of water), located randomly around the island                                                          | Ali     |           |           | P               |
-|  F33  | Aquifers bring moisture to surrounding tiles                                                                                                  | Qamrosh |           |           | P               |
-|  F34  | The number of aquifers is controlled via command line arguments                                                                               | Hamza   |           |           | B (F32)         |
-|  F35  | Soil can absorb humidity/moisture from nearby bodies of water                                                                                 | Ali     |           |           | B (F21/F25/F32) |
-|  F36  | The speed at which soil absorbs humidity is dependent on its composition                                                                      | Qamrosh |           |           | B (F35)         |
-|  F37  | The absorption profile is decided via a command line argument                                                                                 | Ali     |           |           | B (F36)         |
-|  F38  | Group collections of tiles as biomes based on temperature and humidity                                                                        | Hamza   |           |           | B (F22/F27/F35) |
-|  F39  | Different biomes should be represented with different colours                                                                                 | Qamrosh |           |           | B (F38)         |
-|  F40  | Allow user to configure the island biome                                                                                                      | Ali     |           |           | B (F38)         |
-|  F41  | Fetch temperature and humidity information based on user configured biomes                                                                    | Hamza   |           |           | B (F40)         |
-|  F42  | Attribute a seed for each random configuration and island generation                                                                          | Qamrosh |           |           | P               |
-|  F43  | Allow user to input a seed that will reproduce the same island generation method                                                              | Ali     |           |           | B (F42)         |
+|  Id   | Feature title                                                                                                                                 | Who?    | Start     | End       | Status  |
+| :---: | --------------------------------------------------------------------------------------------------------------------------------------------- | ------- | --------- | --------- | ------- |
+|  F01  | All squares in the mesh grid are polygons                                                                                                     | Qamrosh | 2/15/2023 | 2/15/2023 | D       |
+|  F02  | Polygons includes indexes to all segments, including those shared by neighbours                                                               | Ali     | 2/17/2023 | 2/17/2023 | D       |
+|  F03  | Polygons list their segments consecutively                                                                                                    | Qamrosh | 2/15/2023 | 2/15/2023 | D       |
+|  F04  | Polygons include an index to their center vertex                                                                                              | Hamza   | 2/17/2023 | 2/17/2023 | D       |
+|  F05  | Mesh contains no duplicate vertices, segments, or polygons                                                                                    | Qamrosh | 2/15/2023 | 2/15/2023 | D       |
+|  F06  | Vertices, segments, and polygons should have colors and thickness information                                                                 | Ali     | 2/18/2023 | 2/18/2023 | D       |
+|  F07  | Debug mode, toggled by -X flag as cmd line argument, shows polygons in black, centroids in red, and neighbourhood relationships in light grey | Hamza   | 2/19/2023 | 2/19/2023 | D       |
+|  F08  | Generate random points, one for each expected polygon                                                                                         | Hamza   | 2/23/2023 | 2/23/2023 | D       |
+|  F09  | Compute the Voronoi Diagram of the generated points to create a mesh                                                                          | Qamrosh | 2/24/2023 | 2/25/2023 | D       |
+|  F10  | Apply and repeat Lloyd relaxation to the mesh until it is smoothened                                                                          | Qamrosh | 2/25/2023 | 2/25/2023 | D       |
+|  F11  | Compute neighbourhood relationships using Delaunay’s triangulation                                                                            | Hamza   | 2/25/2023 | 2/26/2023 | D       |
+|  F12  | For each irregular polygon, reorder its segments by computing its Convex Hull so that the consecutiveness invariants holds                    | Ali     | 2/26/2023 | 2/26/2023 | D       |
+|  F13  | User can control the type of mesh and relevant configurations                                                                                 | Qamrosh | 2/26/2023 | 2/27/2023 | D       |
+|  F14  | Introduce a property to differentiate types of polygon tiles as "water and "land" tiles                                                       | Ali     | 2/28/2023 | 3/03/2023 | D       |
+|  F15  | Add "lagoon" tiles                                                                                                                            | Hamza   | 3/06/2023 | 3/06/2023 | D       |
+|  F16  | Modify tiles on the boundary to be "beach" tiles                                                                                              | Qamrosh | 3/06/2023 | 3/06/2023 | D       |
+|  F17  | Implement command line configuration of input and output mesh                                                                                 | Ali     | 2/28/2023 | 3/02/2023 | D       |
+|  F18  | Implement user configurable island shapes                                                                                                     | Ali     | 3/13/2023 | 3/13/2023 | D       |
+|  F19  | Implement differing altitude for tiles                                                                                                        | Qamrosh | 3/15/2023 | 3/15/2023 | D       |
+|  F20  | Allow user to configure altitude profiles                                                                                                     | Hamza   | 3/16/2023 | 3/18/2023 | D       |
+|  F21  | Implement water-type tiles as lakes tiles                                                                                                     | Hamza   | 3/20/2023 | 3/22/2023 | D       |
+|  F22  | Introduce humidity to tiles near lake tiles                                                                                                   | Ali     | 3/23/2023 | 3/23/2023 | D       |
+|  F23  | Vegetation can be influenced by nearby lake tiles                                                                                             | Qamrosh | 3/23/2023 | 3/23/2023 | D       |
+|  F24  | The maximum number of lakes can be controlled via command line arguments                                                                      | Hamza   | 3/22/2023 | 3/22/2023 | D       |
+|  F25  | Add rivers that start at a random vertex and follow a line of edges                                                                           | Qamrosh | 3/21/2023 | 3/22/2023 | D       |
+|  F26  | Rivers stop flowing at lowest point or when an ocean tile is reached                                                                          | Ali     | 3/22/2023 | 3/22/2023 | D       |
+|  F27  | Introduce humidity to tiles near the river                                                                                                    | Qamrosh | 3/23/2023 | 3/23/2023 | D       |
+|  F28  | Vegetation can be influenced by nearby river tiles                                                                                            | Hamza   | 3/23/2023 | 3/23/2023 | D       |
+|  F29  | Implement discharge level, which controls thickness, and adjust it when rivers merge                                                          | Ali     | 3/22/2023 | 3/22/2023 | D       |
+|  F30  | The number of rivers can be controlled via command line arguments                                                                             | Qamrosh | 3/22/2023 | 3/22/2023 | D       |
+|  F31  | The bigger the river the more the more moisture it brings to the surrounding soil                                                             | Hamza   | 3/23/2023 | 3/23/2023 | D       |
+|  F32  | Introduce aquifers (underground bodies of water), located randomly around the island                                                          | Ali     | 3/23/2023 | 3/23/2023 | D       |
+|  F33  | Aquifers bring moisture to surrounding tiles                                                                                                  | Qamrosh |           |           | P       |
+|  F34  | The number of aquifers is controlled via command line arguments                                                                               | Hamza   |           |           | P       |
+|  F35  | Soil can absorb humidity/moisture from nearby bodies of water                                                                                 | Ali     |           |           | P       |
+|  F36  | The speed at which soil absorbs humidity is dependent on its composition                                                                      | Qamrosh |           |           | B (F35) |
+|  F37  | The absorption profile is decided via a command line argument                                                                                 | Ali     |           |           | B (F36) |
+|  F38  | Group collections of tiles as biomes based on temperature and humidity                                                                        | Hamza   |           |           | B (F35) |
+|  F39  | Different biomes should be represented with different colours                                                                                 | Qamrosh |           |           | B (F38) |
+|  F40  | Allow user to configure the island biome                                                                                                      | Ali     |           |           | B (F38) |
+|  F41  | Fetch temperature and humidity information based on user configured biomes                                                                    | Hamza   |           |           | B (F40) |
+|  F42  | Attribute a seed for each random configuration and island generation                                                                          | Qamrosh |           |           | P       |
+|  F43  | Allow user to input a seed that will reproduce the same island generation method                                                              | Ali     |           |           | B (F42) |
