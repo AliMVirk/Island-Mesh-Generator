@@ -49,6 +49,8 @@ public class MeshConfiguration {
         if (numLakes == null) numLakes = "5";
         String numRivers = config.export("rivers");
         if (numRivers == null) numRivers = "5";
+        String numAquifers = config.export("rivers");
+        if (numAquifers == null) numAquifers = "5";
 
         MeshFactory factory = new MeshFactory();
         Mesh originalMesh = factory.read(config.export("i")); // Read input mesh
@@ -118,7 +120,7 @@ public class MeshConfiguration {
 
         // Create aquifers
         AquiferGen qgen = new AquiferGen();
-        tiles = qgen.transform(originalMesh, tiles, 5);
+        tiles = qgen.transform(originalMesh, tiles, Integer.parseInt(numAquifers));
 
         // Enrich land with humidity, moisture, and vegetation
         EnrichmentGen egen = new EnrichmentGen();
