@@ -14,7 +14,7 @@ public class EnrichmentGen {
 
         // Iterate through land neighboring water and set humidity, moisture, and vegetation levels
         for (int i = 0; i < tiles.size(); i++) {
-            if (tiles.get(i).getType().equals(Type.WATER.toString())) {
+            if (tiles.get(i).getType().equals(Type.WATER.toString()) || tiles.get(i).getType().equals(Type.AQUIFER.toString())) {
                 double humidity = tiles.get(i).getHumidity();
                 for (int j : oMesh.getPolygons(i).getNeighborIdxsList()) {
                     Tile nTile = tiles.get(j);
@@ -27,7 +27,7 @@ public class EnrichmentGen {
             }
         }
 
-        // Iterate through segments
+        // Find polygons that have river segments and adjust humidity, moisture, and vegetation accordingly
         for (int i = 0; i < oMesh.getPolygonsCount(); i++) {
             for (int segIdx : oMesh.getPolygons(i).getSegmentIdxsList()) {
                 if (rivers[segIdx] != null) {
