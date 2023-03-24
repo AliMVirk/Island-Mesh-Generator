@@ -130,7 +130,7 @@ If a feature works as intended without bugs and the code is clean and concise, i
 ### Product Backlog
 
 |  Id   | Feature title                                                                                                                                 | Who?    | Start     | End       | Status          |
-| :---: | --------------------------------------------------------------------------------------------------------------------------------------------- | ------- | --------- | --------- | --------------- |
+| :---: | --------------------------------------------------------------------------------------------------------------------------------------------- | ------- |-----------|-----------|-----------------|
 |  F01  | All squares in the mesh grid are polygons                                                                                                     | Qamrosh | 2/15/2023 | 2/15/2023 | D               |
 |  F02  | Polygons includes indexes to all segments, including those shared by neighbours                                                               | Ali     | 2/17/2023 | 2/17/2023 | D               |
 |  F03  | Polygons list their segments consecutively                                                                                                    | Qamrosh | 2/15/2023 | 2/15/2023 | D               |
@@ -158,10 +158,10 @@ If a feature works as intended without bugs and the code is clean and concise, i
 |  F25  | Add rivers that start at a random vertex and follow a line of edges                                                                           | Qamrosh | 3/21/2023 | 3/22/2023 | D               |
 |  F26  | Rivers stop flowing at lowest point or when an ocean tile is reached                                                                          | Ali     | 3/22/2023 | 3/22/2023 | D               |
 |  F27  | Introduce humidity to tiles near the river                                                                                                    | Qamrosh | 3/23/2023 | 3/23/2023 | D               |
-|  F28  | Vegetation can be influenced by nearby river tiles                                                                                            | Hamza   |           |           | P               |
+|  F28  | Vegetation can be influenced by nearby river tiles                                                                                            | Hamza   | 3/23/2023 | 3/23/2023 | D               |
 |  F29  | Implement discharge level, which controls thickness, and adjust it when rivers merge                                                          | Ali     | 3/22/2023 | 3/22/2023 | D               |
 |  F30  | The number of rivers can be controlled via command line arguments                                                                             | Qamrosh | 3/22/2023 | 3/22/2023 | D               |
-|  F31  | The bigger the river the more the more moisture it brings to the surrounding soil                                                             | Hamza   |           |           | B (F29)         |
+|  F31  | The bigger the river the more the more moisture it brings to the surrounding soil                                                             | Hamza   | 3/23/2023 | 3/23/2023 | D               |
 |  F32  | Introduce aquifers (underground bodies of water), located randomly around the island                                                          | Ali     |           |           | P               |
 |  F33  | Aquifers bring moisture to surrounding tiles                                                                                                  | Qamrosh |           |           | P               |
 |  F34  | The number of aquifers is controlled via command line arguments                                                                               | Hamza   |           |           | B (F32)         |
