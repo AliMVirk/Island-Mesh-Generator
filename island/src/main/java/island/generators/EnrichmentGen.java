@@ -9,7 +9,7 @@ import island.Tile.Type;
 import island.Tiles.LandTile;
 
 public class EnrichmentGen {
-    
+
     public List<Tile> enrichLand(Mesh oMesh, List<Tile> tiles, River[] rivers) {
 
         // Iterate through land neighboring water and set humidity, moisture, and vegetation levels
@@ -33,6 +33,8 @@ public class EnrichmentGen {
                 if (rivers[segIdx] != null) {
                     Tile nTile = tiles.get(i);
                     nTile.setHumidity(nTile.getHumidity() + rivers[segIdx].getDischarge() * 5);
+                    ((LandTile) nTile).setMoisture(nTile.getHumidity() / 2);
+                    ((LandTile) nTile).setVegetation(((LandTile) nTile).getMoisture() / 2);
                 }
             }
         }
