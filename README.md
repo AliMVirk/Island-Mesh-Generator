@@ -153,7 +153,7 @@ If a feature works as intended without bugs and the code is clean and concise, i
 |  F20  | Allow user to configure altitude profiles                                                                                                     | Hamza   | 3/16/2023 | 3/18/2023 | D               |
 |  F21  | Implement water-type tiles as lakes tiles                                                                                                     | Hamza   | 3/20/2023 | 3/22/2023 | D               |
 |  F22  | Introduce humidity to tiles near lake tiles                                                                                                   | Ali     | 3/23/2023 | 3/23/2023 | D               |
-|  F23  | Vegetation can be influenced by nearby lake tiles                                                                                             | Qamrosh |           |           | P               |
+|  F23  | Vegetation can be influenced by nearby lake tiles                                                                                             | Qamrosh | 3/23/2023 | 3/23/2023 | D               |
 |  F24  | The maximum number of lakes can be controlled via command line arguments                                                                      | Hamza   | 3/22/2023 | 3/22/2023 | D               |
 |  F25  | Add rivers that start at a random vertex and follow a line of edges                                                                           | Qamrosh | 3/21/2023 | 3/22/2023 | D               |
 |  F26  | Rivers stop flowing at lowest point or when an ocean tile is reached                                                                          | Ali     | 3/22/2023 | 3/22/2023 | D               |
