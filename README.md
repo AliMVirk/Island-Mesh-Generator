@@ -152,7 +152,7 @@ If a feature works as intended without bugs and the code is clean and concise, i
 |  F19  | Implement differing altitude for tiles                                                                                                        | Qamrosh | 3/15/2023 | 3/15/2023 | D               |
 |  F20  | Allow user to configure altitude profiles                                                                                                     | Hamza   | 3/16/2023 | 3/18/2023 | D               |
 |  F21  | Implement water-type tiles as lakes tiles                                                                                                     | Hamza   | 3/20/2023 | 3/22/2023 | D               |
-|  F22  | Introduce humidity to tiles near lake tiles                                                                                                   | Ali     |           |           | P               |
+|  F22  | Introduce humidity to tiles near lake tiles                                                                                                   | Ali     | 3/23/2023 | 3/23/2023 | D               |
 |  F23  | Vegetation can be influenced by nearby lake tiles                                                                                             | Qamrosh |           |           | P               |
 |  F24  | The maximum number of lakes can be controlled via command line arguments                                                                      | Hamza   | 3/22/2023 | 3/22/2023 | D               |
 |  F25  | Add rivers that start at a random vertex and follow a line of edges                                                                           | Qamrosh | 3/21/2023 | 3/22/2023 | D               |
@@ -160,7 +160,7 @@ If a feature works as intended without bugs and the code is clean and concise, i
 |  F27  | Introduce humidity to tiles near the river                                                                                                    | Qamrosh |           |           | P               |
 |  F28  | Vegetation can be influenced by nearby river tiles                                                                                            | Hamza   |           |           | P               |
 |  F29  | Implement discharge level, which controls thickness, and adjust it when rivers merge                                                          | Ali     | 3/22/2023 | 3/22/2023 | D               |
-|  F30  | The number of rivers can be controlled via command line arguments                                                                             | Qamrosh | 3/22/2023 | 3/22/2023 | D         |
+|  F30  | The number of rivers can be controlled via command line arguments                                                                             | Qamrosh | 3/22/2023 | 3/22/2023 | D               |
 |  F31  | The bigger the river the more the more moisture it brings to the surrounding soil                                                             | Hamza   |           |           | B (F29)         |
 |  F32  | Introduce aquifers (underground bodies of water), located randomly around the island                                                          | Ali     |           |           | P               |
 |  F33  | Aquifers bring moisture to surrounding tiles                                                                                                  | Qamrosh |           |           | P               |
