@@ -22,6 +22,7 @@ import island.profiles.altitude.Hills;
 import island.shapes.Ellipse;
 import island.shapes.Rectangle;
 import island.generators.AltitudeGen;
+import island.generators.AquiferGen;
 import island.generators.EnrichmentGen;
 import island.generators.LandGen;
 import island.generators.RiverGen;
@@ -114,6 +115,10 @@ public class MeshConfiguration {
         // Create rivers
         RiverGen rgen = new RiverGen();
         River[] rivers = rgen.createRivers(originalMesh, tiles, Integer.parseInt(numRivers));
+
+        // Create aquifers
+        AquiferGen qgen = new AquiferGen();
+        tiles = qgen.transform(originalMesh, tiles, 5);
 
         // Enrich land with humidity, moisture, and vegetation
         EnrichmentGen egen = new EnrichmentGen();
