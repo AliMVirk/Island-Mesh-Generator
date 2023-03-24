@@ -1,0 +1,66 @@
+@startuml
+
+participant MeshConfiguration
+-> MeshConfiguration : main()
+activate MeshConfiguration
+MeshConfiguration -> Configuration
+activate Configuration
+Configuration -> MeshConfiguration : export()
+deactivate Configuration
+
+activate MeshFactory
+MeshConfiguration -> MeshFactory : read()
+activate Mesh
+MeshFactory -> Mesh
+deactivate MeshFactory
+Mesh -> MeshConfiguration
+deactivate Mesh
+
+activate Shape
+MeshConfiguration -> Shape : build()
+Shape -> MeshConfiguration
+deactivate Shape
+activate LandGen
+MeshConfiguration -> LandGen : createLand()
+LandGen -> MeshConfiguration
+deactivate LandGen
+
+activate "//altitude profile//"
+activate AltitudeData
+MeshConfiguration -> "//altitude profile//" : build()
+"//altitude profile//" -> AltitudeData
+deactivate "//altitude profile//"
+AltitudeData -> MeshConfiguration
+activate AltitudeGen
+MeshConfiguration -> AltitudeGen : transform()
+deactivate AltitudeData
+AltitudeGen -> MeshConfiguration
+deactivate AltitudeGen
+
+activate LakeGen
+MeshConfiguration -> LakeGen : transform()
+LakeGen -> MeshConfiguration
+deactivate LakeGen
+
+activate RiverGen
+MeshConfiguration -> RiverGen : transform()
+RiverGen -> MeshConfiguration
+deactivate RiverGen
+
+activate AquiferGen
+MeshConfiguration -> AquiferGen : transform()
+AquiferGen -> MeshConfiguration
+deactivate AquiferGen
+
+activate Mesh
+activate MeshFactory
+MeshConfiguration -> MeshConfiguration : mutateMesh
+MeshConfiguration -> MeshFactory : write()
+MeshFactory -> Mesh
+Mesh -> MeshConfiguration
+deactivate MeshFactory
+deactivate Mesh
+
+deactivate MeshConfiguration
+
+@enduml
