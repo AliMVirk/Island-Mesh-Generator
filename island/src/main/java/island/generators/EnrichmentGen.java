@@ -6,18 +6,23 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import island.Tile.River;
 import island.Tile.Tile;
 import island.Tile.Type;
+import island.Tiles.LandTile;
 
 public class EnrichmentGen {
     
     public List<Tile> enrichLand(Mesh oMesh, List<Tile> tiles, River[] rivers) {
 
-        // Add humidity to land neighboring water
+        // Iterate through land neighboring water and set humidity, moisture, and vegetation levels
         for (int i = 0; i < tiles.size(); i++) {
             if (tiles.get(i).getType().equals(Type.WATER.toString())) {
                 double humidity = tiles.get(i).getHumidity();
                 for (int j : oMesh.getPolygons(i).getNeighborIdxsList()) {
-                    if (tiles.get(j).getType().equals(Type.LAND.toString()))
-                        tiles.get(j).setHumidity(humidity / 4);
+                    Tile nTile = tiles.get(j);
+                    if (nTile.getType().equals(Type.LAND.toString())) {
+                        nTile.setHumidity(humidity / 4);
+                        ((LandTile) nTile).setMoisture(nTile.getHumidity() / 2);
+                        ((LandTile) nTile).setVegetation(((LandTile) nTile).getMoisture() / 2);
+                    }
                 }
             }
         }
