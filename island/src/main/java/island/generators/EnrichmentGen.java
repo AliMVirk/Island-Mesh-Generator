@@ -27,6 +27,16 @@ public class EnrichmentGen {
             }
         }
 
+        // Iterate through segments
+        for (int i = 0; i < oMesh.getPolygonsCount(); i++) {
+            for (int segIdx : oMesh.getPolygons(i).getSegmentIdxsList()) {
+                if (rivers[segIdx] != null) {
+                    Tile nTile = tiles.get(i);
+                    nTile.setHumidity(nTile.getHumidity() + rivers[segIdx].getDischarge() * 5);
+                }
+            }
+        }
+
         return tiles;
     }
 
