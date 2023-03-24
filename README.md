@@ -157,7 +157,7 @@ If a feature works as intended without bugs and the code is clean and concise, i
 |  F24  | The maximum number of lakes can be controlled via command line arguments                                                                      | Hamza   | 3/22/2023 | 3/22/2023 | D               |
 |  F25  | Add rivers that start at a random vertex and follow a line of edges                                                                           | Qamrosh | 3/21/2023 | 3/22/2023 | D               |
 |  F26  | Rivers stop flowing at lowest point or when an ocean tile is reached                                                                          | Ali     | 3/22/2023 | 3/22/2023 | D               |
-|  F27  | Introduce humidity to tiles near the river                                                                                                    | Qamrosh |           |           | P               |
+|  F27  | Introduce humidity to tiles near the river                                                                                                    | Qamrosh | 3/23/2023 | 3/23/2023 | D               |
 |  F28  | Vegetation can be influenced by nearby river tiles                                                                                            | Hamza   |           |           | P               |
 |  F29  | Implement discharge level, which controls thickness, and adjust it when rivers merge                                                          | Ali     | 3/22/2023 | 3/22/2023 | D               |
 |  F30  | The number of rivers can be controlled via command line arguments                                                                             | Qamrosh | 3/22/2023 | 3/22/2023 | D               |
