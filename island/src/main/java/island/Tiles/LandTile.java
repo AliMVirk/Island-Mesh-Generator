@@ -11,7 +11,7 @@ public class LandTile extends Tile {
     private double vegetation;
 
     public LandTile() {
-        super(Type.LAND, new Color(144, 137, 53));
+        super(Type.LAND, new Color(252, 244, 137));
         this.moisture = 0;
         this.vegetation = 0;
     }
@@ -36,6 +36,20 @@ public class LandTile extends Tile {
 
     public void setVegetation(double vegetation) {
         this.vegetation = vegetation;
+        adjustVegetation();
+    }
+
+    private void adjustVegetation() {
+        if (this.vegetation > 20)
+            this.setColor(new Color(65, 124, 43));
+        else if (this.vegetation > 15)
+            this.setColor(new Color(97, 178, 62));
+        else if (this.vegetation > 10)
+            this.setColor(new Color(143, 175, 33));
+        else if (this.vegetation > 5)
+            this.setColor(new Color(144, 137, 53));
+        else
+            this.setColor(new Color(252, 244, 137));
     }
 
 }
