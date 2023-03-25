@@ -10,6 +10,8 @@ import island.Tile.Type;
 import island.Tiles.LandTile;
 import island.generators.EnrichmentGen;
 import island.generators.RiverGen;
+import island.profiles.soil.Dry;
+import island.profiles.soil.Wet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,18 +34,18 @@ public class EnrichmentGenTest {
         // Create corresponding tiles
         List<Tile> tiles = new ArrayList<>();
         tiles.add(new LandTile());
-        tiles.add(new Tile(Type.WATER, null, 100));
+        tiles.add(new Tile(Type.OCEAN, null, 100));
         tiles.add(new LandTile());
 
-        tiles = egen.enrichLand(aMesh, tiles, null);
+        tiles = egen.enrichLand(aMesh, tiles, null, new Dry().defineComposition());
         // Test humidity
-        assertEquals(25, tiles.get(0).getHumidity());
+        assertEquals(10, tiles.get(0).getHumidity());
         assertEquals(0, tiles.get(2).getHumidity());
         // Test moisture
-        assertEquals(12.5, ((LandTile)tiles.get(0)).getMoisture());
+        assertEquals(0, ((LandTile)tiles.get(0)).getMoisture());
         assertEquals(0, ((LandTile)tiles.get(2)).getMoisture());
         // Test vegetation
-        assertEquals(6.25, ((LandTile)tiles.get(0)).getVegetation());
+        assertEquals(0, ((LandTile)tiles.get(0)).getVegetation());
         assertEquals(0, ((LandTile)tiles.get(2)).getVegetation());
     }
 
@@ -64,13 +66,13 @@ public class EnrichmentGenTest {
         RiverGen rgen = new RiverGen();
         River[] rivers = rgen.createRivers(aMesh, tiles, 1);
 
-        tiles = egen.enrichLand(aMesh, tiles, rivers);
+        tiles = egen.enrichLand(aMesh, tiles, rivers, new Dry().defineComposition());
         // Test humidity
-        assertEquals(rivers[0].getDischarge() * 5, tiles.get(0).getHumidity());
+        assertEquals(rivers[0].getHumidity() * 0.1, tiles.get(0).getHumidity());
         // Test moisture
-        assertEquals(rivers[0].getDischarge() * 2.5, ((LandTile)tiles.get(0)).getMoisture());
+        assertEquals(rivers[0].getHumidity() * 0.1, ((LandTile)tiles.get(0)).getMoisture());
         // Test vegetation
-        assertEquals(rivers[0].getDischarge() * 1.25, ((LandTile)tiles.get(0)).getVegetation());
+        assertEquals(rivers[0].getHumidity() * 0.1, ((LandTile)tiles.get(0)).getVegetation());
     }
 
     @Test
@@ -78,7 +80,7 @@ public class EnrichmentGenTest {
         // Create test mesh
         Polygon p1 = Polygon.newBuilder().addNeighborIdxs(0).setNeighborIdxs(0, 1).build();
         Polygon p2 = Polygon.newBuilder().addNeighborIdxs(0).setNeighborIdxs(0, 0).build();
-        Polygon p3 = Polygon.newBuilder().build();
+        Polygon p3 = Polygon.newBuilder().build(); // neighborless polygon
         Mesh aMesh = Mesh.newBuilder().addPolygons(p1).addPolygons(p2).addPolygons(p3).build();
 
         // Create corresponding tiles
@@ -87,15 +89,15 @@ public class EnrichmentGenTest {
         tiles.add(new LandTile(100)); // aquifer tile
         tiles.add(new LandTile());
 
-        tiles = egen.enrichLand(aMesh, tiles, null);
+        tiles = egen.enrichLand(aMesh, tiles, null, new Dry().defineComposition());
         // Test humidity
-        assertEquals(25, tiles.get(0).getHumidity());
+        assertEquals(10, tiles.get(0).getHumidity());
         assertEquals(0, tiles.get(2).getHumidity());
         // Test moisture
-        assertEquals(12.5, ((LandTile)tiles.get(0)).getMoisture());
+        assertEquals(10, ((LandTile)tiles.get(0)).getMoisture());
         assertEquals(0, ((LandTile)tiles.get(2)).getMoisture());
         // Test vegetation
-        assertEquals(6.25, ((LandTile)tiles.get(0)).getVegetation());
+        assertEquals(10, ((LandTile)tiles.get(0)).getVegetation());
         assertEquals(0, ((LandTile)tiles.get(2)).getVegetation());
     }
 
