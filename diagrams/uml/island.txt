@@ -1,0 +1,228 @@
+@startuml
+
+package island {
+
+    package configuration {
+
+        class Configuration {
+            -CommandLine cmd
+            +Configuration(String[])
+            -void printHelpMessage()
+            +String export(String)
+            -Options initializeOptions()
+        }
+
+        class MeshConfiguration {
+            +MeshConfiguration(String[])
+            +void generateIsland()
+            -Mesh mutateMesh(Mesh, List<Tile>, River[])
+        }
+
+        MeshConfiguration *-- Configuration
+
+    }
+
+    package generators {
+
+        class AltitudeGen {
+            +List<Tile> transform(Mesh, List<Tile>, AltitudeData)
+        }
+
+        class AquiferGen {
+            +List<Tile> transform(Mesh, List<Tile>, int)
+            -List<Integer> getValidPolygonIdxs(Mesh, List<Tile>)
+        }
+
+        class BiomeGen {
+            +List<Tile> transform(Mesh, List<Tile>)
+        }
+
+        class EnrichmentGen {
+            +List<Tile> enrichLand(Mesh, List<Tile> River[], double[])
+        }
+
+        class LagoonGen {
+            -int width
+            -int height
+            -int lagoonRadius
+            -int landRadius
+            +Mesh.Builder transform(Mesh)
+        }
+
+        class LakeGen {
+            +List<Tile> transform(Mesh, List<Tile>, int)
+            -List<Integer> getValidPolygonIdxs(Mesh, List<Tile>)
+        }
+
+        class LandGen {
+            +List<Tile> createLand(Mesh, Path2D)
+        }
+
+        class RiverGen {
+            +River[] createRivers(Mesh, List<Tile>, int)
+            -List<Integer> getValidPolygonIdxs(Mesh, List<Tile>)
+            -int findLowestTile(Mesh, List<Tile>, int, Vertex)
+            -int findConnectingSegment(Mesh, Polygon, Vertex)
+        }
+
+    }
+
+    package profiles {
+
+        package altitude {
+
+            interface AltitudeProfile {
+                +List<Coordinate> buildCoordinates(double, double, int)
+                +AltitudeData build(double, double, int, double, double)
+            }
+
+            class AltitudeData {
+                -List<Coordinate> coords
+                -double maxAltitude
+                -double steepnessFactor
+                +AltitudeData(List<Coordinate>, double, double)
+                +List<Coordinate> getCoords()
+                +double getMaxAltitude()
+                +double getSteepnessFactor()
+            }
+
+            class CornerMountains {
+                +List<Coordinate> buildCoordinates(double, double, int)
+                +AltitudeData build(double, double, int, double, double)
+            }
+
+            class Hills {
+                +List<Coordinate> buildCoordinates(double, double, int)
+                +AltitudeData build(double, double, int, double, double)
+            }
+
+            class Volcano {
+                +List<Coordinate> buildCoordinates(double, double, int)
+                +AltitudeData build(double, double, int, double, double)
+            }
+
+            AltitudeProfile <|.. CornerMountains
+            AltitudeProfile <|.. Hills
+            AltitudeProfile <|.. Volcano
+            AltitudeData <.. CornerMountains
+            AltitudeData <.. Hills
+            AltitudeData <.. Volcano
+            
+
+        }
+
+        package soil {
+
+            interface SoilProfile {
+                +double[] defineComposition()
+            }
+
+            class Dry {
+                -double[] composition
+                +double[] defineComposition()
+            }
+
+            class Wet {
+                -double[] composition
+                +double[] defineComposition()
+            }
+
+            SoilProfile <|.. Dry
+            SoilProfile <|.. Wet
+
+        }
+
+    }
+    
+    package shapes {
+
+        class Shape {
+            +Path2D build(List<Coordinate)
+            +Path2D build(Ellipse2D)
+        }
+
+        class Ellipse {
+            +Ellipse2D generateEllipse(double, double, double, double)
+        }
+
+        class Rectangle {
+            +List<Coordinate> generateRectangle(double, double, double, double)
+        }
+
+        Shape <|-- Ellipse
+        Shape <|-- Rectangle
+
+    }
+
+    package Tile {
+
+        class Tile {
+            -Type type
+            -Color color
+            -double altitude
+            -double humidity
+            -Biome biome
+            +Tile(Type, Color)
+            +Tile(Type, Color, double)
+            +void setBiome(Biome)
+            +String getType()
+            +String getColor()
+            +void setColor(Color)
+            +double getAltitude()
+            +void setAltitude(double)
+            +double getHumidity
+            +void setHumidity(double)
+        }
+
+        enum Biome {
+            -String name
+            -Biome(String)
+            +<<override>> String toString()
+        }
+
+        enum Type {
+            -String name
+            -Type(String)
+            +<<override>> String toString()
+        }
+
+        class River {
+            -Color color
+            -double discharge
+            -double humidity
+            +River(double)
+            +String getColor()
+            +double getHumidity()
+            +double getDischarge()
+            +void setDischarge(int)
+        }
+
+    }
+
+    package Tiles {
+
+        class LandTile {
+            -double moisture
+            -double vegetation
+            +LandTile()
+            +LandTile(double)
+            +double getMoisture
+            +void setMoisture(double)
+            +double getVegetation()
+            -void adjustVegetation()
+        }
+
+    }
+
+    Tile <|-- LandTile
+    MeshConfiguration 
+
+}
+
+class Main {
+    +void main(String[])
+}
+
+MeshConfiguration <.. Main
+
+@enduml
