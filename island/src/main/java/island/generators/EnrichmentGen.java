@@ -52,7 +52,7 @@ public class EnrichmentGen {
                 double humidity = tiles.get(assigned.get(i)).getHumidity();
                 for (int j : oMesh.getPolygons(assigned.get(i)).getNeighborIdxsList()) {
                     Tile nTile = tiles.get(j);
-                    if (nTile.getType().equals(Type.LAND.toString()) && nTile.getHumidity() < humidity * humidityFactor) {
+                    if (nTile.getType().equals(Type.LAND.toString())) {
                         if (nTile.getHumidity() < humidity * humidityFactor)
                             nTile.setHumidity(humidity * humidityFactor);
                         if (((LandTile) nTile).getMoisture() < humidity * moistureFactor)
