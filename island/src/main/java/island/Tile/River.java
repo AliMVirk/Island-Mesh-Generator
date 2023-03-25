@@ -25,7 +25,7 @@ public class River {
         return this.discharge;
     }
 
-    public void setDischarge(int val){
+    public void setDischarge(double val){
         this.discharge = val;
         this.humidity = this.discharge * 10;
     }
