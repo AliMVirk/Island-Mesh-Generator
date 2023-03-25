@@ -17,6 +17,8 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import island.Tile.River;
 import island.Tile.Tile;
 import island.profiles.altitude.Volcano;
+import island.profiles.soil.Dry;
+import island.profiles.soil.Wet;
 import island.profiles.altitude.CornerMountains;
 import island.profiles.altitude.Hills;
 import island.shapes.Ellipse;
@@ -124,7 +126,7 @@ public class MeshConfiguration {
 
         // Enrich land with humidity, moisture, and vegetation
         EnrichmentGen egen = new EnrichmentGen();
-        tiles = egen.enrichLand(originalMesh, tiles, rivers);
+        tiles = egen.enrichLand(originalMesh, tiles, rivers, new Dry().defineComposition());
 
         // Turn tiles into polygon properties
         Mesh islandMesh = mutateMesh(originalMesh, tiles, rivers);
