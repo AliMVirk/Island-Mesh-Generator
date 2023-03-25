@@ -50,7 +50,7 @@ public class RiverGenTest {
         // Create corresponding tiles
         List<Tile> tiles = new ArrayList<>();
         tiles.add(new Tile(Type.LAND, null));
-        tiles.add(new Tile(Type.WATER, null));
+        tiles.add(new Tile(Type.OCEAN, null));
 
         River[] rivers = rgen.createRivers(aMesh, tiles, 1);
         assertNull(rivers[0]);

@@ -26,7 +26,7 @@ public class AltitudeGen {
         Vertex nearestPoint = null;
         int defaultIndex = 0;
         for (int i = 0; i < tiles.size(); i++) {
-            if (!tiles.get(i).getType().equals(Type.WATER.toString())) {
+            if (!tiles.get(i).getType().equals(Type.OCEAN.toString())) {
                 nearestPoint = oMesh.getVertices(oMesh.getPolygons(i).getCentroidIdx());
                 defaultIndex = i;
                 break;
@@ -39,7 +39,7 @@ public class AltitudeGen {
         for (Coordinate c : coords) {
             int peakIndex = defaultIndex;
             for (int i = 0; i < oMesh.getPolygonsCount(); i++) {
-                if (tiles.get(i).getType().equals(Type.WATER.toString()))
+                if (tiles.get(i).getType().equals(Type.OCEAN.toString()))
                     continue;
                 Polygon p = oMesh.getPolygons(i);
                 Vertex v = oMesh.getVertices(p.getCentroidIdx());
@@ -63,7 +63,7 @@ public class AltitudeGen {
             List<Integer> pendingTiles = new ArrayList<>();
             for (int n : oMesh.getPolygons(i).getNeighborIdxsList()) {
                 Tile nTile = tiles.get(n);
-                if (!nTile.getType().equals(Type.WATER.toString())) {
+                if (!nTile.getType().equals(Type.OCEAN.toString())) {
                     if (nTile.getAltitude() == 0 && nTile.getAltitude() < tiles.get(i).getAltitude()) {
                         nTile.setAltitude(tiles.get(i).getAltitude() * steepnessFactor + ((rnd.nextDouble() - 0.5) / 10));
                         pendingTiles.add(n);

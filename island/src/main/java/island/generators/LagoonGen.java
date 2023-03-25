@@ -45,7 +45,7 @@ public class LagoonGen {
             else if (Math.pow(v.getX() - (width / 2), 2) + Math.pow(v.getY() - (height / 2), 2) <= Math.pow(landRadius, 2))
                 tile = new Tile(Type.LAND, new Color(144, 137, 53));
             else
-                tile = new Tile(Type.WATER, new Color(1, 64, 98));
+                tile = new Tile(Type.OCEAN, new Color(1, 64, 98));
             // Set tile type property for corresponding polygon
             tileTypeList.add(Property.newBuilder().setKey("tile_type").setValue(tile.getType()));
             tileColorList.add(Structs.Property.newBuilder().setKey("tile_color").setValue(tile.getColor()));

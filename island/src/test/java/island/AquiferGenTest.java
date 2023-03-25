@@ -49,7 +49,7 @@ public class AquiferGenTest {
 
         // Create corresponding tiles
         List<Tile> tiles = new ArrayList<>();
-        tiles.add(new Tile(Type.WATER, null));
+        tiles.add(new Tile(Type.OCEAN, null));
         tiles.add(new LandTile());
 
         tiles = qgen.transform(aMesh, tiles, 1);

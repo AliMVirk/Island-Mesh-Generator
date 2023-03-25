@@ -21,6 +21,7 @@ public class AquiferGen {
             // Set random valid tile as an aquifer
             int index = polygonIdxs.get(rnd.nextInt(polygonIdxs.size()));
             tiles.set(index, new LandTile(100));
+            ((LandTile) tiles.get(index)).setMoisture(90);
             polygonIdxs.remove((Object) index);
         }
 
@@ -31,10 +32,10 @@ public class AquiferGen {
         List<Integer> validPolygonIdxs = new ArrayList<>();
         for (int i = 0; i < mesh.getPolygonsCount(); i++) {
             boolean valid = true;
-            if (tiles.get(i).getType().equals(Type.WATER.toString()))
+            if (tiles.get(i).getType().equals(Type.OCEAN.toString()) || tiles.get(i).getType().equals(Type.LAKE.toString()))
                 continue;
             for (int j : mesh.getPolygons(i).getNeighborIdxsList()) {
-                if (tiles.get(j).getType().equals(Type.WATER.toString()))
+                if (tiles.get(j).getType().equals(Type.OCEAN.toString()) || tiles.get(i).getType().equals(Type.LAKE.toString()))
                     valid = false;
             }
             if (valid)

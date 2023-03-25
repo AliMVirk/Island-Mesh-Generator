@@ -40,7 +40,7 @@ public class RiverGen {
                 segmentIndex = findConnectingSegment(oMesh, p, spring);
                 s = oMesh.getSegments(segmentIndex);
                 spring = (oMesh.getVertices(s.getV1Idx()).equals(spring)) ? oMesh.getVertices(s.getV2Idx()) : oMesh.getVertices(s.getV1Idx());
-                if (tiles.get(pIndex).getType().equals(Type.WATER.toString()))
+                if (tiles.get(pIndex).getType().equals(Type.OCEAN.toString()) || tiles.get(i).getType().equals(Type.LAKE.toString()))
                     break;
                 if (rivers[segmentIndex] != null)
                     previousDischarge += rivers[segmentIndex].getDischarge();
@@ -55,10 +55,10 @@ public class RiverGen {
         List<Integer> validPolygonIdxs = new ArrayList<>();
         for (int i = 0; i < mesh.getPolygonsCount(); i++) {
             boolean valid = true;
-            if (tiles.get(i).getType().equals(Type.WATER.toString()))
+            if (tiles.get(i).getType().equals(Type.OCEAN.toString()) || tiles.get(i).getType().equals(Type.LAKE.toString()))
                 continue;
             for (int j : mesh.getPolygons(i).getNeighborIdxsList()) {
-                if (tiles.get(j).getType().equals(Type.WATER.toString()))
+                if (tiles.get(j).getType().equals(Type.OCEAN.toString()) || tiles.get(i).getType().equals(Type.LAKE.toString()))
                     valid = false;
             }
             if (valid)

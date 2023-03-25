@@ -32,7 +32,7 @@ public class AltitudeGenTest {
         // Create corresponding tiles
         List<Tile> tiles = new ArrayList<>();
         tiles.add(new Tile(Type.LAND, null));
-        tiles.add(new Tile(Type.WATER, null));
+        tiles.add(new Tile(Type.OCEAN, null));
 
         // Create coordinate peaks
         List<Coordinate> coords = new ArrayList<>();
@@ -83,8 +83,8 @@ public class AltitudeGenTest {
 
         // Create corresponding tiles
         List<Tile> tiles = new ArrayList<>();
-        tiles.add(new Tile(Type.WATER, null));
-        tiles.add(new Tile(Type.WATER, null));
+        tiles.add(new Tile(Type.OCEAN, null));
+        tiles.add(new Tile(Type.OCEAN, null));
 
         // Create coordinate peaks
         List<Coordinate> coords = new ArrayList<>();
@@ -99,7 +99,7 @@ public class AltitudeGenTest {
 
         // Test altitude with one land tile
         tiles.clear();
-        tiles.add(new Tile(Type.WATER, null));
+        tiles.add(new Tile(Type.OCEAN, null));
         tiles.add(new Tile(Type.LAND, null));
         tiles = agen.transform(aMesh, tiles, altitudeData);
         assertEquals(tiles.get(0).getAltitude(), 0);

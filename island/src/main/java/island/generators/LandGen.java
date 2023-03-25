@@ -25,7 +25,7 @@ public class LandGen {
             if (shape.contains(v.getX(), v.getY()))
                 tile = new LandTile();
             else
-                tile = new Tile(Type.WATER, new Color(1, 64, 98), 150);
+                tile = new Tile(Type.OCEAN, new Color(1, 64, 98), 150);
             // Set tile type property for corresponding polygon
             tiles.add(tile);
         }
