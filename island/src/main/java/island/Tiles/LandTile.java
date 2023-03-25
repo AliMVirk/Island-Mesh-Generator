@@ -28,23 +28,20 @@ public class LandTile extends Tile {
 
     public void setMoisture(double moisture) {
         this.moisture = moisture;
+        this.vegetation = moisture;
+        adjustVegetation();
     }
 
     public double getVegetation() {
         return this.vegetation;
     }
 
-    public void setVegetation(double vegetation) {
-        this.vegetation = vegetation;
-        adjustVegetation();
-    }
-
     private void adjustVegetation() {
-        if (this.vegetation > 20)
+        if (this.vegetation > 80)
             this.setColor(new Color(65, 124, 43));
-        else if (this.vegetation > 15)
+        else if (this.vegetation > 60)
             this.setColor(new Color(97, 178, 62));
-        else if (this.vegetation > 10)
+        else if (this.vegetation > 30)
             this.setColor(new Color(143, 175, 33));
         else if (this.vegetation > 5)
             this.setColor(new Color(144, 137, 53));
