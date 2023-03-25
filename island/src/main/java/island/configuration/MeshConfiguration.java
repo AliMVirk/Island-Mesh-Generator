@@ -53,6 +53,8 @@ public class MeshConfiguration {
         if (numRivers == null) numRivers = "5";
         String numAquifers = config.export("aquifers");
         if (numAquifers == null) numAquifers = "5";
+        String soilProfile = config.export("soil");
+        if (soilProfile == null) soilProfile = "wet";
 
         MeshFactory factory = new MeshFactory();
         Mesh originalMesh = factory.read(config.export("i")); // Read input mesh
@@ -127,6 +129,18 @@ public class MeshConfiguration {
         // Enrich land with humidity, moisture, and vegetation
         EnrichmentGen egen = new EnrichmentGen();
         tiles = egen.enrichLand(originalMesh, tiles, rivers, new Dry().defineComposition());
+
+        // Set the soil composition
+        double[] composition;
+        switch (soilProfile) {
+            case "dry":
+                composition = new Dry().defineComposition();
+                break;
+            default:
+                composition = new Wet().defineComposition();
+                break;
+        }
+        tiles = egen.enrichLand(originalMesh, tiles, rivers, composition);
 
         // Turn tiles into polygon properties
         Mesh islandMesh = mutateMesh(originalMesh, tiles, rivers);

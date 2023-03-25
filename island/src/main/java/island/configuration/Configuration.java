@@ -19,7 +19,7 @@ public class Configuration {
     }
 
     private void printHelpMessage() {
-        System.out.println("usage: island -i <file path> -o <file path>\n-h,--help               print this message\n-i <file path>          mesh input\n-mode,--mode <arg>      island generation mode\n-o <file path>          mesh output\n-shape,--shape <shape>  island shape\n-altitude,--altitude    altitude profile\n-lakes,--lakes          maximum number of lakes\n-rivers,--rivers        number of rivers\n-aquifers,--aquifers    number of aquifers");
+        System.out.println("usage: island -i <file path> -o <file path>\n-h,--help               print this message\n-i <file path>          mesh input\n-mode,--mode <arg>      island generation mode\n-o <file path>          mesh output\n-shape,--shape <shape>  island shape\n-altitude,--altitude    altitude profile\n-lakes,--lakes          maximum number of lakes\n-rivers,--rivers        number of rivers\n-aquifers,--aquifers    number of aquifers\n-soil,--soil            soil composition profile");
         System.exit(0);
     }
 
@@ -38,6 +38,7 @@ public class Configuration {
         options.addOption("lakes", "lakes", true, "maximum number of lakes");
         options.addOption("rivers", "rivers", true, "number of rivers");
         options.addOption("aquifers", "aquifers", true, "number of aquifers");
+        options.addOption("soil", "soil", true, "soil composition");
         return options;
     }
 

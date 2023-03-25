@@ -130,7 +130,7 @@ If a feature works as intended without bugs and the code is clean and concise, i
 ### Product Backlog
 
 |  Id   | Feature title                                                                                                                                 | Who?    | Start     | End       | Status  |
-| :---: | --------------------------------------------------------------------------------------------------------------------------------------------- | ------- | --------- | --------- | ------- |
+| :---: | --------------------------------------------------------------------------------------------------------------------------------------------- | ------- |-----------|-----------|---------|
 |  F01  | All squares in the mesh grid are polygons                                                                                                     | Qamrosh | 2/15/2023 | 2/15/2023 | D       |
 |  F02  | Polygons includes indexes to all segments, including those shared by neighbours                                                               | Ali     | 2/17/2023 | 2/17/2023 | D       |
 |  F03  | Polygons list their segments consecutively                                                                                                    | Qamrosh | 2/15/2023 | 2/15/2023 | D       |
@@ -165,8 +165,8 @@ If a feature works as intended without bugs and the code is clean and concise, i
 |  F32  | Introduce aquifers (underground bodies of water), located randomly around the island                                                          | Ali     | 3/23/2023 | 3/23/2023 | D       |
 |  F33  | Aquifers bring moisture to surrounding tiles                                                                                                  | Qamrosh | 3/23/2023 | 3/23/2023 | D       |
 |  F34  | The number of aquifers is controlled via command line arguments                                                                               | Hamza   | 3/23/2023 | 3/23/2023 | D       |
-|  F35  | The speed at which soil absorbs humidity is dependent on its composition                                                                      | Qamrosh |           |           | P       |
-|  F36  | The absorption profile is decided via a command line argument                                                                                 | Hamza   |           |           | B (F35) |
+|  F35  | The speed at which soil absorbs humidity is dependent on its composition                                                                      | Qamrosh | 3/25/2023 | 3/25/2023 | D       |
+|  F36  | The absorption profile is decided via a command line argument                                                                                 | Hamza   | 3/25/2023 | 3/25/2023 | D       |
 |  F37  | Group collections of tiles as biomes based on temperature and humidity                                                                        | Hamza   |           |           | P       |
 |  F38  | Different biomes should be represented with different colours                                                                                 | Qamrosh |           |           | B (F37) |
 |  F39  | Allow user to configure the island biome                                                                                                      | Qamrosh |           |           | B (F37) |
