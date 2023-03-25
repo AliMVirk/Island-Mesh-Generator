@@ -6,22 +6,19 @@ public class River {
     
     private final Color color = new Color(1, 64, 98);
     private double discharge;
-    private int humidity;
+    private double humidity;
 
     public River(double dischargeLevel) {
-        discharge = dischargeLevel;
+        this.discharge = dischargeLevel;
+        this.humidity = this.discharge * 10;
     }
 
     public String getColor(){
         return String.valueOf(this.color.getRed()) + "," + String.valueOf(this.color.getGreen()) + "," + String.valueOf(this.color.getBlue());
     }
 
-    public int getHumidity(){
+    public double getHumidity(){
         return this.humidity;
-    }
-
-    public void setHumidity(int val){
-        this.humidity = val;
     }
 
     public double getDischarge(){
@@ -30,6 +27,7 @@ public class River {
 
     public void setDischarge(int val){
         this.discharge = val;
+        this.humidity = this.discharge * 10;
     }
 
 }
