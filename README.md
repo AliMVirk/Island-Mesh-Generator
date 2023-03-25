@@ -69,7 +69,7 @@ The following information shows how to transform an existing mesh by generating 
 When running the island generator, the following arguments can be used to control the island generation:
 
 ```
-java -jar island/island.jar -i <mesh input path> -o <mesh output path> --mode <generation mode> --shape <island shape> --altitude <altitude profile> --lakes <max number of lakes> --rivers <number of rivers> --aquifers <number of aquifers>
+java -jar island/island.jar -i <mesh input path> -o <mesh output path> --mode <generation mode> --shape <island shape> --altitude <altitude profile> --lakes <max number of lakes> --rivers <number of rivers> --aquifers <number of aquifers> --soil <soil composition profile>
 ```
 
 To see all possible user configurations, run the above with argument ```-h``` or ```--help```
