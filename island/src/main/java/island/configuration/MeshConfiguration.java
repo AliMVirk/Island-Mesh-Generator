@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import island.generators.*;
 import island.profiles.altitude.AltitudeData;
 import org.apache.commons.cli.ParseException;
 import org.locationtech.jts.geom.Coordinate;
@@ -23,13 +24,6 @@ import island.profiles.altitude.CornerMountains;
 import island.profiles.altitude.Hills;
 import island.shapes.Ellipse;
 import island.shapes.Rectangle;
-import island.generators.AltitudeGen;
-import island.generators.AquiferGen;
-import island.generators.EnrichmentGen;
-import island.generators.LandGen;
-import island.generators.RiverGen;
-import island.generators.LagoonGen;
-import island.generators.LakeGen;
 
 public class MeshConfiguration {
 
@@ -141,6 +135,9 @@ public class MeshConfiguration {
                 break;
         }
         tiles = egen.enrichLand(originalMesh, tiles, rivers, composition);
+
+        BiomeGen bgen = new BiomeGen();
+        tiles = bgen.transform(originalMesh, tiles);
 
         // Turn tiles into polygon properties
         Mesh islandMesh = mutateMesh(originalMesh, tiles, rivers);

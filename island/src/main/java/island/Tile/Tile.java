@@ -7,17 +7,23 @@ public class Tile {
     private Color color;
     private double altitude;
     private double humidity;
+    private Biome biome;
 
     public Tile (Type type, Color color){
         this.type = type;
         this.color = color;
         this.altitude = 0;
         this.humidity = 0;
+        this.biome = Biome.FOREST;
     }
 
     public Tile(Type type, Color color, double humidity) {
         this(type, color);
         this.humidity = humidity;
+    }
+
+    public void setBiome(Biome biome) {
+        this.biome = biome;
     }
 
     public String getType(){
