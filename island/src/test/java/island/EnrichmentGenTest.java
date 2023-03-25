@@ -36,7 +36,12 @@ public class EnrichmentGenTest {
         tiles.add(new LandTile());
         tiles.add(new Tile(Type.OCEAN, null, 100));
         tiles.add(new LandTile());
+        List<Tile> tilesDuplicate = new ArrayList<>();
+        tilesDuplicate.add(new LandTile());
+        tilesDuplicate.add(new Tile(Type.OCEAN, null, 100));
+        tilesDuplicate.add(new LandTile());
 
+        // Dry composition test
         tiles = egen.enrichLand(aMesh, tiles, null, new Dry().defineComposition());
         // Test humidity
         assertEquals(10, tiles.get(0).getHumidity());
@@ -47,6 +52,18 @@ public class EnrichmentGenTest {
         // Test vegetation
         assertEquals(0, ((LandTile)tiles.get(0)).getVegetation());
         assertEquals(0, ((LandTile)tiles.get(2)).getVegetation());
+
+        // Wet composition test
+        tilesDuplicate = egen.enrichLand(aMesh, tilesDuplicate, null, new Wet().defineComposition());
+        // Test humidity
+        assertEquals(80, tilesDuplicate.get(0).getHumidity());
+        assertEquals(0, tilesDuplicate.get(2).getHumidity());
+        // Test moisture
+        assertEquals(0, ((LandTile)tilesDuplicate.get(0)).getMoisture());
+        assertEquals(0, ((LandTile)tilesDuplicate.get(2)).getMoisture());
+        // Test vegetation
+        assertEquals(0, ((LandTile)tilesDuplicate.get(0)).getVegetation());
+        assertEquals(0, ((LandTile)tilesDuplicate.get(2)).getVegetation());
     }
 
     @Test
@@ -61,11 +78,14 @@ public class EnrichmentGenTest {
         // Create corresponding tiles
         List<Tile> tiles = new ArrayList<>();
         tiles.add(new LandTile());
+        List<Tile> tilesDuplicate = new ArrayList<>();
+        tilesDuplicate.add(new LandTile());
 
         // Create rivers
         RiverGen rgen = new RiverGen();
         River[] rivers = rgen.createRivers(aMesh, tiles, 1);
 
+        // Dry composition test
         tiles = egen.enrichLand(aMesh, tiles, rivers, new Dry().defineComposition());
         // Test humidity
         assertEquals(rivers[0].getHumidity() * 0.1, tiles.get(0).getHumidity());
@@ -73,6 +93,15 @@ public class EnrichmentGenTest {
         assertEquals(rivers[0].getHumidity() * 0.1, ((LandTile)tiles.get(0)).getMoisture());
         // Test vegetation
         assertEquals(rivers[0].getHumidity() * 0.1, ((LandTile)tiles.get(0)).getVegetation());
+
+        // Wet composition test
+        tilesDuplicate = egen.enrichLand(aMesh, tilesDuplicate, rivers, new Wet().defineComposition());
+        // Test humidity
+        assertEquals(rivers[0].getHumidity() * 0.8, tilesDuplicate.get(0).getHumidity());
+        // Test moisture
+        assertEquals(rivers[0].getHumidity() * 0.8, ((LandTile)tilesDuplicate.get(0)).getMoisture());
+        // Test vegetation
+        assertEquals(rivers[0].getHumidity() * 0.8, ((LandTile)tilesDuplicate.get(0)).getVegetation());
     }
 
     @Test
@@ -88,7 +117,12 @@ public class EnrichmentGenTest {
         tiles.add(new LandTile());
         tiles.add(new LandTile(100)); // aquifer tile
         tiles.add(new LandTile());
+        List<Tile> tilesDuplicate = new ArrayList<>();
+        tilesDuplicate.add(new LandTile());
+        tilesDuplicate.add(new LandTile(100)); // aquifer tile
+        tilesDuplicate.add(new LandTile());
 
+        // Dry composition test
         tiles = egen.enrichLand(aMesh, tiles, null, new Dry().defineComposition());
         // Test humidity
         assertEquals(10, tiles.get(0).getHumidity());
@@ -99,6 +133,18 @@ public class EnrichmentGenTest {
         // Test vegetation
         assertEquals(10, ((LandTile)tiles.get(0)).getVegetation());
         assertEquals(0, ((LandTile)tiles.get(2)).getVegetation());
+
+        // Wet composition test
+        tilesDuplicate = egen.enrichLand(aMesh, tilesDuplicate, null, new Wet().defineComposition());
+        // Test humidity
+        assertEquals(80, tilesDuplicate.get(0).getHumidity());
+        assertEquals(0, tilesDuplicate.get(2).getHumidity());
+        // Test moisture
+        assertEquals(80, ((LandTile)tilesDuplicate.get(0)).getMoisture());
+        assertEquals(0, ((LandTile)tilesDuplicate.get(2)).getMoisture());
+        // Test vegetation
+        assertEquals(80, ((LandTile)tilesDuplicate.get(0)).getVegetation());
+        assertEquals(0, ((LandTile)tilesDuplicate.get(2)).getVegetation());
     }
 
 
