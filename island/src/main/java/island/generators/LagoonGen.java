@@ -57,7 +57,7 @@ public class LagoonGen {
         for (int i = 0; i < polygonBuilders.size(); i++) {
             if (tileTypeList.get(i).getValue().equals("land")) {
                 for (int j : polygonBuilders.get(i).getNeighborIdxsList()) {
-                    if (tileTypeList.get(j).getValue().equals("water") || tileTypeList.get(j).getValue().equals("lagoon")) {
+                    if (tileTypeList.get(j).getValue().equals("ocean") || tileTypeList.get(j).getValue().equals("lagoon")) {
                         tileTypeList.set(i, tileTypeList.get(i).setValue(beachTile.getType()));
                         tileColorList.set(i, tileColorList.get(i).setValue(beachTile.getColor()));
                         break;
