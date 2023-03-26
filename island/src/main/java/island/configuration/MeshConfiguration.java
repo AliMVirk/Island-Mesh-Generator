@@ -45,6 +45,8 @@ public class MeshConfiguration {
         if (numAquifers == null) numAquifers = "5";
         String soilProfile = config.export("soil");
         if (soilProfile == null) soilProfile = "wet";
+        String biomesProfile = config.export("biomes");
+        if (biomesProfile == null) biomesProfile = "";
         String heatmapView = config.export("heatmap");
         if (heatmapView == null) heatmapView = "";
 
@@ -134,8 +136,37 @@ public class MeshConfiguration {
         }
         tiles = egen.enrichLand(originalMesh, tiles, rivers, composition);
 
-        BiomesGen bgen = new BiomesGen();
-        tiles = bgen.transform(originalMesh, tiles);
+        double precip = 0;
+        double avgTemp = 0;
+
+        if (biomesProfile.contains(",")){
+            precip = Double.parseDouble(biomesProfile.split(",")[0]);
+            avgTemp = Double.parseDouble(biomesProfile.split(",")[1]);
+        } else {
+            switch (biomesProfile) {
+                case "northernCanada" -> {
+                    precip = 400;
+                    avgTemp = -25;
+                }
+                case "southernCanada" -> {
+                    precip = 400;
+                    avgTemp = 20;
+                }
+                case "mexico" -> {
+                    precip = 200;
+                    avgTemp = 30;
+                }
+                case "saharaDesert" -> {
+                    precip = 10;
+                    avgTemp = 56;
+                }
+            }
+        }
+
+        if (!biomesProfile.equals("none")) {
+            BiomesGen bgen = new BiomesGen();
+            tiles = bgen.transform(originalMesh, tiles, precip, avgTemp);
+        }
 
         HeatmapGen hmap = new HeatmapGen();
         tiles = hmap.transform(tiles, heatmapView);

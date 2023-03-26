@@ -38,7 +38,7 @@ public class BiomesGenTest {
         tile2.setAltitude(90);
         tiles.add(tile2);
 
-        tiles = bgen.transform(aMesh, tiles);
+        tiles = bgen.transform(aMesh, tiles, 0, 0);
         assertEquals(Biomes.ARCTIC.toString(), tiles.get(0).getBiomes());
         assertEquals(Biomes.ARCTIC.toString(), tiles.get(1).getBiomes());
     }
@@ -60,7 +60,7 @@ public class BiomesGenTest {
         tile2.setAltitude(60);
         tiles.add(tile2);
 
-        tiles = bgen.transform(aMesh, tiles);
+        tiles = bgen.transform(aMesh, tiles, 0, 0);
         assertEquals(Biomes.TUNDRA.toString(), tiles.get(0).getBiomes());
         assertEquals(Biomes.TUNDRA.toString(), tiles.get(1).getBiomes());
     }
@@ -77,7 +77,7 @@ public class BiomesGenTest {
         tile.setAltitude(40);
         tiles.add(tile);
 
-        tiles = bgen.transform(aMesh, tiles);
+        tiles = bgen.transform(aMesh, tiles, 0, 0);
         assertEquals(Biomes.RAINFOREST.toString(), tiles.get(0).getBiomes());
     }
     @Test
@@ -98,7 +98,7 @@ public class BiomesGenTest {
         tile2.setAltitude(30);
         tiles.add(tile2);
 
-        tiles = bgen.transform(aMesh, tiles);
+        tiles = bgen.transform(aMesh, tiles, 0, 0);
         assertEquals(Biomes.FOREST.toString(), tiles.get(0).getBiomes());
         assertEquals(Biomes.FOREST.toString(), tiles.get(1).getBiomes());
     }
@@ -116,7 +116,7 @@ public class BiomesGenTest {
         tiles.add(tile);
 
 
-        tiles = bgen.transform(aMesh, tiles);
+        tiles = bgen.transform(aMesh, tiles, 0, 0);
         assertEquals(Biomes.DESERT.toString(), tiles.get(0).getBiomes());
     }
     @Test
@@ -141,7 +141,7 @@ public class BiomesGenTest {
         tiles.add(tile3);
 
 
-        tiles = bgen.transform(aMesh, tiles);
+        tiles = bgen.transform(aMesh, tiles, 0, 0);
         assertEquals(Biomes.MANGROVES.toString(), tiles.get(0).getBiomes());
         assertEquals(Biomes.FOREST.toString(), tiles.get(2).getBiomes());
     }
@@ -158,7 +158,7 @@ public class BiomesGenTest {
         tile1.setAltitude(10);
         tiles.add(tile1);
 
-        tiles = bgen.transform(aMesh, tiles);
+        tiles = bgen.transform(aMesh, tiles, 0, 0);
         assertEquals(Biomes.TAIGA.toString(), tiles.get(0).getBiomes());
     }
 
@@ -175,7 +175,7 @@ public class BiomesGenTest {
         tile1.setAltitude(10);
         tiles.add(tile1);
 
-        tiles = bgen.transform(aMesh, tiles);
+        tiles = bgen.transform(aMesh, tiles, 0, 0);
         assertEquals(Biomes.PLAINS.toString(), tiles.get(0).getBiomes());
     }
     @Test
@@ -191,7 +191,7 @@ public class BiomesGenTest {
         tile1.setAltitude(10);
         tiles.add(tile1);
 
-        tiles = bgen.transform(aMesh, tiles);
+        tiles = bgen.transform(aMesh, tiles, 0, 0);
         assertEquals(Biomes.SUBTROPICALDESERT.toString(), tiles.get(0).getBiomes());
     }
 }

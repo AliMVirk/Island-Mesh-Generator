@@ -10,40 +10,36 @@ import java.util.List;
 
 public class BiomesGen {
 
-    public List<Tile> transform(Structs.Mesh oMesh, List<Tile> tiles) {
+    public List<Tile> transform(Structs.Mesh oMesh, List<Tile> tiles, double precip, double avgTemp) {
 
-        // assign biomes based on humidity and altitude of the tile.
+        // assign biomes based on humidity, precipitation, average temperature and altitude of the tile.
         for (int i = 0; i < tiles.size(); i++) {
             Tile tile = tiles.get(i);
-            double humidity = tile.getHumidity();
-            double altitude = tile.getAltitude();
+            double humidity = precip > 0 ? tile.getHumidity() - 20 + precip*0.1: tile.getHumidity();
+            double altitude = avgTemp > 0 ? tile.getAltitude() - 2*avgTemp : tile.getAltitude();
+            altitude = avgTemp < 0 ? tile.getAltitude() + (-3) * avgTemp : altitude;
+            altitude = altitude < 0 ? 0 : altitude;
             String type = tile.getType();
 
             boolean isNotWater = !(type.equals(Type.LAKE.toString()) || type.equals(Type.OCEAN.toString()));
 
-            if (altitude > 80 && humidity > 70) {
+            if (altitude > 80 && humidity >= 70) {
                 tile.setBiomes(Biomes.ARCTIC);
-                if (type.equals(Type.LAKE.toString()))
-                    tile.setColor(new Color(215, 239, 255));
-                else
-                    tile.setColor(new Color(207, 222, 255));
-            } else if (altitude > 80 && humidity > 40 && humidity < 70) {
+                if (isNotWater)
+                    tile.setColor(new Color(155, 188, 255));
+            } else if (altitude > 80 && humidity > 40) {
                 tile.setBiomes(Biomes.ARCTIC);
-                if (type.equals(Type.LAKE.toString()))
-                    tile.setColor(new Color(173, 223, 255));
-                else
+                if (isNotWater)
                     tile.setColor(new Color(218, 228, 255));
             } else if (altitude > 80 && humidity < 40 || altitude > 40 && altitude < 80 && humidity < 30) {
                 tile.setBiomes(Biomes.TUNDRA);
-                if (type.equals(Type.LAKE.toString()))
-                    tile.setColor(new Color(173, 223, 255));
-                else
+                if (isNotWater)
                     tile.setColor(new Color(99,230,248));
-            } else if (altitude > 20 && altitude < 80 && humidity > 70) {
+            } else if (altitude > 20 && altitude < 80 && humidity >= 70) {
                 tile.setBiomes(Biomes.RAINFOREST);
                 if (isNotWater)
                     tile.setColor(new Color(21, 124, 49));
-            } else if (altitude > 40 && altitude < 80 && humidity > 30 && humidity < 70 || altitude > 20 && altitude < 40 && humidity > 30 && humidity < 70) {
+            } else if (altitude > 40 && altitude < 80 && humidity >= 30 || altitude > 20 && altitude < 40 && humidity >= 30) {
                 tile.setBiomes(Biomes.FOREST);
                 if (isNotWater)
                     tile.setColor(new Color(46,177,83));
@@ -68,7 +64,7 @@ public class BiomesGen {
                         tile.setColor(new Color(21, 124, 49));
                 }
 
-            }  else if (altitude < 20 && humidity < 60 && humidity > 30) {
+            }  else if (altitude < 20 && humidity < 60 && humidity >= 30) {
                 tile.setBiomes(Biomes.TAIGA);
                 if (isNotWater)
                     tile.setColor(new Color(5,102,33));
