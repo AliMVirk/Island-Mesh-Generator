@@ -39,11 +39,11 @@ public class BiomesGen {
                     tile.setColor(new Color(173, 223, 255));
                 else
                     tile.setColor(new Color(99,230,248));
-            } else if (altitude > 40 && altitude < 80 && humidity > 70 || altitude > 20 && altitude < 40 && humidity > 60) {
+            } else if (altitude > 20 && altitude < 80 && humidity > 70) {
                 tile.setBiomes(Biomes.RAINFOREST);
                 if (isNotWater)
                     tile.setColor(new Color(21, 124, 49));
-            } else if (altitude > 40 && altitude < 80 && humidity > 30 && humidity < 70 || altitude > 20 && altitude < 40 && humidity > 30 && humidity < 60) {
+            } else if (altitude > 40 && altitude < 80 && humidity > 30 && humidity < 70 || altitude > 20 && altitude < 40 && humidity > 30 && humidity < 70) {
                 tile.setBiomes(Biomes.FOREST);
                 if (isNotWater)
                     tile.setColor(new Color(46,177,83));
@@ -72,13 +72,12 @@ public class BiomesGen {
                 tile.setBiomes(Biomes.TAIGA);
                 if (isNotWater)
                     tile.setColor(new Color(5,102,33));
-            } else if (altitude < 20 && humidity < 30 && humidity > 10) {
+            } else if (altitude < 20 && humidity < 30 && humidity > 15) {
                 tile.setBiomes(Biomes.PLAINS);
                 if (isNotWater)
                     tile.setColor(new Color(225, 222, 139));
             } else {
                 tile.setBiomes(Biomes.SUBTROPICALDESERT);
-                System.out.println(humidity + " " + altitude);
                 if (isNotWater)
                     tile.setColor(new Color(253, 203, 0));
             }

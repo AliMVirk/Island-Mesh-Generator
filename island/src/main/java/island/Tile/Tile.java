@@ -25,8 +25,8 @@ public class Tile {
     public void setBiomes(Biomes biomes) {
         this.biomes = biomes;
     }
-    public Biomes getBiomes() {
-        return biomes;
+    public String getBiomes() {
+        return biomes.toString();
     }
 
     public String getType(){
