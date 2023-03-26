@@ -134,7 +134,7 @@ public class MeshConfiguration {
         }
         tiles = egen.enrichLand(originalMesh, tiles, rivers, composition);
 
-        BiomeGen bgen = new BiomeGen();
+        BiomesGen bgen = new BiomesGen();
         tiles = bgen.transform(originalMesh, tiles);
 
         HeatmapGen hmap = new HeatmapGen();
