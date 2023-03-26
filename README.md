@@ -69,7 +69,7 @@ The following information shows how to transform an existing mesh by generating 
 When running the island generator, the following arguments can be used to control the island generation:
 
 ```
-java -jar island/island.jar -i <mesh input path> -o <mesh output path> --mode <generation mode> --shape <island shape> --altitude <altitude profile> --lakes <max number of lakes> --rivers <number of rivers> --aquifers <number of aquifers> --soil <soil composition profile>
+java -jar island/island.jar -i <mesh input path> -o <mesh output path> --mode <generation mode> --shape <island shape> --altitude <altitude profile> --lakes <max number of lakes> --rivers <number of rivers> --aquifers <number of aquifers> --soil <soil composition profile> --heatmap <heatmap category>
 ```
 
 To see all possible user configurations, run the above with argument ```-h``` or ```--help```
@@ -130,7 +130,7 @@ If a feature works as intended without bugs and the code is clean and concise, i
 ### Product Backlog
 
 |  Id   | Feature title                                                                                                                                 | Who?    | Start     | End       | Status  |
-| :---: | --------------------------------------------------------------------------------------------------------------------------------------------- | ------- |-----------|-----------|---------|
+| :---: | --------------------------------------------------------------------------------------------------------------------------------------------- | ------- | --------- | --------- | ------- |
 |  F01  | All squares in the mesh grid are polygons                                                                                                     | Qamrosh | 2/15/2023 | 2/15/2023 | D       |
 |  F02  | Polygons includes indexes to all segments, including those shared by neighbours                                                               | Ali     | 2/17/2023 | 2/17/2023 | D       |
 |  F03  | Polygons list their segments consecutively                                                                                                    | Qamrosh | 2/15/2023 | 2/15/2023 | D       |
@@ -168,8 +168,9 @@ If a feature works as intended without bugs and the code is clean and concise, i
 |  F35  | The speed at which soil absorbs humidity is dependent on its composition                                                                      | Qamrosh | 3/25/2023 | 3/25/2023 | D       |
 |  F36  | The absorption profile is decided via a command line argument                                                                                 | Hamza   | 3/25/2023 | 3/25/2023 | D       |
 |  F37  | Group collections of tiles as biomes based on temperature and humidity                                                                        | Hamza   |           |           | P       |
-|  F38  | Different biomes should be represented with different colours                                                                                 | Qamrosh |           |           | B (F37) |
-|  F39  | Allow user to configure the island biome                                                                                                      | Qamrosh |           |           | B (F37) |
+|  F38  | Different biomes should be represented with different colours                                                                                 | Hamza   |           |           | B (F37) |
+|  F39  | Allow user to configure the island biome                                                                                                      | Hamza   |           |           | B (F37) |
 |  F40  | Fetch temperature and humidity information based on user configured biomes                                                                    | Hamza   |           |           | B (F39) |
 |  F41  | Attribute a seed for each random configuration and island generation                                                                          | Qamrosh |           |           | P       |
 |  F42  | Allow user to input a seed that will reproduce the same island generation method                                                              | Qamrosh |           |           | B (F41) |
+|  F43  | Introduce user configurable heatmaps for humidity, moisture, and vegetation                                                                   | Qamrosh | 3/26/2023 | 3/26/2023 | D       |
