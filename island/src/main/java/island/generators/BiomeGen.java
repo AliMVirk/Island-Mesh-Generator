@@ -55,7 +55,7 @@ public class BiomeGen {
                 if (!type.equals(Type.LAKE.toString()))
                     tile.setColor(new Color(250, 240, 138));
             }
-            else if (altitude > 20 && humidity > 70){
+            else if (altitude > 0 && humidity > 70){
                 tile.setBiome(Biome.MANGROVES);
                 if (!type.equals(Type.LAKE.toString()))
                     tile.setColor(new Color(168, 167, 13));
@@ -65,7 +65,7 @@ public class BiomeGen {
                 if (!type.equals(Type.LAKE.toString()))
                     tile.setColor(new Color(184, 241, 170));
             }
-            else if (altitude > 20 && humidity > 0){
+            else if (altitude > 0 && humidity > 0){
                 tile.setBiome(Biome.DESERT);
                 if (!type.equals(Type.LAKE.toString()))
                     tile.setColor(new Color(250, 240, 138));
