@@ -61,7 +61,7 @@ public class BiomeGen {
                     tile.setColor(new Color(168, 167, 13));
             }
             else if (altitude > 20 && humidity > 40){
-                tile.setBiome(Biome.FIELDS);
+                tile.setBiome(Biome.PLAINS);
                 if (!type.equals(Type.LAKE.toString()))
                     tile.setColor(new Color(184, 241, 170));
             }
