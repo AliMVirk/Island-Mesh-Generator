@@ -20,8 +20,10 @@ public class AquiferGen {
         for (int j = 0; j < numOfAquifers && polygonIdxs.size() != 0; j++) {
             // Set random valid tile as an aquifer
             int index = polygonIdxs.get(rnd.nextInt(polygonIdxs.size()));
-            tiles.set(index, new LandTile(100));
-            ((LandTile) tiles.get(index)).setMoisture(90);
+            Tile t = new LandTile(100);
+            t.setAltitude(tiles.get(index).getAltitude());
+            ((LandTile) t).setMoisture(90);
+            tiles.set(index, t);
             polygonIdxs.remove((Object) index);
         }
 
