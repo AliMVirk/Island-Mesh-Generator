@@ -20,12 +20,12 @@ public class LakeGen {
         for (int j = 0; j < numOfLakes && polygonIdxs.size() != 0; j++) {
             // Set random valid tile as a lake
             int index = polygonIdxs.get(rnd.nextInt(polygonIdxs.size()));
-            tiles.set(index, new Tile(Type.LAKE, new Color(1, 99, 147), 100));
+            tiles.set(index, createLakeTile(tiles.get(index)));
             polygonIdxs.remove((Object) index);
             // Go through the lake's neighbors and randomly set some as lakes
             for (int n : oMesh.getPolygons(index).getNeighborIdxsList()){
                 if (rnd.nextBoolean() && polygonIdxs.contains(n)) {
-                    tiles.set(n, new Tile(Type.LAKE, new Color(1, 99, 147), 100));
+                    tiles.set(n, createLakeTile(tiles.get(n)));
                     polygonIdxs.remove((Object) n);
                 }
             }
@@ -49,6 +49,12 @@ public class LakeGen {
                 validPolygonIdxs.add(i);
         }
         return validPolygonIdxs;
+    }
+
+    private Tile createLakeTile(Tile t) {
+        Tile lake = new Tile(Type.LAKE, new Color(1, 99, 147), 100);
+        lake.setAltitude(t.getAltitude());
+        return lake;
     }
 
 }
