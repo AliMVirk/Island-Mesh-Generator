@@ -17,13 +17,9 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import island.Tile.River;
 import island.Tile.Tile;
-import island.profiles.altitude.Volcano;
-import island.profiles.soil.Dry;
-import island.profiles.soil.Wet;
-import island.profiles.altitude.CornerMountains;
-import island.profiles.altitude.Hills;
-import island.shapes.Ellipse;
-import island.shapes.Rectangle;
+import island.profiles.altitude.*;
+import island.profiles.soil.*;
+import island.shapes.*;
 
 public class MeshConfiguration {
 
@@ -36,7 +32,7 @@ public class MeshConfiguration {
     public void generateIsland() throws IOException {
         // Fetch command line arguments
         String shape = config.export("shape");
-        if (shape == null) shape = "polygon";
+        if (shape == null) shape = "circle";
         String mode = config.export("mode");
         if (mode == null) mode = "";
         String altProfile = config.export("altitude");
@@ -49,6 +45,8 @@ public class MeshConfiguration {
         if (numAquifers == null) numAquifers = "5";
         String soilProfile = config.export("soil");
         if (soilProfile == null) soilProfile = "wet";
+        String heatmapView = config.export("heatmap");
+        if (heatmapView == null) heatmapView = "";
 
         MeshFactory factory = new MeshFactory();
         Mesh originalMesh = factory.read(config.export("i")); // Read input mesh
@@ -98,7 +96,7 @@ public class MeshConfiguration {
             case "volcano":
                 altitudeData = volcano.build(width, height, 1, 100, 0.8);
                 break;
-            case "Hills":
+            case "hills":
                 altitudeData = valley.build(width, height, 4, 70, 0.9);
                 break;
             default: // random hills
@@ -138,6 +136,9 @@ public class MeshConfiguration {
 
         BiomeGen bgen = new BiomeGen();
         tiles = bgen.transform(originalMesh, tiles);
+
+        HeatmapGen hmap = new HeatmapGen();
+        tiles = hmap.transform(tiles, heatmapView);
 
         // Turn tiles into polygon properties
         Mesh islandMesh = mutateMesh(originalMesh, tiles, rivers);
