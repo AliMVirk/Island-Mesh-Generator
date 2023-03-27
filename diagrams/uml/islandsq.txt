@@ -52,6 +52,16 @@ MeshConfiguration -> AquiferGen : transform()
 AquiferGen -> MeshConfiguration
 deactivate AquiferGen
 
+activate BiomesGen
+MeshConfiguration -> BiomesGen : transform()
+BiomesGen -> MeshConfiguration
+deactivate BiomesGen
+
+activate HeatmapGen
+MeshConfiguration -> HeatmapGen : transform()
+HeatmapGen -> MeshConfiguration
+deactivate HeatmapGen
+
 activate Mesh
 activate MeshFactory
 MeshConfiguration -> MeshConfiguration : mutateMesh
