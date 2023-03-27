@@ -74,26 +74,48 @@ package island {
             -int findConnectingSegment(Mesh, Polygon, Vertex)
         }
 
+        AltitudeGen o-- MeshConfiguration
+        AquiferGen o-- MeshConfiguration
+        BiomesGen o-- MeshConfiguration
+        EnrichmentGen o-- MeshConfiguration
+        LagoonGen o-- MeshConfiguration
+        LakeGen o-- MeshConfiguration
+        LandGen o-- MeshConfiguration
+        RiverGen o-- MeshConfiguration
+
     }
 
     package biomes {
+
+        class Arctic {
+
+        }
         
-        class ArcticBiome {
-            +List<Tile> transform(List<Tile)
+        class Biome {
+
         }
 
-        class DesertBiome {
-            +List<Tile> transform(List<Tile)
+        class Biomes {
+
         }
 
-        class TemperateBiome {
-            +List<Tile> transform(List<Tile)
+        class Desert {
+
         }
 
-        class TropicalBiome {
-            +List<Tile> transform(List<Tile)
+        class Temperate {
+
         }
 
+        class Tropical {
+
+        }
+
+        Biomes <.. Biome
+        Biome <.. Arctic
+        Biome <.. Desert
+        Biome <.. Temperate
+        Biome <.. Tropical
     }
 
     package profiles {
@@ -138,6 +160,31 @@ package island {
             
 
         }
+
+        package biomes {
+        
+        class ArcticBiome {
+            +List<Tile> transform(List<Tile)
+        }
+
+        class DesertBiome {
+            +List<Tile> transform(List<Tile)
+        }
+
+        class TemperateBiome {
+            +List<Tile> transform(List<Tile)
+        }
+
+        class TropicalBiome {
+            +List<Tile> transform(List<Tile)
+        }
+
+        ArcticBiome -- Arctic
+        DesertBiome -- Desert
+        TemperateBiome -- Temperate
+        TropicalBiome -- Tropical
+
+    }
 
         package soil {
 
@@ -242,7 +289,13 @@ package island {
 
     }
 
-    Tile <|-- LandTile
+    AltitudeData o-- AltitudeGen
+    Biomes <.. BiomesGen
+    Dry <.. EnrichmentGen
+    Wet <.. EnrichmentGen
+    Mesh -- LagoonGen
+    Shape <.. LandGen
+
 
 }
 
