@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class River {
     
-    private final Color color = new Color(1, 64, 98);
+    private final Color color = new Color(86, 163, 204);
     private double discharge;
     private double humidity;
 
