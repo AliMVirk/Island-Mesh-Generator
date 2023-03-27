@@ -33,7 +33,7 @@ public class AquiferGenTest {
         tiles.add(new Tile(Type.LAND, null));
         tiles.add(new LandTile());
 
-        tiles = qgen.transform(aMesh, tiles, 1);
+        tiles = qgen.transform(aMesh, tiles, 1, new Random());
         boolean exists = tiles.get(0).getType().equals(Type.AQUIFER.toString()) || tiles.get(1).getType().equals(Type.AQUIFER.toString());
         assertTrue(exists);
     }
@@ -52,7 +52,7 @@ public class AquiferGenTest {
         tiles.add(new Tile(Type.OCEAN, null));
         tiles.add(new LandTile());
 
-        tiles = qgen.transform(aMesh, tiles, 1);
+        tiles = qgen.transform(aMesh, tiles, 1, new Random());
         assertEquals(Type.LAND.toString(), tiles.get(1).getType());
     }
 
@@ -70,7 +70,7 @@ public class AquiferGenTest {
         tiles.add(new LandTile());
         tiles.add(new LandTile());
 
-        tiles = qgen.transform(aMesh, tiles, new Random().nextInt(tiles.size()));
+        tiles = qgen.transform(aMesh, tiles, new Random().nextInt(tiles.size()), new Random());
         for (Tile t : tiles) {
             if (t.getType().equals(Type.AQUIFER.toString()))
                 assertEquals(100, t.getHumidity());

@@ -11,6 +11,7 @@ import island.generators.RiverGen;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,7 +34,7 @@ public class RiverGenTest {
         tiles.add(new Tile(Type.LAND, null));
         tiles.add(new Tile(Type.LAND, null));
 
-        River[] rivers = rgen.createRivers(aMesh, tiles, 1);
+        River[] rivers = rgen.createRivers(aMesh, tiles, 1, new Random());
         assertNotNull(rivers[0]);
     }
 
@@ -52,7 +53,7 @@ public class RiverGenTest {
         tiles.add(new Tile(Type.LAND, null));
         tiles.add(new Tile(Type.OCEAN, null));
 
-        River[] rivers = rgen.createRivers(aMesh, tiles, 1);
+        River[] rivers = rgen.createRivers(aMesh, tiles, 1, new Random());
         assertNull(rivers[0]);
     }
 
@@ -76,7 +77,7 @@ public class RiverGenTest {
         tiles.get(0).setAltitude(5);
         tiles.get(0).setAltitude(1);
 
-        River[] rivers = rgen.createRivers(aMesh, tiles, 1);
+        River[] rivers = rgen.createRivers(aMesh, tiles, 1, new Random());
         assertNotNull(rivers[1]); // river will either start at tile 1 and stay, or river will extend from tile 0
     }
 
@@ -94,11 +95,11 @@ public class RiverGenTest {
         tiles.add(new Tile(Type.LAND, null));
 
         // Get discharge for 1 river in 1 spot
-        River[] rivers = rgen.createRivers(aMesh, tiles, 1); // equals at most the largest floating point below 2
+        River[] rivers = rgen.createRivers(aMesh, tiles, 1, new Random()); // equals at most the largest floating point below 2
         double smallDischarge = rivers[0].getDischarge();
         // Get discharge for 4 rivers in 1 spot
         rivers[0] = null;
-        rivers = rgen.createRivers(aMesh, tiles, 4);
+        rivers = rgen.createRivers(aMesh, tiles, 4, new Random());
         double largeDischarge = rivers[0].getDischarge(); // equals at least 2
         assertTrue(largeDischarge > smallDischarge);
     }

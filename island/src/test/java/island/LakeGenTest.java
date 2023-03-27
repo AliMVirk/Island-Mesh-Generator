@@ -32,7 +32,7 @@ public class LakeGenTest {
         tiles.add(new Tile(Type.LAND, null));
         tiles.add(new Tile(Type.LAND, null));
 
-        tiles = lgen.transform(aMesh, tiles, 1);
+        tiles = lgen.transform(aMesh, tiles, 1, new Random());
         boolean lakeExists = tiles.get(0).getType().equals(Type.LAKE.toString()) || tiles.get(1).getType().equals(Type.LAKE.toString());
         assertTrue(lakeExists);
     }
@@ -51,7 +51,7 @@ public class LakeGenTest {
         tiles.add(new Tile(Type.OCEAN, null));
         tiles.add(new Tile(Type.LAND, null));
 
-        tiles = lgen.transform(aMesh, tiles, 1);
+        tiles = lgen.transform(aMesh, tiles, 1, new Random());
         assertEquals(Type.LAND.toString(), tiles.get(1).getType());
     }
 
@@ -69,7 +69,7 @@ public class LakeGenTest {
         tiles.add(new Tile(Type.LAND, null));
         tiles.add(new Tile(Type.LAND, null));
 
-        tiles = lgen.transform(aMesh, tiles, new Random().nextInt(tiles.size()));
+        tiles = lgen.transform(aMesh, tiles, new Random().nextInt(tiles.size()), new Random());
         for (Tile t : tiles) {
             if (t.getType().equals(Type.LAKE.toString()))
                 assertEquals(100, t.getHumidity());

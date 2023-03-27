@@ -15,6 +15,7 @@ import island.profiles.soil.Wet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -83,7 +84,7 @@ public class EnrichmentGenTest {
 
         // Create rivers
         RiverGen rgen = new RiverGen();
-        River[] rivers = rgen.createRivers(aMesh, tiles, 1);
+        River[] rivers = rgen.createRivers(aMesh, tiles, 1, new Random());
 
         // Dry composition test
         tiles = egen.enrichLand(aMesh, tiles, rivers, new Dry().defineComposition());
