@@ -17,16 +17,16 @@ public class BiomesGen {
     public List<Tile> transform(List<Tile> tiles, String biomesProfile) {
 
         // Select a biome and create its sub-biomes
-        if (biomesProfile.equals(Biomes.ARCTIC.toString())){
+        if (biomesProfile.equals(Biomes.ARCTIC.toString()) || biomesProfile.equals("1")){
             ArcticBiome aBiome = new ArcticBiome();
             tiles = aBiome.transform(tiles);
-        } else if (biomesProfile.equals(Biomes.TROPICAL.toString())) {
+        } else if (biomesProfile.equals(Biomes.TROPICAL.toString()) || biomesProfile.equals("2")) {
             TropicalBiome tBiome = new TropicalBiome();
             tiles = tBiome.transform(tiles);
-        } else if (biomesProfile.equals(Biomes.DESERT.toString())){
+        } else if (biomesProfile.equals(Biomes.DESERT.toString()) || biomesProfile.equals("3")){
             DesertBiome dBiome = new DesertBiome();
             tiles = dBiome.transform(tiles);
-        } else if (biomesProfile.equals(Biomes.TEMPERATE.toString())){
+        } else if (biomesProfile.equals(Biomes.TEMPERATE.toString()) || biomesProfile.equals("4")){
             TemperateBiome tBiome = new TemperateBiome();
             tiles = tBiome.transform(tiles);
         }
