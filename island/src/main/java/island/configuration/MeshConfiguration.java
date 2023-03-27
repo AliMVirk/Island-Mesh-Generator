@@ -137,10 +137,11 @@ public class MeshConfiguration {
         }
         tiles = egen.enrichLand(originalMesh, tiles, rivers, composition);
 
-
+        // Generate biomes
+        // If biomeProfile == none then generate the island without specific biomes
         if (!biomesProfile.equals("none")) {
             BiomesGen bgen = new BiomesGen();
-            tiles = bgen.transform(originalMesh, tiles, biomesProfile);
+            tiles = bgen.transform(tiles, biomesProfile);
         }
 
         HeatmapGen hmap = new HeatmapGen();
