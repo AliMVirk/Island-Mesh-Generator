@@ -11,12 +11,15 @@ import java.util.List;
 public class ArcticBiome {
 
     public List<Tile> transform(List<Tile> tiles) {
-        // assign biomes based on humidity, precipitation, average temperature and altitude of the tile.
+        // assign biomes based on humidity and altitude of the tile.
+        // Do not change the color of water tiles
         for (Tile tile : tiles) {
+            // Get type, altitude and humidity of tile
             double humidity = tile.getHumidity();
             double altitude = tile.getAltitude();
             String type = tile.getType();
 
+            // True if the tile is not a water tile
             boolean isNotWater = !(type.equals(Type.LAKE.toString()) || type.equals(Type.OCEAN.toString()));
 
             if (altitude > 40 && humidity > 40) {

@@ -169,8 +169,8 @@ If a feature works as intended without bugs and the code is clean and concise, i
 |  F36  | The absorption profile is decided via a command line argument                                                                                 | Hamza   | 3/25/2023 | 3/25/2023 | D       |
 |  F37  | Group collections of tiles as biomes based on temperature and humidity                                                                        | Hamza   | 3/25/2023 | 3/26/2023 | D       |
 |  F38  | Different biomes should be represented with different colours                                                                                 | Hamza   | 3/25/2023 | 3/26/2023 | D       |
-|  F39  | Allow user to configure the island biome                                                                                                      | Hamza   |           |           | B (F37) |
-|  F40  | Fetch temperature and humidity information based on user configured biomes                                                                    | Hamza   |           |           | B (F39) |
+|  F39  | Allow user to configure the island biome                                                                                                      | Hamza   | 3/26/2023 | 3/26/2023 | D       |
+|  F40  | Fetch temperature and humidity information based on user configured biomes                                                                    | Hamza   | 3/26/2023 | 3/26/2023 | D       |
 |  F41  | Attribute a seed for each random configuration and island generation                                                                          | Qamrosh |           |           | P       |
 |  F42  | Allow user to input a seed that will reproduce the same island generation method                                                              | Qamrosh |           |           | B (F41) |
 |  F43  | Introduce user configurable heatmaps for humidity, moisture, and vegetation                                                                   | Qamrosh | 3/26/2023 | 3/26/2023 | D       |

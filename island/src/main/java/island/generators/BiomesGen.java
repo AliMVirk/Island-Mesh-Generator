@@ -14,8 +14,9 @@ import java.util.List;
 
 public class BiomesGen {
 
-    public List<Tile> transform(Structs.Mesh oMesh, List<Tile> tiles, String biomesProfile) {
+    public List<Tile> transform(List<Tile> tiles, String biomesProfile) {
 
+        // Select a biome and create its sub-biomes
         if (biomesProfile.equals(Biomes.ARCTIC.toString())){
             ArcticBiome aBiome = new ArcticBiome();
             tiles = aBiome.transform(tiles);
