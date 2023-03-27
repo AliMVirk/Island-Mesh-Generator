@@ -11,9 +11,8 @@ import java.util.Random;
 
 public class AquiferGen {
 
-    public List<Tile> transform(Structs.Mesh oMesh, List<Tile> tiles, int numOfAquifers) {
+    public List<Tile> transform(Structs.Mesh oMesh, List<Tile> tiles, int numOfAquifers, Random rnd) {
 
-        Random rnd = new Random();
         List<Integer> polygonIdxs = getValidPolygonIdxs(oMesh, tiles);
         numOfAquifers = (polygonIdxs.size() == 0) ? 0 : numOfAquifers; // Create no lakes if there are no valid spots
 

@@ -16,7 +16,7 @@ import java.awt.Color;
 
 public class AltitudeGen {
     
-    public List<Tile> transform(Mesh oMesh, List<Tile> tiles, AltitudeData altitudeData) {
+    public List<Tile> transform(Mesh oMesh, List<Tile> tiles, AltitudeData altitudeData, Random rnd) {
         List<Coordinate> coords = altitudeData.getCoords();
         double maxAltitude = altitudeData.getMaxAltitude();
         double steepnessFactor = altitudeData.getSteepnessFactor();
@@ -53,7 +53,6 @@ public class AltitudeGen {
             assignAltitude.add(peakIndex);
         }
 
-        Random rnd = new Random();
         // Assign max altitude to peaks
         for (int i : assignAltitude)
             tiles.get(i).setAltitude(maxAltitude);

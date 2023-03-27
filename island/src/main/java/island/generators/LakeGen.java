@@ -11,9 +11,8 @@ import java.util.Random;
 
 public class LakeGen {
 
-    public List<Tile> transform(Mesh oMesh, List<Tile> tiles, int numOfLakes) {
+    public List<Tile> transform(Mesh oMesh, List<Tile> tiles, int numOfLakes, Random rnd) {
 
-        Random rnd = new Random();
         List<Integer> polygonIdxs = getValidPolygonIdxs(oMesh, tiles);
         numOfLakes = (polygonIdxs.size() == 0) ? 0 : numOfLakes; // Create no lakes if there are no valid spots
 

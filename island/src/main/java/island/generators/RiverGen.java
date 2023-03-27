@@ -14,10 +14,9 @@ import island.Tile.Type;
 
 public class RiverGen {
     
-    public River[] createRivers(Mesh oMesh, List<Tile> tiles, int numRivers) {
+    public River[] createRivers(Mesh oMesh, List<Tile> tiles, int numRivers, Random rnd) {
         River[] rivers = new River[oMesh.getSegmentsCount()];
 
-        Random rnd = new Random();
         List<Integer> polygonIdxs = getValidPolygonIdxs(oMesh, tiles);
         numRivers = (polygonIdxs.size() == 0) ? 0 : numRivers; // Create no rivers if there are no valid spots
         for (int i = 0; i < numRivers; i++) {
