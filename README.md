@@ -99,7 +99,10 @@ Pre-made heatmap profiles that can be used:
 ```--heatmap altitude, --heatmap moisture, --heatmap humidity```
 
 Pre-made biomes profiles that can be used:  
-```--biomes arctic, --biomes tropical, --biomes desert, --biomes temperate```
+```--biomes arctic, --biomes tropical, --biomes desert, --biomes temperate, --biomes none```
+
+Pre-generated seed can be selected to regenerate an island
+```--seed <seed>```
 
 The following is an example of generating and visualizing an island mesh:
 
