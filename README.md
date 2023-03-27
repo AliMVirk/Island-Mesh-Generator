@@ -1,14 +1,14 @@
 # Assignment A2: Mesh Generator
 
-  - Ali Virk [virka9@mcmaster.ca]
-  - Hamza Abou Jaib [aboujaih@mcmaster.ca]
-  - Qamrosh Ahmad [ahmadq2@mcmaster.ca]
+- Ali Virk [virka9@mcmaster.ca]
+- Hamza Abou Jaib [aboujaih@mcmaster.ca]
+- Qamrosh Ahmad [ahmadq2@mcmaster.ca]
 
 ## Running the generator and visualizer
 
 The following information shows the necessary commands to create a mesh and visualize the mesh in an SVG file. If needed, the mesh can be visualized in debug mode by including a `-X` flag.
 
-Running the commands with no extra arguments will result in a grid mesh composed of squares, where the canvas size is 500x500 with a square size of 20. 
+Running the commands with no extra arguments will result in a grid mesh composed of squares, where the canvas size is 500x500 with a square size of 20.
 
 When running the generator, the following arguments can be used to control the mesh generation:
 
@@ -69,7 +69,7 @@ The following information shows how to transform an existing mesh by generating 
 When running the island generator, the following arguments can be used to control the island generation:
 
 ```
-java -jar island/island.jar -i <mesh input path> -o <mesh output path> --mode <generation mode> --shape <island shape> --altitude <altitude profile> --lakes <max number of lakes> --rivers <number of rivers> --aquifers <number of aquifers> --soil <soil composition profile> --biomes <biome profile> --seed <arg> --heatmap <heatmap category>
+java -jar island/island.jar -i <mesh input path> -o <mesh output path> --mode <generation mode> --shape <island shape> --altitude <altitude profile> --lakes <max number of lakes> --rivers <number of rivers> --aquifers <number of aquifers> --soil <soil composition profile> --heatmap <heatmap category> --biomes <biomes profile>
 ```
 
 To see all possible user configurations, run the above with argument ```-h``` or ```--help```
@@ -78,7 +78,28 @@ Pre-made shapes that can be used:
 ```--shape circle, --shape ellipse, --shape rectangle, --shape square```
 
 Pre-made altitude profiles that can be used:  
-```--altitude centralPeak, --shape cornerPeaks, --shape randomPeaks```
+```--altitude centralPeak, --altitude cornerPeaks, --altitude randomPeaks```
+
+Number of lakes must be greater than 0:  
+```--lakes 5```
+
+Number of rivers must be greater than 0:  
+```--rivers 5```
+
+Number of aquifers must be greater than 0:  
+```--aquifers 5```
+
+Pre-made soil profiles that can be used:  
+```--soil dry, --soil wet```
+
+Pre-made soil profiles that can be used:  
+```--soil dry, --soil wet```
+
+Pre-made heatmap profiles that can be used:  
+```--heatmap altitude, --heatmap moisture, --heatmap humidity```
+
+Pre-made biomes profiles that can be used:  
+```--biomes arctic, --biomes tropical, --biomes desert, --biomes temperate```
 
 The following is an example of generating and visualizing an island mesh:
 
@@ -114,6 +135,34 @@ Figure 3.1: Ellipse island with 4 mountains/peaks
 <img src="./diagrams/ellipseIslandWithAltitudesShowing.png" width="400" />
 <br>
 Figure 3.2: Ellipse island with 4 mountains/peaks showing the altitudes (white is highest point, cyan is lowest point)
+<br><br>
+
+The following is an example of generating and visualizing an ellipse shaped island with four mountains on the edges mesh with 5 lakes, 5 rivers, 5 aquifers, wet soil and an arctic biome:
+```mvn install```
+
+```java -jar generator/generator.jar generator/sample.mesh -t irregular -d 1000 -w 1000 -n 2000```
+
+```java -jar island/island.jar -i generator/sample.mesh -o island/sample.mesh --shape ellipse --altitude cornerMountains --lakes 5 --rivers 5 --aquifers 5 --soil wet --biome arctic```
+
+```java -jar visualizer/visualizer.jar island/sample.mesh visualizer/sample.svg```
+<br>
+<img src="./diagrams/arctic.png" width="400" />
+<br>
+Figure 3.1: Arctic biome with 5 lakes, 5 rivers, 5 aquifers and wet soil
+<br><br>
+
+The following is an example of generating and visualizing the heatmap of an ellipse shaped island with four mountains on the edges mesh with 5 lakes, 5 rivers, 5 aquifers, wet soil and an arctic biome:
+```mvn install```
+
+```java -jar generator/generator.jar generator/sample.mesh -t irregular -d 1000 -w 1000 -n 2000```
+
+```java -jar island/island.jar -i generator/sample.mesh -o island/sample.mesh --shape ellipse --altitude cornerMountains --lakes 5 --rivers 5 --aquifers 5 --soil wet --biome arctic --heatmap altitude```
+
+```java -jar visualizer/visualizer.jar island/sample.mesh visualizer/sample.svg```
+<br>
+<img src="./diagrams/heatmap.png" width="400" />
+<br>
+Figure 3.1: Altitude heatmap for arctic biomes with 5 lakes, 5 rivers, 5 aquifers and wet soil
 <br><br>
 
 
