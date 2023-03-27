@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import island.biomes.Biomes;
 import island.generators.*;
 import island.profiles.altitude.AltitudeData;
 import org.apache.commons.cli.ParseException;
@@ -136,36 +137,10 @@ public class MeshConfiguration {
         }
         tiles = egen.enrichLand(originalMesh, tiles, rivers, composition);
 
-        double precip = 0;
-        double avgTemp = 0;
-
-        if (biomesProfile.contains(",")){
-            precip = Double.parseDouble(biomesProfile.split(",")[0]);
-            avgTemp = Double.parseDouble(biomesProfile.split(",")[1]);
-        } else {
-            switch (biomesProfile) {
-                case "northernCanada" -> {
-                    precip = 400;
-                    avgTemp = -25;
-                }
-                case "southernCanada" -> {
-                    precip = 400;
-                    avgTemp = 20;
-                }
-                case "mexico" -> {
-                    precip = 200;
-                    avgTemp = 30;
-                }
-                case "saharaDesert" -> {
-                    precip = 10;
-                    avgTemp = 56;
-                }
-            }
-        }
 
         if (!biomesProfile.equals("none")) {
             BiomesGen bgen = new BiomesGen();
-            tiles = bgen.transform(originalMesh, tiles, precip, avgTemp);
+            tiles = bgen.transform(originalMesh, tiles, biomesProfile);
         }
 
         HeatmapGen hmap = new HeatmapGen();

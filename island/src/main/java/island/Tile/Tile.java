@@ -1,5 +1,7 @@
 package island.Tile;
 
+import island.biomes.Biome;
+
 import java.awt.Color;
 
 public class Tile {
@@ -7,14 +9,14 @@ public class Tile {
     private Color color;
     private double altitude;
     private double humidity;
-    private Biomes biomes;
+    private Biome biomes;
 
     public Tile (Type type, Color color){
         this.type = type;
         this.color = color;
         this.altitude = 0;
         this.humidity = 0;
-        this.biomes = Biomes.FOREST;
+        this.biomes = null;
     }
 
     public Tile(Type type, Color color, double humidity) {
@@ -22,7 +24,7 @@ public class Tile {
         this.humidity = humidity;
     }
 
-    public void setBiomes(Biomes biomes) {
+    public void setBiomes(Biome biomes) {
         this.biomes = biomes;
     }
     public String getBiomes() {
