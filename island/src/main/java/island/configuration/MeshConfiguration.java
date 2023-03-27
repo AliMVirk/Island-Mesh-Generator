@@ -4,6 +4,7 @@ import java.awt.geom.Path2D;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import island.biomes.Biomes;
 import island.generators.*;
@@ -25,12 +26,16 @@ import island.shapes.*;
 public class MeshConfiguration {
 
     private Configuration config;
+    private Random rnd;
+    private String genSeed;
 
-    public MeshConfiguration(String[] args) throws ParseException {
+    public MeshConfiguration(String[] args, long seed) throws ParseException {
         config = new Configuration(args);
+        rnd = new Random(seed);
+        genSeed = String.valueOf(seed);
     }
 
-    public void generateIsland() throws IOException {
+    public String generateIsland() throws IOException {
         // Fetch command line arguments
         String shape = config.export("shape");
         if (shape == null) shape = "circle";
@@ -40,16 +45,29 @@ public class MeshConfiguration {
         if (altProfile == null) altProfile = "";
         String numLakes = config.export("lakes");
         if (numLakes == null) numLakes = "5";
+        if (Integer.parseInt(numLakes) > 999) numLakes = "999";
         String numRivers = config.export("rivers");
         if (numRivers == null) numRivers = "5";
+        if (Integer.parseInt(numRivers) > 999) numRivers = "999";
         String numAquifers = config.export("aquifers");
         if (numAquifers == null) numAquifers = "5";
+        if (Integer.parseInt(numAquifers) > 999) numAquifers = "999";
         String soilProfile = config.export("soil");
         if (soilProfile == null) soilProfile = "wet";
         String biomesProfile = config.export("biomes");
         if (biomesProfile == null) biomesProfile = "";
         String heatmapView = config.export("heatmap");
         if (heatmapView == null) heatmapView = "";
+        String seed = config.export("seed");
+        boolean random = true; // true if seed was not provided
+        String configSeed = ""; // seed for configurability options if seed is not provided and only rng seed is generated
+        if (seed != null) {
+            // seed is of the format 0 0 0 000 000 000 0 0 0 0...0
+            // 0:mode 0:shape 0:altitude 000:lakes 000:rivers 000:aquifers 0:soil 0:biome 0:heatmap 0...0:rng seed
+            rnd.setSeed(Long.parseLong(seed.substring(15)));
+            genSeed = seed;
+            random = false;
+        }
 
         MeshFactory factory = new MeshFactory();
         Mesh originalMesh = factory.read(config.export("i")); // Read input mesh
@@ -68,22 +86,46 @@ public class MeshConfiguration {
         List<Coordinate> coords = new ArrayList<>();
         Rectangle rect = new Rectangle();
         Ellipse ellipse = new Ellipse();
-        switch (shape) {
+        if (random) {
+            switch (shape) {
             case "rectangle":
                 coords = rect.generateRectangle(width / 4, height / 4, width / 2, height / 3);
                 islandBoundary = rect.build(coords);
+                configSeed += "1";
                 break;
             case "square":
                 coords = rect.generateRectangle(width / 4, height / 4, width / 2, width / 2);
                 islandBoundary = rect.build(coords);
+                configSeed += "2";
                 break;
             case "ellipse":
                 islandBoundary = ellipse.build(ellipse.generateEllipse(width / 2, height / 2, width / 1.5, height / 2));
+                configSeed += "3";
                 break;
             default: // case "circle"
                 islandBoundary = ellipse.build(ellipse.generateEllipse(width / 2, height / 2, width / 3, height / 3));
+                configSeed += "0";
                 break;
+            }
+        } else {
+            switch (genSeed.charAt(1)) {
+                case '1':
+                    coords = rect.generateRectangle(width / 4, height / 4, width / 2, height / 3);
+                    islandBoundary = rect.build(coords);
+                    break;
+                case '2':
+                    coords = rect.generateRectangle(width / 4, height / 4, width / 2, width / 2);
+                    islandBoundary = rect.build(coords);
+                    break;
+                case '3':
+                    islandBoundary = ellipse.build(ellipse.generateEllipse(width / 2, height / 2, width / 1.5, height / 2));
+                    break;
+                default: // case "circle"
+                    islandBoundary = ellipse.build(ellipse.generateEllipse(width / 2, height / 2, width / 3, height / 3));
+                    break;
+            }
         }
+        
         coords.clear();
         LandGen lgn = new LandGen();
         tiles = lgn.createLand(originalMesh, islandBoundary);
@@ -92,71 +134,181 @@ public class MeshConfiguration {
         Volcano volcano = new Volcano();
         CornerMountains valley = new CornerMountains();
         Hills hills = new Hills();
-
         AltitudeData altitudeData;
 
-        switch (altProfile) {
-            case "volcano":
-                altitudeData = volcano.build(width, height, 1, 100, 0.8);
-                break;
-            case "hills":
-                altitudeData = valley.build(width, height, 4, 70, 0.9);
-                break;
-            default: // random hills
-                altitudeData = hills.build(width, height, 10, 50, 0.5);
-                break;
+        if (random) {
+            switch (altProfile) {
+                case "volcano":
+                    altitudeData = volcano.build(width, height, 1, 100, 0.8);
+                    configSeed += "1";
+                    break;
+                case "hills":
+                    altitudeData = valley.build(width, height, 4, 70, 0.9);
+                    configSeed += "2";
+                    break;
+                default: // random hills
+                    altitudeData = hills.build(width, height, 10, 50, 0.5, rnd);
+                    configSeed += "0";
+                    break;
+            }
+        } else {
+            switch (genSeed.charAt(2)) {
+                case '1':
+                    altitudeData = volcano.build(width, height, 1, 100, 0.8);
+                    break;
+                case '2':
+                    altitudeData = valley.build(width, height, 4, 70, 0.9);
+                    break;
+                default: // random hills
+                    altitudeData = hills.build(width, height, 10, 50, 0.5, rnd);
+                    break;
+            }
         }
         AltitudeGen agen = new AltitudeGen();
-        tiles = agen.transform(originalMesh, tiles, altitudeData);
+        tiles = agen.transform(originalMesh, tiles, altitudeData, rnd);
 
         // Create lakes
         LakeGen lgen = new LakeGen();
-        tiles = lgen.transform(originalMesh, tiles, Integer.parseInt(numLakes));
+        if (random) {
+            tiles = lgen.transform(originalMesh, tiles, Integer.parseInt(numLakes), rnd);
+            configSeed += String.format("%03d", Integer.parseInt(numLakes));
+        } else
+            tiles = lgen.transform(originalMesh, tiles, Integer.parseInt(genSeed.substring(3, 6)), rnd);
 
         // Create rivers
         RiverGen rgen = new RiverGen();
-        River[] rivers = rgen.createRivers(originalMesh, tiles, Integer.parseInt(numRivers));
+        River[] rivers;
+        if (random) {
+            rivers = rgen.createRivers(originalMesh, tiles, Integer.parseInt(numRivers), rnd);
+            configSeed += String.format("%03d", Integer.parseInt(numRivers));
+        } else
+            rivers = rgen.createRivers(originalMesh, tiles, Integer.parseInt(genSeed.substring(6, 9)), rnd);
 
         // Create aquifers
         AquiferGen qgen = new AquiferGen();
-        tiles = qgen.transform(originalMesh, tiles, Integer.parseInt(numAquifers));
+        if (random) {
+            tiles = qgen.transform(originalMesh, tiles, Integer.parseInt(numAquifers), rnd);
+            configSeed += String.format("%03d", Integer.parseInt(numAquifers));
+        } else
+            tiles = qgen.transform(originalMesh, tiles, Integer.parseInt(genSeed.substring(9, 12)), rnd);
 
         // Enrich land with humidity, moisture, and vegetation
         EnrichmentGen egen = new EnrichmentGen();
-        tiles = egen.enrichLand(originalMesh, tiles, rivers, new Dry().defineComposition());
-
         // Set the soil composition
         double[] composition;
-        switch (soilProfile) {
-            case "dry":
-                composition = new Dry().defineComposition();
-                break;
-            default:
-                composition = new Wet().defineComposition();
-                break;
+        if (random) {
+            switch (soilProfile) {
+                case "dry":
+                    composition = new Dry().defineComposition();
+                    configSeed += "1";
+                    break;
+                default:
+                    composition = new Wet().defineComposition();
+                    configSeed += "0";
+                    break;
+            }
+        } else {
+            switch (genSeed.charAt(12)) {
+                case '1':
+                    composition = new Dry().defineComposition();
+                    break;
+                default:
+                    composition = new Wet().defineComposition();
+                    break;
+            }
         }
         tiles = egen.enrichLand(originalMesh, tiles, rivers, composition);
 
         // Generate biomes
         // If biomeProfile == none then generate the island without specific biomes
-        if (!biomesProfile.equals("none")) {
-            BiomesGen bgen = new BiomesGen();
-            tiles = bgen.transform(tiles, biomesProfile);
+        if (random) {
+            if (!biomesProfile.equals("none")) {
+                BiomesGen bgen = new BiomesGen();
+                tiles = bgen.transform(tiles, biomesProfile);
+                switch (biomesProfile) {
+                    case "arctic":
+                        configSeed += "1";
+                        break;
+                    case "tropical":
+                        configSeed += "2";
+                        break;
+                    case "desert":
+                        configSeed += "3";
+                        break;
+                    case "temperate":
+                        configSeed += "4";
+                        break;
+                    default:
+                        configSeed += "0";
+                        break;
+                }
+            } else
+                configSeed += "0";
+        } else {
+            if (genSeed.charAt(13) != '0') {
+                BiomesGen bgen = new BiomesGen();
+                tiles = bgen.transform(tiles, String.valueOf(genSeed.charAt(13)));
+            }
         }
 
         HeatmapGen hmap = new HeatmapGen();
+        if (random) {
+            switch (heatmapView) {
+                case "altitude":
+                    configSeed += "1";
+                    break;
+                case "humidity":
+                    configSeed += "2";
+                    break;
+                case "moisture":
+                    configSeed += "3";
+                    break;
+                default:
+                    configSeed += "0";
+                    break;
+            }
+        } else {
+            switch(genSeed.charAt(14)) {
+                case '1':
+                    heatmapView = "altitude";
+                    break;
+                case '2':
+                    heatmapView = "humidity";
+                    break;
+                case '3':
+                    heatmapView = "moisture";
+                    break;
+                default:
+                    heatmapView = "";
+                    break;
+            }
+        }
         tiles = hmap.transform(tiles, heatmapView);
 
         // Turn tiles into polygon properties
         Mesh islandMesh = mutateMesh(originalMesh, tiles, rivers);
 
         // Create lagoon island if specified
-        if (mode.equals("lagoon")) {
-            LagoonGen lgngen = new LagoonGen(width, height, width / 5, width / 3);
-            islandMesh = lgngen.transform(originalMesh).build();
+        if (random) {
+            if (mode.equals("lagoon")) {
+                LagoonGen lgngen = new LagoonGen(width, height, width / 5, width / 3);
+                islandMesh = lgngen.transform(originalMesh).build();
+                configSeed = "1" + configSeed;
+            } else
+                configSeed = "0" + configSeed;
+        } else {
+            if (genSeed.charAt(0) == '1') {
+                LagoonGen lgngen = new LagoonGen(width, height, width / 5, width / 3);
+                islandMesh = lgngen.transform(originalMesh).build();
+            }
         }
 
         factory.write(islandMesh, config.export("o")); // Write to output mesh
+
+        if (random)
+            return configSeed + genSeed;
+        else
+            return genSeed;
     }
 
     private Mesh mutateMesh(Mesh oMesh, List<Tile> tiles, River[] rivers) {
@@ -187,7 +339,7 @@ public class MeshConfiguration {
             } else {
                 // Set river properties for corresponding segment
                 Property color = Property.newBuilder().setKey("rgb_color").setValue(rivers[i].getColor()).build();
-                Property thickness = Property.newBuilder().setKey("thickness").setValue(String.valueOf(rivers[i].getDischarge())).build();
+                Property thickness = Property.newBuilder().setKey("thickness").setValue(String.valueOf(rivers[i].getDischarge() * 3)).build();
                 s.addProperties(color).addProperties(thickness);
             }
             mesh.addSegments(s);
