@@ -13,8 +13,11 @@ package island {
         }
 
         class MeshConfiguration {
+            -Configuration config
+            -Random rnd
+            -String genSeed
             +MeshConfiguration(String[])
-            +void generateIsland()
+            +String generateIsland()
             -Mesh mutateMesh(Mesh, List<Tile>, River[])
         }
 
@@ -25,20 +28,25 @@ package island {
     package generators {
 
         class AltitudeGen {
-            +List<Tile> transform(Mesh, List<Tile>, AltitudeData)
+            +List<Tile> transform(Mesh, List<Tile>, AltitudeData, Random)
         }
 
         class AquiferGen {
-            +List<Tile> transform(Mesh, List<Tile>, int)
+            +List<Tile> transform(Mesh, List<Tile>, int, Random)
             -List<Integer> getValidPolygonIdxs(Mesh, List<Tile>)
         }
 
-        class BiomeGen {
-            +List<Tile> transform(Mesh, List<Tile>)
+        class BiomesGen {
+            +List<Tile> transform(List<Tile>, String)
         }
 
         class EnrichmentGen {
             +List<Tile> enrichLand(Mesh, List<Tile> River[], double[])
+        }
+
+        class HeatmapGen {
+            +List<Tile> transform(List<Tile>, String)
+            -Color fetchColor(double, double, double)
         }
 
         class LagoonGen {
@@ -50,8 +58,9 @@ package island {
         }
 
         class LakeGen {
-            +List<Tile> transform(Mesh, List<Tile>, int)
+            +List<Tile> transform(Mesh, List<Tile>, int, Random)
             -List<Integer> getValidPolygonIdxs(Mesh, List<Tile>)
+            -Tile createLakeTile(Tile)
         }
 
         class LandGen {
@@ -59,10 +68,30 @@ package island {
         }
 
         class RiverGen {
-            +River[] createRivers(Mesh, List<Tile>, int)
+            +River[] createRivers(Mesh, List<Tile>, int, Random)
             -List<Integer> getValidPolygonIdxs(Mesh, List<Tile>)
             -int findLowestTile(Mesh, List<Tile>, int, Vertex)
             -int findConnectingSegment(Mesh, Polygon, Vertex)
+        }
+
+    }
+
+    package biomes {
+        
+        class ArcticBiome {
+            +List<Tile> transform(List<Tile)
+        }
+
+        class DesertBiome {
+            +List<Tile> transform(List<Tile)
+        }
+
+        class TemperateBiome {
+            +List<Tile> transform(List<Tile)
+        }
+
+        class TropicalBiome {
+            +List<Tile> transform(List<Tile)
         }
 
     }
@@ -102,7 +131,6 @@ package island {
             }
 
             AltitudeProfile <|.. CornerMountains
-            AltitudeProfile <|.. Hills
             AltitudeProfile <|.. Volcano
             AltitudeData <.. CornerMountains
             AltitudeData <.. Hills
@@ -215,7 +243,6 @@ package island {
     }
 
     Tile <|-- LandTile
-    MeshConfiguration 
 
 }
 
