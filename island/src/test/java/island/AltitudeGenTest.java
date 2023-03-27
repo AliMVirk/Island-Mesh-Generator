@@ -9,6 +9,7 @@ import island.generators.AltitudeGen;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import island.profiles.altitude.AltitudeData;
 import org.junit.jupiter.api.Test;
@@ -40,7 +41,7 @@ public class AltitudeGenTest {
 
         AltitudeData altitudeData = new AltitudeData(coords, 10, 0);
 
-        tiles = agen.transform(aMesh, tiles, altitudeData);
+        tiles = agen.transform(aMesh, tiles, altitudeData, new Random());
         assertEquals(tiles.get(0).getAltitude(), 10);
         assertEquals(tiles.get(1).getAltitude(), 0);
     }
@@ -66,7 +67,7 @@ public class AltitudeGenTest {
         AltitudeData altitudeData = new AltitudeData(coords, 10, 0.5);
 
 
-        tiles = agen.transform(aMesh, tiles, altitudeData);
+        tiles = agen.transform(aMesh, tiles, altitudeData, new Random());
         assertEquals(Math.round(tiles.get(0).getAltitude()), 10);
         assertEquals(Math.round(tiles.get(1).getAltitude()), 5);
     }
@@ -93,7 +94,7 @@ public class AltitudeGenTest {
         // Test altitudes with no land tiles
         AltitudeData altitudeData = new AltitudeData(coords, 10, 0.5);
 
-        tiles = agen.transform(aMesh, tiles, altitudeData);
+        tiles = agen.transform(aMesh, tiles, altitudeData, new Random());
         assertEquals(tiles.get(0).getAltitude(), 0);
         assertEquals(tiles.get(1).getAltitude(), 0);
 
@@ -101,7 +102,7 @@ public class AltitudeGenTest {
         tiles.clear();
         tiles.add(new Tile(Type.OCEAN, null));
         tiles.add(new Tile(Type.LAND, null));
-        tiles = agen.transform(aMesh, tiles, altitudeData);
+        tiles = agen.transform(aMesh, tiles, altitudeData, new Random());
         assertEquals(tiles.get(0).getAltitude(), 0);
     }
 
