@@ -151,8 +151,24 @@ The following is an example of generating and visualizing an ellipse shaped isla
 <br>
 <img src="./diagrams/arctic.png" width="400" />
 <br>
-Figure 3.1: Arctic biome with 5 lakes, 5 rivers, 5 aquifers and wet soil
+Figure 4.1: Arctic biome with 5 lakes, 5 rivers, 5 aquifers and wet soil
 <br><br>
+
+When an island is generated a seed is outputted which can be used to recreate the same island.
+<br>
+<img src="./diagrams/seed.png" width="900" />
+<br>
+Figure 4.2: Seed outputted when island is generated
+<br>
+
+To use this seed to recreate the island run:  
+```mvn install```
+
+```java -jar generator/generator.jar generator/sample.mesh -t irregular -d 1000 -w 1000 -n 2000```
+
+```java -jar island/island.jar -i generator/sample.mesh -o island/sample.mesh --seed 0300050050050109013514```
+
+```java -jar visualizer/visualizer.jar island/sample.mesh visualizer/sample.svg```
 
 The following is an example of generating and visualizing the heatmap of an ellipse shaped island with four mountains on the edges mesh with 5 lakes, 5 rivers, 5 aquifers, wet soil and an arctic biome:
 ```mvn install```
@@ -165,7 +181,7 @@ The following is an example of generating and visualizing the heatmap of an elli
 <br>
 <img src="./diagrams/heatmap.png" width="400" />
 <br>
-Figure 3.1: Altitude heatmap for arctic biomes with 5 lakes, 5 rivers, 5 aquifers and wet soil
+Figure 4.3: Altitude heatmap for arctic biomes with 5 lakes, 5 rivers, 5 aquifers and wet soil
 <br><br>
 
 
