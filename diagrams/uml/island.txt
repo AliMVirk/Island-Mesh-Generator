@@ -1,4 +1,5 @@
 @startuml
+left to right direction
 
 package island {
 
@@ -82,33 +83,45 @@ package island {
         LakeGen o-- MeshConfiguration
         LandGen o-- MeshConfiguration
         RiverGen o-- MeshConfiguration
+        HeatmapGen o-- MeshConfiguration
 
     }
 
     package biomes {
 
         class Arctic {
-
+            -String name
+            -Arctic(String)
+            +String toString()
         }
         
         class Biome {
-
+            +String name
+            +String toString()
         }
 
         class Biomes {
-
+            -String name
+            -Biomes(String)
+            +String toString()
         }
 
         class Desert {
-
+            -String name
+            -Desert(String)
+            +String toString()
         }
 
         class Temperate {
-
+            -String name
+            -Temperate(String)
+            +String toString()
         }
 
         class Tropical {
-
+            -String name
+            -Tropical(String)
+            +String toString()
         }
 
         Biomes <.. Biome
@@ -116,6 +129,7 @@ package island {
         Biome <.. Desert
         Biome <.. Temperate
         Biome <.. Tropical
+        
     }
 
     package profiles {
@@ -157,34 +171,33 @@ package island {
             AltitudeData <.. CornerMountains
             AltitudeData <.. Hills
             AltitudeData <.. Volcano
-            
 
         }
 
-        package biomes {
+        package profiles.biomes {
         
-        class ArcticBiome {
-            +List<Tile> transform(List<Tile)
+            class ArcticBiome {
+                +List<Tile> transform(List<Tile)
+            }
+
+            class DesertBiome {
+                +List<Tile> transform(List<Tile)
+            }
+
+            class TemperateBiome {
+                +List<Tile> transform(List<Tile)
+            }
+
+            class TropicalBiome {
+                +List<Tile> transform(List<Tile)
+            }
+
+            ArcticBiome -- Arctic
+            DesertBiome -- Desert
+            TemperateBiome -- Temperate
+            TropicalBiome -- Tropical
+
         }
-
-        class DesertBiome {
-            +List<Tile> transform(List<Tile)
-        }
-
-        class TemperateBiome {
-            +List<Tile> transform(List<Tile)
-        }
-
-        class TropicalBiome {
-            +List<Tile> transform(List<Tile)
-        }
-
-        ArcticBiome -- Arctic
-        DesertBiome -- Desert
-        TemperateBiome -- Temperate
-        TropicalBiome -- Tropical
-
-    }
 
         package soil {
 
@@ -272,6 +285,10 @@ package island {
             +void setDischarge(int)
         }
 
+        Tile *-- Type
+        Tile *-- Biome
+        River *-- RiverGen
+
     }
 
     package Tiles {
@@ -287,22 +304,18 @@ package island {
             -void adjustVegetation()
         }
 
+        Tile <|-- LandTile
+
     }
 
     AltitudeData o-- AltitudeGen
     Biomes <.. BiomesGen
     Dry <.. EnrichmentGen
     Wet <.. EnrichmentGen
-    Mesh -- LagoonGen
     Shape <.. LandGen
 
+    Tile o-- generators
 
 }
-
-class Main {
-    +void main(String[])
-}
-
-MeshConfiguration <.. Main
 
 @enduml
