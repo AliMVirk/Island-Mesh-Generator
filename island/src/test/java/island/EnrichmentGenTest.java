@@ -83,8 +83,7 @@ public class EnrichmentGenTest {
         tilesDuplicate.add(new LandTile());
 
         // Create rivers
-        RiverGen rgen = new RiverGen();
-        River[] rivers = rgen.createRivers(aMesh, tiles, 1, new Random());
+        River[] rivers = new River[] {new River(1)};
 
         // Dry composition test
         tiles = egen.enrichLand(aMesh, tiles, rivers, new Dry().defineComposition());
