@@ -80,17 +80,14 @@ Pre-made shapes that can be used:
 Pre-made altitude profiles that can be used:  
 ```--altitude volcano, --altitude hills, --altitude randomhills```
 
-Number of lakes must be greater than 0:  
+Number of lakes must be between 0 and 999:  
 ```--lakes 5```
 
-Number of rivers must be greater than 0:  
+Number of rivers must be between 0 and 999:  
 ```--rivers 5```
 
-Number of aquifers must be greater than 0:  
+Number of aquifers must be between 0 and 999:  
 ```--aquifers 5```
-
-Pre-made soil profiles that can be used:  
-```--soil dry, --soil wet```
 
 Pre-made soil profiles that can be used:  
 ```--soil dry, --soil wet```
