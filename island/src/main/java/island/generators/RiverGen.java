@@ -21,6 +21,7 @@ public class RiverGen {
         List<Integer> polygonIdxs = getValidPolygonIdxs(oMesh, tiles);
         numRivers = (polygonIdxs.size() == 0) ? 0 : numRivers; // Create no rivers if there are no valid spots
         for (int i = 0; i < numRivers; i++) {
+            if (polygonIdxs.size() == 0) break; // stop generating if there are no more spots to place rivers
             // Initialize first vertex spring
             int pIndex = polygonIdxs.get(rnd.nextInt(polygonIdxs.size()));
             Polygon p = oMesh.getPolygons(pIndex);
@@ -34,35 +35,48 @@ public class RiverGen {
 
             // Continue extending river until it reaches water or a lowest point
             while (true) {
-                if (findLowestTile(oMesh, tiles, pIndex, spring) == -1) break;
+                if (findLowestTile(oMesh, tiles, pIndex, spring) == -1) break; // no lowest tile found
                 pIndex = findLowestTile(oMesh, tiles, pIndex, spring);
                 p = oMesh.getPolygons(pIndex);
                 segmentIndex = findConnectingSegment(oMesh, p, spring);
                 s = oMesh.getSegments(segmentIndex);
                 spring = (oMesh.getVertices(s.getV1Idx()).equals(spring)) ? oMesh.getVertices(s.getV2Idx()) : oMesh.getVertices(s.getV1Idx());
-                if (tiles.get(pIndex).getType().equals(Type.OCEAN.toString()) || tiles.get(i).getType().equals(Type.LAKE.toString()))
+                if (tiles.get(pIndex).getType().equals(Type.OCEAN.toString()) || tiles.get(i).getType().equals(Type.LAKE.toString())) // stop extending if water is reached
                     break;
                 if (rivers[segmentIndex] != null)
                     previousDischarge += rivers[segmentIndex].getDischarge();
                 rivers[segmentIndex] = new River(previousDischarge);
             }
 
+            // Find if there is a lake or ocean neighbor to the tile containing the end of the river
             boolean oceanNeighbor = false;
+            boolean lakeNeighbor = false;
             for (int n : oMesh.getPolygons(pIndex).getNeighborIdxsList()) {
                 if (tiles.get(n).getType().equals(Type.OCEAN.toString()))
                     oceanNeighbor = true;
+                else if (tiles.get(n).getType().equals(Type.LAKE.toString()))
+                    lakeNeighbor = true;
             }
 
-            if (oceanNeighbor) {
-                tiles.set(pIndex, new Tile(Type.OCEAN, new Color(1, 64, 98), 150));
-            } else if (!tiles.get(pIndex).getType().equals(Type.LAKE.toString())) {
-                tiles.set(pIndex, createLakeTile(tiles.get(pIndex)));
+            // Endorheic lake formation
+            if (oceanNeighbor || !(tiles.get(pIndex).getType().equals(Type.LAKE.toString()) || lakeNeighbor)) {
+                // Form an ocean tile to connect river to ocean (instead of an endorheic lake)
+                if (oceanNeighbor)
+                    tiles.set(pIndex, new Tile(Type.OCEAN, new Color(1, 64, 98), 150));
+                // Form an endorheic lake
+                else
+                    tiles.set(pIndex, createLakeTile(tiles.get(pIndex)));
+                polygonIdxs.remove((Object) pIndex);
+                for (int nIndex : oMesh.getPolygons(pIndex).getNeighborIdxsList()) {
+                    polygonIdxs.remove((Object) nIndex);
+                }
             }
         }
 
         return rivers;
     }
 
+    // Gets all land tile indexes without water neighbors
     private List<Integer> getValidPolygonIdxs(Mesh mesh, List<Tile> tiles) {
         List<Integer> validPolygonIdxs = new ArrayList<>();
         for (int i = 0; i < mesh.getPolygonsCount(); i++) {
@@ -70,7 +84,7 @@ public class RiverGen {
             if (tiles.get(i).getType().equals(Type.OCEAN.toString()) || tiles.get(i).getType().equals(Type.LAKE.toString()))
                 continue;
             for (int j : mesh.getPolygons(i).getNeighborIdxsList()) {
-                if (tiles.get(j).getType().equals(Type.OCEAN.toString()) || tiles.get(i).getType().equals(Type.LAKE.toString()))
+                if (tiles.get(j).getType().equals(Type.OCEAN.toString()) || tiles.get(j).getType().equals(Type.LAKE.toString()))
                     valid = false;
             }
             if (valid)
@@ -79,9 +93,10 @@ public class RiverGen {
         return validPolygonIdxs;
     }
 
+    // Returns the current tile's steepest neighbor index that has a connecting segment
     private int findLowestTile(Mesh mesh, List<Tile> tiles, int pIndex, Vertex v) {
         Polygon p = mesh.getPolygons(pIndex);
-        int nIndex = -1;
+        int nIndex = -1; // no neighbor found
         List<Integer> neighbors = new ArrayList<>(p.getNeighborIdxsList());
         do {
             double minAltitude = tiles.get(pIndex).getAltitude();
@@ -92,13 +107,14 @@ public class RiverGen {
                 }
             }
             if (minAltitude == tiles.get(pIndex).getAltitude())
-                return -1;
+                return -1; // no neighbor found
             else
                 neighbors.remove((Object) nIndex);
         } while (findConnectingSegment(mesh, mesh.getPolygons(nIndex), v) == -1);
         return nIndex;
     }
 
+    // Finds a connecting segment index between a polygon and vertex
     private int findConnectingSegment(Mesh mesh, Polygon n, Vertex v) {
         for (int i : n.getSegmentIdxsList()) {
             Segment s = mesh.getSegments(i);
@@ -108,7 +124,7 @@ public class RiverGen {
                 return i;
             }
         }
-        return -1;
+        return -1; // no segment found
     }
 
     private Tile createLakeTile(Tile t) {
