@@ -78,7 +78,7 @@ Pre-made shapes that can be used:
 ```--shape circle, --shape ellipse, --shape rectangle, --shape square```
 
 Pre-made altitude profiles that can be used:  
-```--altitude centralPeak, --altitude cornerPeaks, --altitude randomPeaks```
+```--altitude volcano, --altitude hills, --altitude randomhills```
 
 Number of lakes must be greater than 0:  
 ```--lakes 5```
