@@ -1,5 +1,6 @@
 package island.generators;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -33,8 +34,8 @@ public class RiverGen {
 
             // Continue extending river until it reaches water or a lowest point
             while (true) {
+                if (findLowestTile(oMesh, tiles, pIndex, spring) == -1) break;
                 pIndex = findLowestTile(oMesh, tiles, pIndex, spring);
-                if (pIndex == -1) break;
                 p = oMesh.getPolygons(pIndex);
                 segmentIndex = findConnectingSegment(oMesh, p, spring);
                 s = oMesh.getSegments(segmentIndex);
@@ -44,6 +45,18 @@ public class RiverGen {
                 if (rivers[segmentIndex] != null)
                     previousDischarge += rivers[segmentIndex].getDischarge();
                 rivers[segmentIndex] = new River(previousDischarge);
+            }
+
+            boolean oceanNeighbor = false;
+            for (int n : oMesh.getPolygons(pIndex).getNeighborIdxsList()) {
+                if (tiles.get(n).getType().equals(Type.OCEAN.toString()))
+                    oceanNeighbor = true;
+            }
+
+            if (oceanNeighbor) {
+                tiles.set(pIndex, new Tile(Type.OCEAN, new Color(1, 64, 98), 150));
+            } else if (!tiles.get(pIndex).getType().equals(Type.LAKE.toString())) {
+                tiles.set(pIndex, createLakeTile(tiles.get(pIndex)));
             }
         }
 
@@ -96,6 +109,12 @@ public class RiverGen {
             }
         }
         return -1;
+    }
+
+    private Tile createLakeTile(Tile t) {
+        Tile lake = new Tile(Type.LAKE, new Color(86, 163, 204), 100);
+        lake.setAltitude(t.getAltitude());
+        return lake;
     }
 
 }

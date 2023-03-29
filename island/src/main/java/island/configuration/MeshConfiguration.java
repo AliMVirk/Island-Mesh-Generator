@@ -339,7 +339,9 @@ public class MeshConfiguration {
             } else {
                 // Set river properties for corresponding segment
                 Property color = Property.newBuilder().setKey("rgb_color").setValue(rivers[i].getColor()).build();
-                Property thickness = Property.newBuilder().setKey("thickness").setValue(String.valueOf(rivers[i].getDischarge() * 3)).build();
+                double discharge = rivers[i].getDischarge() * 3;
+                if (discharge > 3.5) discharge = 3.5;
+                Property thickness = Property.newBuilder().setKey("thickness").setValue(String.valueOf(discharge)).build();
                 s.addProperties(color).addProperties(thickness);
             }
             mesh.addSegments(s);
