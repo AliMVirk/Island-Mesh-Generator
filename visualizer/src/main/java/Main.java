@@ -2,7 +2,6 @@ import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.GraphicRenderer;
-import ca.mcmaster.cas.se2aa4.a2.visualizer.MeshDump;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.SVGCanvas;
 
 import java.awt.*;
@@ -32,8 +31,5 @@ public class Main {
         renderer.render(aMesh, canvas, debugToggle);
         // Storing the result in an SVG file
         SVGCanvas.write(canvas, output);
-        // Dump the mesh to stdout
-        MeshDump dumper = new MeshDump();
-        dumper.dump(aMesh);
     }
 }
