@@ -97,6 +97,9 @@ public class RiverGenTest {
         // Get discharge for 1 river in 1 spot
         River[] rivers = rgen.createRivers(aMesh, tiles, 1, new Random()); // equals at most the largest floating point below 2
         double smallDischarge = rivers[0].getDischarge();
+        // Reset tiles list
+        tiles.clear();
+        tiles.add(new Tile(Type.LAND, null));
         // Get discharge for 4 rivers in 1 spot
         rivers[0] = null;
         rivers = rgen.createRivers(aMesh, tiles, 4, new Random());
