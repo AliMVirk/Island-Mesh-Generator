@@ -9,13 +9,11 @@ import island.Tile.Tile;
 import island.Tile.Type;
 import island.Tiles.LandTile;
 import island.generators.EnrichmentGen;
-import island.generators.RiverGen;
 import island.profiles.soil.Dry;
 import island.profiles.soil.Wet;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

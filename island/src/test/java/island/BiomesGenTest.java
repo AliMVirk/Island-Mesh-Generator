@@ -1,19 +1,15 @@
 package island;
 
-import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import island.biomes.*;
 import island.Tile.Tile;
-import island.Tile.Type;
 import island.Tiles.LandTile;
 import island.generators.BiomesGen;
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BiomesGenTest {
 
@@ -21,14 +17,6 @@ public class BiomesGenTest {
 
     @Test
     public void arcticCorrectBiomes() {
-        // Create test mesh
-        Structs.Polygon p1 = Structs.Polygon.newBuilder().build();
-        Structs.Polygon p2 = Structs.Polygon.newBuilder().build();
-        Structs.Polygon p3 = Structs.Polygon.newBuilder().build();
-        Structs.Polygon p4 = Structs.Polygon.newBuilder().build();
-        Structs.Polygon p5 = Structs.Polygon.newBuilder().build();
-        Structs.Mesh aMesh = Structs.Mesh.newBuilder().addPolygons(p1).addPolygons(p2).addPolygons(p3).addPolygons(p4).addPolygons(p5).build();
-
         // Create corresponding tiles
         List<Tile> tiles = new ArrayList<>();
         Tile tile1 = new LandTile();
@@ -63,15 +51,6 @@ public class BiomesGenTest {
 
     @Test
     public void TropicalCorrectBiomes() {
-        // Create test mesh
-        Structs.Polygon p1 = Structs.Polygon.newBuilder().build();
-        Structs.Polygon p2 = Structs.Polygon.newBuilder().build();
-        Structs.Polygon p3 = Structs.Polygon.newBuilder().build();
-        Structs.Polygon p4 = Structs.Polygon.newBuilder().build();
-        Structs.Polygon p5 = Structs.Polygon.newBuilder().build();
-        Structs.Polygon p6 = Structs.Polygon.newBuilder().build();
-        Structs.Mesh aMesh = Structs.Mesh.newBuilder().addPolygons(p1).addPolygons(p2).addPolygons(p3).addPolygons(p4).addPolygons(p5).addPolygons(p6).build();
-
         // Create corresponding tiles
         List<Tile> tiles = new ArrayList<>();
         Tile tile1 = new LandTile();
@@ -110,12 +89,6 @@ public class BiomesGenTest {
 
     @Test
     public void DesertCorrectBiomes() {
-        // Create test mesh
-        Structs.Polygon p1 = Structs.Polygon.newBuilder().build();
-        Structs.Polygon p2 = Structs.Polygon.newBuilder().build();
-        Structs.Polygon p3 = Structs.Polygon.newBuilder().build();
-        Structs.Mesh aMesh = Structs.Mesh.newBuilder().addPolygons(p1).addPolygons(p2).addPolygons(p3).build();
-
         // Create corresponding tiles
         List<Tile> tiles = new ArrayList<>();
         Tile tile1 = new LandTile();
@@ -140,13 +113,6 @@ public class BiomesGenTest {
 
     @Test
     public void TemperateCorrectBiomes() {
-        // Create test mesh
-        Structs.Polygon p1 = Structs.Polygon.newBuilder().build();
-        Structs.Polygon p2 = Structs.Polygon.newBuilder().build();
-        Structs.Polygon p3 = Structs.Polygon.newBuilder().build();
-        Structs.Polygon p4 = Structs.Polygon.newBuilder().build();
-        Structs.Mesh aMesh = Structs.Mesh.newBuilder().addPolygons(p1).addPolygons(p2).addPolygons(p3).addPolygons(p4).build();
-
         // Create corresponding tiles
         List<Tile> tiles = new ArrayList<>();
         Tile tile1 = new LandTile();

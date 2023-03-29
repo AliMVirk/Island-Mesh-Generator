@@ -1,10 +1,7 @@
 package island.generators;
 
-import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import island.biomes.Biome;
 import island.Tile.Tile;
 import island.biomes.Biomes;
-import island.biomes.Temperate;
 import island.profiles.biomes.ArcticBiome;
 import island.profiles.biomes.DesertBiome;
 import island.profiles.biomes.TemperateBiome;

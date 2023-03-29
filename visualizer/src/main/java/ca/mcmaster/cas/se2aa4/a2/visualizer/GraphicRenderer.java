@@ -11,7 +11,6 @@ import java.awt.Stroke;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
 import java.util.List;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;

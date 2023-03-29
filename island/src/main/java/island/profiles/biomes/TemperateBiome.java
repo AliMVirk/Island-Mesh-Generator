@@ -4,7 +4,6 @@ import island.Tile.Tile;
 import island.Tile.Type;
 import island.biomes.Arctic;
 import island.biomes.Temperate;
-import island.biomes.Tropical;
 
 import java.awt.*;
 import java.util.List;

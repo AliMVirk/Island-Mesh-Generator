@@ -1,6 +1,5 @@
 package island.profiles.biomes;
 
-import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import island.Tile.Tile;
 import island.Tile.Type;
 import island.biomes.Arctic;

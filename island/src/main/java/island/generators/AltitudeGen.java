@@ -12,7 +12,6 @@ import java.util.Random;
 
 import island.profiles.altitude.AltitudeData;
 import org.locationtech.jts.geom.Coordinate;
-import java.awt.Color;
 
 public class AltitudeGen {
     

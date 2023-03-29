@@ -2,7 +2,6 @@ package island.profiles.biomes;
 
 import island.Tile.Tile;
 import island.Tile.Type;
-import island.biomes.Arctic;
 import island.biomes.Desert;
 
 import java.awt.*;
