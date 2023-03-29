@@ -19,7 +19,7 @@ public class Configuration {
     }
 
     private void printHelpMessage() {
-        System.out.println("usage: island -i <file path> -o <file path>\n-h,--help               print this message\n-i <file path>          mesh input\n-mode,--mode <arg>      island generation mode\n-o <file path>          mesh output\n-shape,--shape <shape>  island shape\n-altitude,--altitude    altitude profile\n-lakes,--lakes          maximum number of lakes\n-rivers,--rivers        number of rivers\n-aquifers,--aquifers    number of aquifers\n-soil,--soil            soil composition profile\n-biomes,--biomes            biomes profile or <precip>,<avgTemp>\n-seed,--seed            seed for reproducible island generation\n-heatmap,--heatmap      heatmap category");
+        System.out.println("usage: island -i <file path> -o <file path>\n-h,--help               print this message\n-i <file path>          mesh input\n-mode,--mode <arg>      island generation mode\n-o <file path>          mesh output\n-shape,--shape <shape>  island shape\n-altitude,--altitude    altitude profile\n-lakes,--lakes          maximum number of lakes\n-rivers,--rivers        number of rivers\n-aquifers,--aquifers    number of aquifers\n-soil,--soil            soil composition profile\n-biomes,--biomes        biomes profile or <precip>,<avgTemp>\n-seed,--seed            seed for reproducible island generation\n-heatmap,--heatmap      heatmap category");
         System.exit(0);
     }
 
