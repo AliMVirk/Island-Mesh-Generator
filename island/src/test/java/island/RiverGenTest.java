@@ -97,12 +97,16 @@ public class RiverGenTest {
         // Get discharge for 1 river in 1 spot
         River[] rivers = rgen.createRivers(aMesh, tiles, 1, new Random()); // equals at most the largest floating point below 2
         double smallDischarge = rivers[0].getDischarge();
-        // Reset tiles list
-        tiles.clear();
-        tiles.add(new Tile(Type.LAND, null));
-        // Get discharge for 4 rivers in 1 spot
-        rivers[0] = null;
-        rivers = rgen.createRivers(aMesh, tiles, 4, new Random());
+        // Get discharge for 4 rivers in 1 spot using a loop to counteract endorheic lake formation
+        for (int i = 0; i < 4; i++) {
+            // Reset tiles list to remove endorheic lakes
+            tiles.clear();
+            tiles.add(new Tile(Type.LAND, null));
+            // Create river
+            double previousDischarge = rivers[0].getDischarge();
+            rivers = rgen.createRivers(aMesh, tiles, 1, new Random());
+            rivers[0].setDischarge(previousDischarge + rivers[0].getDischarge());
+        }
         double largeDischarge = rivers[0].getDischarge(); // equals at least 2
         assertTrue(largeDischarge > smallDischarge);
     }
