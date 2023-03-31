@@ -13,6 +13,22 @@ public class Graph {
         E = edges;
     }
 
+    public void addNode(Node n) {
+        N.add(n);
+    }
+
+    public void removeNode(Node n) {
+        N.remove(n);
+    }
+
+    public void addEdge(Edge e) {
+        E.add(e);
+    }
+
+    public void removeEdge(Edge e) {
+        E.remove(e);
+    }
+
     public List<Node> getNodes() {
         return new ArrayList<>(N);
     }
