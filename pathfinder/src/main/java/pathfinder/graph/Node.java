@@ -1,13 +1,17 @@
 package pathfinder.graph;
 
+import java.util.HashMap;
+
 public class Node {
     
-    final String name;
-    final double altitude;
+    HashMap<String, String> attributes = new HashMap<>();
+    
+    public void add(String key, String value) {
+        attributes.put(key, value);
+    }
 
-    public Node(String cityName, double cityAltitude) {
-        name = cityName;
-        altitude = cityAltitude;
+    public String get(String key) {
+        return attributes.get(key);
     }
 
 }
