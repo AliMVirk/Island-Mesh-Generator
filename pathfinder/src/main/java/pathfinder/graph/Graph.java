@@ -1,40 +1,42 @@
 package pathfinder.graph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 public class Graph {
     
-    private List<Node> N;
-    private List<Edge> E;
-
-    public Graph(List<Node> nodes, List<Edge> edges) {
-        N = nodes;
-        E = edges;
-    }
+    private HashMap<Node, List<Edge>> graph = new HashMap<>();
 
     public void addNode(Node n) {
-        N.add(n);
+        graph.put(n, new ArrayList<>());
     }
 
     public void removeNode(Node n) {
-        N.remove(n);
+        graph.remove(n);
     }
 
     public void addEdge(Edge e) {
-        E.add(e);
+        graph.get(e.N1).add(e);
     }
 
     public void removeEdge(Edge e) {
-        E.remove(e);
+        graph.get(e.N1).remove(e);
     }
 
     public List<Node> getNodes() {
-        return new ArrayList<>(N);
+        return new ArrayList<>(graph.keySet());
     }
 
     public List<Edge> getEdges() {
-        return new ArrayList<>(E);
+        ArrayList<Edge> edges = new ArrayList<>();
+        for (Entry<Node, List<Edge>> entry : graph.entrySet()) {
+            for (Edge e : entry.getValue()) {
+                edges.add(e);
+            }
+        }
+        return new ArrayList<>(edges);
     }
 
 }
