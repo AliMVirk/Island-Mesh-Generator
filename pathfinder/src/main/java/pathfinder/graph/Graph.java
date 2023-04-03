@@ -55,31 +55,7 @@ public class Graph implements ShortestPath {
             return null;
 
         resetNodeCost();
-        // Initialize path and cost
-        HashMap<Node, Node> path = new HashMap<>();
-        graph.keySet().forEach(n -> path.put(n, null));
-        HashMap<Node, Double> cost = new HashMap<>();
-        graph.keySet().forEach(n -> cost.put(n, Double.MAX_VALUE));
-        // Initialize path/cost for n1
-        path.put(n1, n1); cost.put(n1, 0d);
-        // Q = min priority queue, hold s with 0
-        PriorityQueue<Node> q = new PriorityQueue<>(new Node());
-        q.add(n1);
-
-        // Dijkstra
-        while (!q.isEmpty()) {
-            Node m = q.poll();
-            for (Edge e : graph.get(m)) {
-                Node n = e.N2;
-                double nextCost = cost.get(m) + e.weight;
-                if (nextCost < cost.get(n)) {
-                    path.put(n, m);
-                    cost.put(n, nextCost);
-                    n.cost = cost.get(n);
-                    q.add(n);
-                }
-            }
-        }
+        HashMap<Node, Node> path = dijkstraShortestPath(n1);
 
         // Get shortest path between n1 and n2 as a list of nodes
         List<Node> shortestPath = new ArrayList<>();
@@ -98,6 +74,36 @@ public class Graph implements ShortestPath {
 
     private void resetNodeCost() {
         graph.keySet().forEach(n -> n.cost = 0);
+    }
+
+    private HashMap<Node, Node> dijkstraShortestPath(Node s) {
+        // Initialize path and cost
+        HashMap<Node, Node> path = new HashMap<>();
+        graph.keySet().forEach(n -> path.put(n, null));
+        HashMap<Node, Double> cost = new HashMap<>();
+        graph.keySet().forEach(n -> cost.put(n, Double.MAX_VALUE));
+        // Initialize path/cost for n1
+        path.put(s, s); cost.put(s, 0d);
+        // Q = min priority queue, hold s with 0
+        PriorityQueue<Node> q = new PriorityQueue<>(new Node());
+        q.add(s);
+
+        // Dijkstra
+        while (!q.isEmpty()) {
+            Node m = q.poll();
+            for (Edge e : graph.get(m)) {
+                Node n = e.N2;
+                double nextCost = cost.get(m) + e.weight;
+                if (nextCost < cost.get(n)) {
+                    path.put(n, m);
+                    cost.put(n, nextCost);
+                    n.cost = cost.get(n);
+                    q.add(n);
+                }
+            }
+        }
+
+        return path;
     }
 
 }
