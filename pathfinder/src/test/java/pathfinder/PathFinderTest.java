@@ -51,13 +51,42 @@ public class PathFinderTest {
     }
 
     @Test
-    public void pathNodesInGraph() {
+    public void noPathInEmptyGraph() {
         List<Node> path = g.findPath(new Node(), new Node());
+        assertNull(path);
+    }
+    
+    @Test
+    public void noPathBetweenNodes() {
+        // Store references to nodes
+        Node n1 = new Node();
+        Node n2 = new Node();
+        Node n3 = new Node();
+        // Create test graph
+        g.addNode(n1);
+        g.addNode(n2);
+        g.addNode(n3);
+        g.addEdge(new Edge(n1, n2, 3));
+        
+        List<Node> path = g.findPath(n1, n3);
         assertNull(path);
     }
 
     @Test
-    public void getShortestPath() {
+    public void oneNodePath() {
+        // Store references to nodes
+        Node n1 = new Node();
+        // Create test graph
+        g.addNode(n1);
+        g.addEdge(new Edge(n1, n1, 1));
+        
+        List<Node> generatedShortestPath = g.findPath(n1, n1);
+        List<Node> calculatedShortestPath = Arrays.asList(n1);
+        assertIterableEquals(calculatedShortestPath, generatedShortestPath);
+    }
+
+    @Test
+    public void getShortestPath1() {
         // Store references to nodes
         Node n1 = new Node();
         Node n2 = new Node();
@@ -74,21 +103,33 @@ public class PathFinderTest {
         List<Node> calculatedShortestPath = Arrays.asList(n1, n3);
         assertIterableEquals(calculatedShortestPath, generatedShortestPath);
     }
-    
+
     @Test
-    public void noPath() {
+    public void getShortestPath2() {
         // Store references to nodes
         Node n1 = new Node();
         Node n2 = new Node();
         Node n3 = new Node();
+        Node n4 = new Node();
+        Node n5 = new Node();
         // Create test graph
         g.addNode(n1);
         g.addNode(n2);
         g.addNode(n3);
-        g.addEdge(new Edge(n1, n2, 3));
-        
-        List<Node> path = g.findPath(n1, n3);
-        assertNull(path);
+        g.addNode(n4);
+        g.addNode(n5);
+        g.addEdge(new Edge(n1, n2, 1));
+        g.addEdge(new Edge(n2, n3, 1));
+        g.addEdge(new Edge(n3, n4, 1));
+        g.addEdge(new Edge(n4, n5, 1));
+        g.addEdge(new Edge(n5, n1, 1));
+        g.addEdge(new Edge(n3, n2, 1));
+        g.addEdge(new Edge(n2, n4, 1));
+        g.addEdge(new Edge(n2, n5, 1));
+
+        List<Node> generatedShortestPath = g.findPath(n1, n5);
+        List<Node> calculatedShortestPath = Arrays.asList(n1, n2, n5);
+        assertIterableEquals(calculatedShortestPath, generatedShortestPath);
     }
 
 }
