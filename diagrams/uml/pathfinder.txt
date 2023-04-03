@@ -1,0 +1,39 @@
+@startuml
+
+class Node {
+    -HashMap<String, String> attributes
+    ~double cost
+    +void add(String, String)
+    +String get(String)
+    +<<override>> int compare(Node, Node)
+}
+
+class Edge {
+    ~Node N1
+    ~Node N2
+    ~double weight
+    +Edge(Node, Node, double)
+}
+
+class Graph {
+    -HashMap<Node, List<Edge>> graph
+    +void addNode(Node)
+    +void removeNode(Node)
+    +void addEdge(Edge)
+    +void removeEdge(Edge)
+    +List<Node> getNodes()
+    +List<Edge> getEdges()
+    +List<Node> findPath(Node, Node)
+    -void resetNodeCost()
+}
+
+interface ShortestPath {
+    ~List<Node> findPath(Node, Node)
+}
+
+Node o-- Graph
+Edge o-- Graph
+ShortestPath <|.. Graph
+Node *-- Edge
+
+@enduml
