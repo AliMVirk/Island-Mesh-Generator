@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface ShortestPath {
     
-    List<Node> findPath(Node n1, Node n2);
+    public List<Node> findPath(Node n1, Node n2);
 
 }
