@@ -2,13 +2,13 @@ package pathfinder.graph;
 
 public class Edge {
     
-    final double weight;
     final Node N1;
     final Node N2;
+    final double weight;
 
-    public Edge(Node node_1, Node node_2, double edgeWeight) {
-        N1 = node_1;
-        N2 = node_2;
+    public Edge(Node node1, Node node2, double edgeWeight) {
+        N1 = node1;
+        N2 = node2;
         weight = edgeWeight;
     }
 
