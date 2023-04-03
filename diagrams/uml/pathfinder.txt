@@ -25,6 +25,7 @@ class Graph {
     +List<Edge> getEdges()
     +List<Node> findPath(Node, Node)
     -void resetNodeCost()
+    -HashMap<Node, Node> dijkstraShortestPath(Node)
 }
 
 interface ShortestPath {
