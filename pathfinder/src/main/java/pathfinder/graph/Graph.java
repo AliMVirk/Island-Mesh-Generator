@@ -11,7 +11,7 @@ public class Graph implements ShortestPath {
     private HashMap<Node, List<Edge>> graph = new HashMap<>();
 
     public void addNode(Node n) {
-        graph.put(n, new ArrayList<>());
+        graph.putIfAbsent(n, new ArrayList<>());
     }
 
     public void removeNode(Node n) {
