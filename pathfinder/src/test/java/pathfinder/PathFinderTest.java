@@ -52,7 +52,7 @@ public class PathFinderTest {
 
     @Test
     public void noPathInEmptyGraph() {
-        List<Node> path = g.findPath(new Node(), new Node());
+        List<Node> path = g.path.findPath(new Node(), new Node());
         assertNull(path);
     }
     
@@ -68,7 +68,7 @@ public class PathFinderTest {
         g.addNode(n3);
         g.addEdge(new Edge(n1, n2, 3));
         
-        List<Node> path = g.findPath(n1, n3);
+        List<Node> path = g.path.findPath(n1, n3);
         assertNull(path);
     }
 
@@ -80,7 +80,7 @@ public class PathFinderTest {
         g.addNode(n1);
         g.addEdge(new Edge(n1, n1, 1));
         
-        List<Node> generatedShortestPath = g.findPath(n1, n1);
+        List<Node> generatedShortestPath = g.path.findPath(n1, n1);
         List<Node> calculatedShortestPath = Arrays.asList(n1);
         assertIterableEquals(calculatedShortestPath, generatedShortestPath);
     }
@@ -99,7 +99,7 @@ public class PathFinderTest {
         g.addEdge(new Edge(n2, n3, 5));
         g.addEdge(new Edge(n1, n3, 4));
 
-        List<Node> generatedShortestPath = g.findPath(n1, n3);
+        List<Node> generatedShortestPath = g.path.findPath(n1, n3);
         List<Node> calculatedShortestPath = Arrays.asList(n1, n3);
         assertIterableEquals(calculatedShortestPath, generatedShortestPath);
     }
@@ -127,7 +127,7 @@ public class PathFinderTest {
         g.addEdge(new Edge(n2, n4, 1));
         g.addEdge(new Edge(n2, n5, 1));
 
-        List<Node> generatedShortestPath = g.findPath(n1, n5);
+        List<Node> generatedShortestPath = g.path.findPath(n1, n5);
         List<Node> calculatedShortestPath = Arrays.asList(n1, n2, n5);
         assertIterableEquals(calculatedShortestPath, generatedShortestPath);
     }
