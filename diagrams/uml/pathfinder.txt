@@ -1,4 +1,5 @@
 @startuml
+left to right direction
 
 class Node {
     -HashMap<String, String> attributes
@@ -17,24 +18,34 @@ class Edge {
 
 class Graph {
     -HashMap<Node, List<Edge>> graph
+    +PathFinder path
     +void addNode(Node)
     +void removeNode(Node)
     +void addEdge(Edge)
     +void removeEdge(Edge)
     +List<Node> getNodes()
     +List<Edge> getEdges()
+}
+
+class PathFinder {
+    -HashMap<Node, List<Edge>> graph
+    +PathFinder(HashMap<Node, List<Edge>>)
     +List<Node> findPath(Node, Node)
     -void resetNodeCost()
     -HashMap<Node, Node> dijkstraShortestPath(Node)
 }
 
 interface ShortestPath {
-    ~List<Node> findPath(Node, Node)
+    +List<Node> findPath(Node, Node)
+    +HashMap<Node, Node> dijkstraShortestPath(Node s);
 }
 
 Node o-- Graph
 Edge o-- Graph
-ShortestPath <|.. Graph
+ShortestPath <|.. PathFinder
 Node *-- Edge
+Graph *-- PathFinder
+Node -- PathFinder
+Edge -- PathFinder
 
 @enduml
