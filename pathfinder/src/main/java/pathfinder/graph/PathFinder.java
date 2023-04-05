@@ -40,7 +40,7 @@ public class PathFinder implements ShortestPath {
         graph.keySet().forEach(n -> n.cost = 0);
     }
 
-    private HashMap<Node, Node> dijkstraShortestPath(Node s) {
+    public HashMap<Node, Node> dijkstraShortestPath(Node s) {
         // Initialize path and cost
         HashMap<Node, Node> path = new HashMap<>();
         graph.keySet().forEach(n -> path.put(n, null));
