@@ -9,7 +9,7 @@ public class Node implements Comparator<Node> {
     double cost = 0;
     
     public void add(String key, String value) {
-        attributes.putIfAbsent(key, value);
+        attributes.put(key, value);
     }
 
     public String get(String key) {
