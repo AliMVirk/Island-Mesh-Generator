@@ -56,4 +56,25 @@ public class CityGenTest {
         assertEquals("1", g.getNodes().get(0).get("size"));        
     }
 
+    @Test
+    public void graphIsDense() {
+        // Create test
+        List<Vertex> vertices = new ArrayList<>();
+        List<Polygon> polygons = new ArrayList<>();
+        int numNodes = new Random().nextInt(100);
+        for (int i = 0; i < numNodes; i++) {
+            vertices.add(Vertex.newBuilder().setX(0).setY(0).build());
+            polygons.add(Polygon.newBuilder().setCentroidIdx(i).build());
+        }
+        Mesh aMesh = Mesh.newBuilder().addAllVertices(vertices).addAllPolygons(polygons).build();
+
+        // Create corresponding tiles
+        List<Tile> tiles = new ArrayList<>();
+        for (int i = 0; i < numNodes; i++)
+            tiles.add(new LandTile());
+        
+        Graph g = cgen.generate(aMesh, tiles, numNodes, new Random());
+        assertEquals(numNodes * numNodes - numNodes, g.getEdges().size());
+    }
+
 }
