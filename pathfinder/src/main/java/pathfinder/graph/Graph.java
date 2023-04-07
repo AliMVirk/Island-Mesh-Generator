@@ -28,7 +28,8 @@ public class Graph {
             addNode(e.N1);
         if (!graph.containsKey(e.N2))
             addNode(e.N2);
-        graph.get(e.N1).add(e);
+        if (!graph.get(e.N1).contains(e))
+            graph.get(e.N1).add(e);
     }
 
     public void removeEdge(Edge e) {
