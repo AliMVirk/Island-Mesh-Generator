@@ -12,4 +12,12 @@ public class Edge {
         weight = edgeWeight;
     }
 
+    public Node getN1() {
+        return N1;
+    }
+
+    public Node getN2() {
+        return N2;
+    }
+
 }
