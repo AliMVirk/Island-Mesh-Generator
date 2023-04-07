@@ -19,7 +19,7 @@ public class PathFinder implements ShortestPath {
             return null;
 
         resetNodeCost();
-        HashMap<Node, Node> path = dijkstraShortestPath(n1);
+        HashMap<Node, Node> path = dijkstraShortestPath(n1).getPath();
 
         // Get shortest path between n1 and n2 as a list of nodes
         List<Node> shortestPath = new ArrayList<>();
@@ -40,7 +40,7 @@ public class PathFinder implements ShortestPath {
         graph.keySet().forEach(n -> n.cost = 0);
     }
 
-    public HashMap<Node, Node> dijkstraShortestPath(Node s) {
+    public NodePath dijkstraShortestPath(Node s) {
         // Initialize path and cost
         HashMap<Node, Node> path = new HashMap<>();
         graph.keySet().forEach(n -> path.put(n, null));
@@ -67,7 +67,7 @@ public class PathFinder implements ShortestPath {
             }
         }
 
-        return path;
+        return new NodePath(path, cost);
     }
 
 }
