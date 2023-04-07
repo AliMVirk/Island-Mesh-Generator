@@ -32,12 +32,20 @@ class PathFinder {
     +PathFinder(HashMap<Node, List<Edge>>)
     +List<Node> findPath(Node, Node)
     -void resetNodeCost()
-    -HashMap<Node, Node> dijkstraShortestPath(Node)
+    +NodePath dijkstraShortestPath(Node)
 }
 
 interface ShortestPath {
     +List<Node> findPath(Node, Node)
-    +HashMap<Node, Node> dijkstraShortestPath(Node s);
+    +NodePath dijkstraShortestPath(Node s);
+}
+
+class NodePath {
+    -HashMap<Node, Node> path;
+    -HashMap<Node, Double> cost;
+    +NodePath(HashMap<Node, Node>, HashMap<Node, Double>)
+    +HashMap<Node, Node> getPath()
+    +HashMap<Node, Double> getCost()
 }
 
 Node o-- Graph
@@ -45,7 +53,7 @@ Edge o-- Graph
 ShortestPath <|.. PathFinder
 Node *-- Edge
 Graph *-- PathFinder
-Node -- PathFinder
-Edge -- PathFinder
+Node <.. NodePath
+NodePath <.. ShortestPath
 
 @enduml
