@@ -1,6 +1,6 @@
 package island;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ import island.Tile.Tile;
 import island.Tile.Type;
 import island.Tiles.LandTile;
 import island.generators.CityGen;
+import pathfinder.graph.Edge;
 import pathfinder.graph.Graph;
 
 public class CityGenTest {
@@ -57,24 +58,26 @@ public class CityGenTest {
     }
 
     @Test
-    public void graphIsDense() {
+    public void edgesBetweenNeighbors() {
         // Create test
-        List<Vertex> vertices = new ArrayList<>();
-        List<Polygon> polygons = new ArrayList<>();
-        int numNodes = new Random().nextInt(100);
-        for (int i = 0; i < numNodes; i++) {
-            vertices.add(Vertex.newBuilder().setX(0).setY(0).build());
-            polygons.add(Polygon.newBuilder().setCentroidIdx(i).build());
-        }
-        Mesh aMesh = Mesh.newBuilder().addAllVertices(vertices).addAllPolygons(polygons).build();
+        Vertex v1 = Vertex.newBuilder().setX(0).setY(0).build();
+        Vertex v2 = Vertex.newBuilder().setX(0).setY(0).build();
+        Vertex v3 = Vertex.newBuilder().setX(0).setY(0).build();
+        Polygon p1 = Polygon.newBuilder().setCentroidIdx(0).addNeighborIdxs(0).setNeighborIdxs(0, 1).build();
+        Polygon p2 = Polygon.newBuilder().setCentroidIdx(1).addNeighborIdxs(0).setNeighborIdxs(0, 0).build();
+        Polygon p3 = Polygon.newBuilder().setCentroidIdx(2).build();
+        Mesh aMesh = Mesh.newBuilder().addVertices(v1).addVertices(v2).addVertices(v3).addPolygons(p1).addPolygons(p2).addPolygons(p3).build();
 
         // Create corresponding tiles
         List<Tile> tiles = new ArrayList<>();
-        for (int i = 0; i < numNodes; i++)
-            tiles.add(new LandTile());
+        tiles.add(new LandTile());
+        tiles.add(new LandTile());
+        tiles.add(new LandTile());
         
-        Graph g = cgen.generate(aMesh, tiles, numNodes, new Random());
-        assertEquals(numNodes * numNodes - numNodes, g.getEdges().size());
+        Graph g = cgen.generate(aMesh, tiles, 3, new Random());
+        List<Edge> edges = g.getEdges();
+        assertEquals(2, edges.size());
+        assertEquals(edges.get(0).getN1().get("polygonIndex"), edges.get(1).getN2().get("polygonIndex"));
     }
 
 }

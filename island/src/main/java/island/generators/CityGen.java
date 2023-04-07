@@ -26,18 +26,22 @@ public class CityGen {
             // Create graph node corresponding to land polygon centroid
             Polygon p = oMesh.getPolygons(i);
             Node n = new Node();
+            n.add("polygonIndex", String.valueOf(i));
             n.add("vertexIndex", String.valueOf(p.getCentroidIdx()));
             n.add("isCity", "false");
             g.addNode(n);
             potentialCities.add(n);
         }
 
-        // Create edges between all nodes
+        // Create edges between all neighbouring nodes
         for (Node n : g.getNodes()) {
-            for (Node m : g.getNodes()) {
-                if (n.equals(m))
-                    continue;
-                g.addEdge(new Edge(n, m, findEdgeDistance(oMesh, n, m)));
+            for (int i : oMesh.getPolygons(Integer.parseInt(n.get("polygonIndex"))).getNeighborIdxsList()) {
+                for (Node m : g.getNodes()) {
+                    if (Integer.parseInt(m.get("polygonIndex")) == i) {
+                        g.addEdge(new Edge(n, m, findEdgeDistance(oMesh, n, m)));
+                        break;
+                    }
+                }
             }
         }
 
