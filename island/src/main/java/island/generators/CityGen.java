@@ -6,6 +6,7 @@ import java.util.Random;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import island.Tile.Tile;
 import island.Tile.Type;
 import pathfinder.graph.*;
@@ -31,6 +32,16 @@ public class CityGen {
             potentialCities.add(n);
         }
 
+        // Create edges between all nodes
+        for (Node n : g.getNodes()) {
+            for (Node m : g.getNodes()) {
+                if (n.equals(m))
+                    continue;
+                g.addEdge(new Edge(n, m, findEdgeDistance(oMesh, n, m)));
+            }
+        }
+
+        // Create cities from randomly selected nodes
         for (int i = 0; i < numCities && !potentialCities.isEmpty(); i++) {
             Node n = potentialCities.remove(rnd.nextInt(potentialCities.size()));
             n.add("isCity", "true");
@@ -38,7 +49,12 @@ public class CityGen {
         }
 
         return g;
+    }
 
+    private double findEdgeDistance(Mesh mesh, Node n1, Node n2) {
+        Vertex v1 = mesh.getVertices(Integer.parseInt(n1.get("vertexIndex")));
+        Vertex v2 = mesh.getVertices(Integer.parseInt(n2.get("vertexIndex")));
+        return Math.sqrt(Math.pow(v1.getX() - v2.getX(), 2) + Math.pow(v1.getY() - v2.getY(), 2));
     }
 
 }
