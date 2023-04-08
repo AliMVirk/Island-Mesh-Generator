@@ -61,9 +61,9 @@ public class MeshConfiguration {
         boolean random = true; // true if seed was not provided
         String configSeed = ""; // seed for configurability options if seed is not provided and only rng seed is generated
         if (seed != null) {
-            // seed is of the format 0 0 0 000 000 000 0 0 0 0...0
-            // 0:mode 0:shape 0:altitude 000:lakes 000:rivers 000:aquifers 0:soil 0:biome 0:heatmap 0...0:rng seed
-            rnd.setSeed(Long.parseLong(seed.substring(15)));
+            // seed is of the format 0 0 0 000 000 000 0 0 0...0
+            // 0:mode 0:shape 0:altitude 000:lakes 000:rivers 000:aquifers 0:soil 0:biome 0...0:rng seed
+            rnd.setSeed(Long.parseLong(seed.substring(14)));
             genSeed = seed;
             random = false;
         }
@@ -251,37 +251,6 @@ public class MeshConfiguration {
         }
 
         HeatmapGen hmap = new HeatmapGen();
-        if (random) {
-            switch (heatmapView) {
-                case "altitude":
-                    configSeed += "1";
-                    break;
-                case "humidity":
-                    configSeed += "2";
-                    break;
-                case "moisture":
-                    configSeed += "3";
-                    break;
-                default:
-                    configSeed += "0";
-                    break;
-            }
-        } else {
-            switch(genSeed.charAt(14)) {
-                case '1':
-                    heatmapView = "altitude";
-                    break;
-                case '2':
-                    heatmapView = "humidity";
-                    break;
-                case '3':
-                    heatmapView = "moisture";
-                    break;
-                default:
-                    heatmapView = "";
-                    break;
-            }
-        }
         tiles = hmap.transform(tiles, heatmapView);
 
         // Turn tiles into polygon properties
