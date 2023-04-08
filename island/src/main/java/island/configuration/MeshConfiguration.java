@@ -21,11 +21,12 @@ import island.Tile.Tile;
 import island.profiles.altitude.*;
 import island.profiles.soil.*;
 import island.shapes.*;
+import pathfinder.graph.Graph;
 
 public class MeshConfiguration {
 
-    private Configuration config;
-    private Random rnd;
+    private final Configuration config;
+    private final Random rnd;
     private String genSeed;
 
     public MeshConfiguration(String[] args, long seed) throws ParseException {
@@ -250,11 +251,17 @@ public class MeshConfiguration {
             }
         }
 
+        // Generate heatmap
         HeatmapGen hmap = new HeatmapGen();
         tiles = hmap.transform(tiles, heatmapView);
 
+        // Generate cities
+        Graph g = new CityGen().generate(originalMesh, tiles, 20, rnd);
+        // Generate roads
+        List<Segment> roads = new RoadGen().generate(originalMesh, tiles, g);
+
         // Turn tiles into polygon properties
-        Mesh islandMesh = mutateMesh(originalMesh, tiles, rivers);
+        Mesh islandMesh = mutateMesh(originalMesh, tiles, rivers, roads);
 
         // Create lagoon island if specified
         if (random) {
@@ -279,7 +286,7 @@ public class MeshConfiguration {
             return genSeed;
     }
 
-    private Mesh mutateMesh(Mesh oMesh, List<Tile> tiles, River[] rivers) {
+    private Mesh mutateMesh(Mesh oMesh, List<Tile> tiles, River[] rivers, List<Segment> roads) {
         // Extract mesh
         Mesh.Builder mesh = Mesh.newBuilder();
         mesh.addAllVertices(oMesh.getVerticesList()).addAllProperties(oMesh.getPropertiesList());
@@ -314,6 +321,8 @@ public class MeshConfiguration {
             }
             mesh.addSegments(s);
         }
+
+        mesh.addAllSegments(roads);
 
         return mesh.build();
     }
