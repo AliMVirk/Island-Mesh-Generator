@@ -16,12 +16,14 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import island.Tile.River;
 import island.Tile.Tile;
 import island.profiles.altitude.*;
 import island.profiles.soil.*;
 import island.shapes.*;
 import pathfinder.graph.Graph;
+import pathfinder.graph.Node;
 
 public class MeshConfiguration {
 
@@ -261,7 +263,7 @@ public class MeshConfiguration {
         List<Segment> roads = new RoadGen().generate(originalMesh, tiles, g);
 
         // Turn tiles into polygon properties
-        Mesh islandMesh = mutateMesh(originalMesh, tiles, rivers, roads);
+        Mesh islandMesh = mutateMesh(originalMesh, tiles, rivers, g.getNodes(), roads);
 
         // Create lagoon island if specified
         if (random) {
@@ -286,7 +288,7 @@ public class MeshConfiguration {
             return genSeed;
     }
 
-    private Mesh mutateMesh(Mesh oMesh, List<Tile> tiles, River[] rivers, List<Segment> roads) {
+    private Mesh mutateMesh(Mesh oMesh, List<Tile> tiles, River[] rivers, List<Node> cities, List<Segment> roads) {
         // Extract mesh
         Mesh.Builder mesh = Mesh.newBuilder();
         mesh.addAllVertices(oMesh.getVerticesList()).addAllProperties(oMesh.getPropertiesList());
@@ -320,6 +322,17 @@ public class MeshConfiguration {
                 s.addProperties(color).addProperties(thickness);
             }
             mesh.addSegments(s);
+        }
+
+        // Plot cities
+        Property color = Property.newBuilder().setKey("rgb_color").setValue("0,0,255").build();
+        for (Node n : cities) {
+            if (Boolean.parseBoolean(n.get("isCity"))) {
+                Vertex city = oMesh.getVertices(Integer.parseInt(n.get("vertexIndex")));
+                Property thickness = Property.newBuilder().setKey("thickness").setValue(n.get("size")).build();
+                Vertex v = Vertex.newBuilder().setX(city.getX()).setY(city.getY()).addProperties(color).addProperties(thickness).build();
+                mesh.addVertices(v);
+            }
         }
 
         mesh.addAllSegments(roads);
