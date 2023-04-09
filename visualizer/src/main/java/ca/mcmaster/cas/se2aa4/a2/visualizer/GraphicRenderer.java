@@ -44,10 +44,10 @@ public class GraphicRenderer {
             // Draw neighboring relations in grey when debug mode is active
             drawNeighborRelations(aMesh, canvas);
         } else {
-            // Draw vertices
-            drawVertices(aMesh, canvas, 0, divider, null);
             // Draw segments
             drawSegments(aMesh, canvas);
+            // Draw vertices
+            drawVertices(aMesh, canvas, 0, aMesh.getVerticesCount(), null);
         }
     }
 
