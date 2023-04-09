@@ -20,8 +20,8 @@ public class CityGen {
         List<Node> potentialCities = new ArrayList<>();
         for (int i = 0; i < oMesh.getPolygonsCount(); i++) {
             // No civilization on water
-            Tile t = tiles.get(i);
-            if (t.getType().equals(Type.OCEAN.toString()) || t.getType().equals(Type.LAKE.toString()) || t.getType().equals(Type.LAGOON.toString()))
+            String type = tiles.get(i).getType();
+            if (type.equals(Type.OCEAN.toString()) || type.equals(Type.LAKE.toString()) || type.equals(Type.LAGOON.toString()))
                 continue;
             // Create graph node corresponding to land polygon centroid
             Polygon p = oMesh.getPolygons(i);
