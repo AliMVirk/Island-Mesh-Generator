@@ -40,7 +40,7 @@ public class RoadGen {
         // Create paths from the capital to every other city
         cities.remove(capital);
         Property segColor = Property.newBuilder().setKey("rgb_color").setValue("125,128,124").build();
-        Property segThickness = Property.newBuilder().setKey("thickness").setValue("2").build();
+        Property segThickness = Property.newBuilder().setKey("thickness").setValue("4").build();
         for (Node n : cities) {
             List<Node> path = g.path.findPath(capital, n);
             if (path == null) continue; // no path exists
