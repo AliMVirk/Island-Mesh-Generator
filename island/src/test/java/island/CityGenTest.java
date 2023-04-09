@@ -54,7 +54,6 @@ public class CityGenTest {
 
         Graph g = cgen.generate(aMesh, tiles, 1, new Random());
         assertEquals("true", g.getNodes().get(0).get("isCity"));        
-        assertEquals("1", g.getNodes().get(0).get("size"));        
     }
 
     @Test

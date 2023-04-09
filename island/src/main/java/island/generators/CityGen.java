@@ -49,7 +49,7 @@ public class CityGen {
         for (int i = 0; i < numCities && !potentialCities.isEmpty(); i++) {
             Node n = potentialCities.remove(rnd.nextInt(potentialCities.size()));
             n.add("isCity", "true");
-            n.add("size", "1");
+            n.add("size", String.valueOf(rnd.nextDouble(5)+5));
         }
 
         return g;
