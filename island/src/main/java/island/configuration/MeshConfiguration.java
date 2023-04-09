@@ -60,13 +60,15 @@ public class MeshConfiguration {
         if (biomesProfile == null) biomesProfile = "";
         String heatmapView = config.export("heatmap");
         if (heatmapView == null) heatmapView = "";
+        String numCities = config.export("cities");
+        if (numCities == null) numCities = "10";
         String seed = config.export("seed");
         boolean random = true; // true if seed was not provided
         String configSeed = ""; // seed for configurability options if seed is not provided and only rng seed is generated
         if (seed != null) {
-            // seed is of the format 0 0 0 000 000 000 0 0 0...0
-            // 0:mode 0:shape 0:altitude 000:lakes 000:rivers 000:aquifers 0:soil 0:biome 0...0:rng seed
-            rnd.setSeed(Long.parseLong(seed.substring(14)));
+            // seed is of the format 0 0 0 000 000 000 0 0 000 0...0
+            // 0:mode 0:shape 0:altitude 000:lakes 000:rivers 000:aquifers 0:soil 0:biome 000:cities 0...0:rng seed
+            rnd.setSeed(Long.parseLong(seed.substring(17)));
             genSeed = seed;
             random = false;
         }
@@ -258,7 +260,12 @@ public class MeshConfiguration {
         tiles = hmap.transform(tiles, heatmapView);
 
         // Generate cities
-        Graph g = new CityGen().generate(originalMesh, tiles, 20, rnd);
+        Graph g;
+        if (random) {
+            g = new CityGen().generate(originalMesh, tiles, Integer.parseInt(numCities), rnd);
+            configSeed += String.format("%03d", Integer.parseInt(numCities));
+        } else
+            g = new CityGen().generate(originalMesh, tiles, Integer.parseInt(genSeed.substring(14, 17)), rnd);
         // Generate roads
         List<Segment> roads = new RoadGen().generate(originalMesh, tiles, g);
 
