@@ -1,6 +1,8 @@
-package pathfinder.graph;
+package pathfinder;
 
 import java.util.HashMap;
+
+import pathfinder.graph.Node;
 
 // Container class for accessing both path and cost maps from Dijsktra's shortest path algorithm
 public class NodePath {

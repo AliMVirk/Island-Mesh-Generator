@@ -1,9 +1,12 @@
-package pathfinder.graph;
+package pathfinder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.PriorityQueue;
+
+import pathfinder.graph.Edge;
+import pathfinder.graph.Node;
 
 public class PathFinder implements ShortestPath {
 
@@ -56,8 +59,8 @@ public class PathFinder implements ShortestPath {
         while (!q.isEmpty()) {
             Node m = q.poll();
             for (Edge e : graph.get(m)) {
-                Node n = e.N2;
-                double nextCost = cost.get(m) + e.weight;
+                Node n = e.getN2();
+                double nextCost = cost.get(m) + e.getWeight();
                 if (nextCost < cost.get(n)) {
                     path.put(n, m);
                     cost.put(n, nextCost);

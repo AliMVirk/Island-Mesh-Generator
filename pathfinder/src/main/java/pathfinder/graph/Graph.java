@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import pathfinder.PathFinder;
+
 public class Graph {
     
     private HashMap<Node, List<Edge>> graph = new HashMap<>();

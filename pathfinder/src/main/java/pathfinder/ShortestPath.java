@@ -1,6 +1,8 @@
-package pathfinder.graph;
+package pathfinder;
 
 import java.util.List;
+
+import pathfinder.graph.Node;
 
 public interface ShortestPath {
     
