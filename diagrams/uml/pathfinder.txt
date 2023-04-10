@@ -1,32 +1,37 @@
 @startuml
 left to right direction
 
-class Node {
-    -HashMap<String, String> attributes
-    ~double cost
-    +void add(String, String)
-    +String get(String)
-    +<<override>> int compare(Node, Node)
-}
+package graph {
 
-class Edge {
-    ~Node N1
-    ~Node N2
-    ~double weight
-    +Edge(Node, Node, double)
-    +Node getN1()
-    +Node getN2()
-}
+    class Node {
+        -HashMap<String, String> attributes
+        +double cost
+        +void add(String, String)
+        +String get(String)
+        +<<override>> int compare(Node, Node)
+    }
 
-class Graph {
-    -HashMap<Node, List<Edge>> graph
-    +PathFinder path
-    +void addNode(Node)
-    +void removeNode(Node)
-    +void addEdge(Edge)
-    +void removeEdge(Edge)
-    +List<Node> getNodes()
-    +List<Edge> getEdges()
+    class Edge {
+        ~Node N1
+        ~Node N2
+        ~double weight
+        +Edge(Node, Node, double)
+        +Node getN1()
+        +Node getN2()
+        +double getWeight()
+    }
+
+    class Graph {
+        -HashMap<Node, List<Edge>> graph
+        +PathFinder path
+        +void addNode(Node)
+        +void removeNode(Node)
+        +void addEdge(Edge)
+        +void removeEdge(Edge)
+        +List<Node> getNodes()
+        +List<Edge> getEdges()
+    }
+
 }
 
 class PathFinder {
@@ -50,8 +55,8 @@ class NodePath {
     +HashMap<Node, Double> getCost()
 }
 
-Node o-- Graph
-Edge o-- Graph
+Node *-- Graph
+Edge *-- Graph
 ShortestPath <|.. PathFinder
 Node *-- Edge
 Graph *-- PathFinder
