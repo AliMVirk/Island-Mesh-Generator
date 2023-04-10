@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class Node implements Comparator<Node> {
     
     private HashMap<String, String> attributes = new HashMap<>();
-    double cost = 0;
+    public double cost = 0;
     
     public void add(String key, String value) {
         attributes.put(key, value);
