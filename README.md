@@ -69,7 +69,7 @@ The following information shows how to transform an existing mesh by generating 
 When running the island generator, the following arguments can be used to control the island generation:
 
 ```
-java -jar island/island.jar -i <mesh input path> -o <mesh output path> --mode <generation mode> --shape <island shape> --altitude <altitude profile> --lakes <max number of lakes> --rivers <number of rivers> --aquifers <number of aquifers> --soil <soil composition profile> --heatmap <heatmap category> --biomes <biomes profile>
+java -jar island/island.jar -i <mesh input path> -o <mesh output path> --mode <generation mode> --shape <island shape> --altitude <altitude profile> --lakes <max number of lakes> --rivers <number of rivers> --aquifers <number of aquifers> --soil <soil composition profile> --heatmap <heatmap category> --biomes <biomes profile> --cities <number of cities>
 ```
 
 To see all possible user configurations, run the above with argument ```-h``` or ```--help```
@@ -89,6 +89,9 @@ Number of rivers must be between 0 and 999:
 Number of aquifers must be between 0 and 999:  
 ```--aquifers 5```
 
+Number of cities must be between 0 and 999:  
+```--cities 5```
+
 Pre-made soil profiles that can be used:  
 ```--soil dry, --soil wet```
 
@@ -98,7 +101,7 @@ Pre-made heatmap profiles that can be used:
 Pre-made biomes profiles that can be used:  
 ```--biomes arctic, --biomes tropical, --biomes desert, --biomes temperate, --biomes none```
 
-Pre-generated seed can be selected to regenerate an island
+Pre-generated seed can be selected to regenerate an island  
 ```--seed <seed>```
 
 The following is an example of generating and visualizing an island mesh:
@@ -117,32 +120,13 @@ The following is an example of generating and visualizing an island mesh:
 Figure 3.0: Lagoon island visualized regularly
 <br><br>
 
-The following is an example of generating and visualizing an ellipse shaped island with four mountains on the edges mesh:
+
+The following is an example of generating and visualizing an ellipse shaped island with four mountains on the edges mesh with 5 lakes, 5 rivers, 5 aquifers, wet soil and an arctic biome:  
 ```mvn install```
 
 ```java -jar generator/generator.jar generator/sample.mesh -t irregular -d 1000 -w 1000 -n 2000```
 
-```java -jar island/island.jar -i generator/sample.mesh -o island/sample.mesh --shape ellipse --altitude cornerMountains```
-
-```java -jar visualizer/visualizer.jar island/sample.mesh visualizer/sample.svg```
-<br>
-<img src="./diagrams/ellipseIsland.png" width="400" />
-<br>
-Figure 3.1: Ellipse island with 4 mountains/peaks
-<br><br>
-
-<br>
-<img src="./diagrams/ellipseIslandWithAltitudesShowing.png" width="400" />
-<br>
-Figure 3.2: Ellipse island with 4 mountains/peaks showing the altitudes (white is highest point, cyan is lowest point)
-<br><br>
-
-The following is an example of generating and visualizing an ellipse shaped island with four mountains on the edges mesh with 5 lakes, 5 rivers, 5 aquifers, wet soil and an arctic biome:
-```mvn install```
-
-```java -jar generator/generator.jar generator/sample.mesh -t irregular -d 1000 -w 1000 -n 2000```
-
-```java -jar island/island.jar -i generator/sample.mesh -o island/sample.mesh --shape ellipse --altitude cornerMountains --lakes 5 --rivers 5 --aquifers 5 --soil wet --biome arctic```
+```java -jar island/island.jar -i generator/sample.mesh -o island/sample.mesh --shape ellipse --altitude hills --lakes 5 --rivers 5 --aquifers 5 --soil wet --biome arctic```
 
 ```java -jar visualizer/visualizer.jar island/sample.mesh visualizer/sample.svg```
 <br>
@@ -167,18 +151,32 @@ To use this seed to recreate the island run:
 
 ```java -jar visualizer/visualizer.jar island/sample.mesh visualizer/sample.svg```
 
-The following is an example of generating and visualizing the heatmap of an ellipse shaped island with four mountains on the edges mesh with 5 lakes, 5 rivers, 5 aquifers, wet soil and an arctic biome:
+The following is an example of generating and visualizing the heatmap of an ellipse shaped island with four mountains on the island edges with 5 lakes, 5 rivers, 5 aquifers, wet soil and an arctic biome:  
 ```mvn install```
 
 ```java -jar generator/generator.jar generator/sample.mesh -t irregular -d 1000 -w 1000 -n 2000```
 
-```java -jar island/island.jar -i generator/sample.mesh -o island/sample.mesh --shape ellipse --altitude cornerMountains --lakes 5 --rivers 5 --aquifers 5 --soil wet --biome arctic --heatmap altitude```
+```java -jar island/island.jar -i generator/sample.mesh -o island/sample.mesh --shape ellipse --altitude hills --lakes 5 --rivers 5 --aquifers 5 --soil wet --biome arctic --heatmap altitude```
 
 ```java -jar visualizer/visualizer.jar island/sample.mesh visualizer/sample.svg```
 <br>
 <img src="./diagrams/heatmap.png" width="400" />
 <br>
 Figure 4.3: Altitude heatmap for arctic biomes with 5 lakes, 5 rivers, 5 aquifers and wet soil
+<br><br>
+
+The following is an example of generating and visualizing a rectangle shaped island with a mountain in the island centre with 15 lakes, 15 rivers, 0 aquifers, dry soil, no biome, and 50 cities:  
+```mvn install```
+
+```java -jar generator/generator.jar generator/sample.mesh -t irregular -d 1000 -w 1000 -n 2000```
+
+```java -jar island/island.jar -i generator/sample.mesh -o island/sample.mesh --shape rectangle --altitude volcano --lakes 15 --rivers 15 --aquifers 0 --soil dry --cities 50```
+
+```java -jar visualizer/visualizer.jar island/sample.mesh visualizer/sample.svg```
+<br>
+<img src="./diagrams/cities.png" width="400" />
+<br>
+Figure 5: Island with generated cities—blue dots are cities and grey segments are roads
 <br><br>
 
 
