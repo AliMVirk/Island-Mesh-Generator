@@ -31,7 +31,7 @@ public class RoadGenTest {
 
     @Test
     public void noRoadsWithOneCity() {
-        // Create test
+        // Create test mesh
         Vertex v1 = Vertex.newBuilder().setX(0).setY(0).build();
         Vertex v2 = Vertex.newBuilder().setX(0).setY(5).build();
         Vertex v3 = Vertex.newBuilder().setX(0).setY(10).build();
@@ -55,7 +55,7 @@ public class RoadGenTest {
 
     @Test
     public void roadsExist() {
-        // Create test
+        // Create test mesh
         Vertex v1 = Vertex.newBuilder().setX(0).setY(0).build();
         Vertex v2 = Vertex.newBuilder().setX(0).setY(15).build();
         Polygon p1 = Polygon.newBuilder().setCentroidIdx(0).addNeighborIdxs(0).setNeighborIdxs(0, 1).build();
@@ -77,7 +77,7 @@ public class RoadGenTest {
 
     @Test
     public void noRoadsBetweenNonCapitals() {
-        // Create test
+        // Create test mesh
         Vertex v1 = Vertex.newBuilder().setX(0).setY(0).build();
         Vertex v2 = Vertex.newBuilder().setX(250).setY(250).build();
         Vertex v3 = Vertex.newBuilder().setX(300).setY(300).build();

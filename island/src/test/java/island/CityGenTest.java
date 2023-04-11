@@ -58,7 +58,7 @@ public class CityGenTest {
 
     @Test
     public void edgesBetweenNeighbors() {
-        // Create test
+        // Create test mesh
         Vertex v1 = Vertex.newBuilder().setX(0).setY(0).build();
         Vertex v2 = Vertex.newBuilder().setX(0).setY(0).build();
         Vertex v3 = Vertex.newBuilder().setX(0).setY(0).build();
