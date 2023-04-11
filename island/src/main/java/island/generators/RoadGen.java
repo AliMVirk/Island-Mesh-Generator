@@ -7,12 +7,11 @@ import java.util.List;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
-import island.Tile.Tile;
 import pathfinder.graph.*;
 
 public class RoadGen {
     
-    public List<Segment> generate(Mesh oMesh, List<Tile> tiles, Graph g) {
+    public List<Segment> generate(Mesh oMesh, Graph g) {
         List<Segment> segments = new ArrayList<>();
 
         // Iterate through cities to find the most central

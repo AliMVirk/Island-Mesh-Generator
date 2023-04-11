@@ -267,7 +267,7 @@ public class MeshConfiguration {
         } else
             g = new CityGen().generate(originalMesh, tiles, Integer.parseInt(genSeed.substring(14, 17)), rnd);
         // Generate roads
-        List<Segment> roads = new RoadGen().generate(originalMesh, tiles, g);
+        List<Segment> roads = new RoadGen().generate(originalMesh, g);
 
         // Turn tiles into polygon properties
         Mesh islandMesh = mutateMesh(originalMesh, tiles, rivers, g.getNodes(), roads);

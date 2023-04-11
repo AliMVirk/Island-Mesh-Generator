@@ -25,7 +25,7 @@ public class RoadGenTest {
 
     @Test
     public void noRoadsWithNoCities() {
-        List<Segment> segments = rgen.generate(Mesh.newBuilder().build(), new ArrayList<>(), new Graph());
+        List<Segment> segments = rgen.generate(Mesh.newBuilder().build(), new Graph());
         assertTrue(segments.isEmpty());
     }
 
@@ -49,7 +49,7 @@ public class RoadGenTest {
         // Create corresponding cities
         Graph g = cgen.generate(aMesh, tiles, 1, new Random());
 
-        List<Segment> segments = rgen.generate(aMesh, tiles, g);
+        List<Segment> segments = rgen.generate(aMesh, g);
         assertTrue(segments.isEmpty());
     }
 
@@ -70,7 +70,7 @@ public class RoadGenTest {
         // Create corresponding cities
         Graph g = cgen.generate(aMesh, tiles, 2, new Random());
         
-        List<Segment> segments = rgen.generate(aMesh, tiles, g);
+        List<Segment> segments = rgen.generate(aMesh, g);
         assertEquals(1, segments.size());
         assertTrue(segments.get(0).getV1Idx() == 0 && segments.get(0).getV2Idx() == 1 || segments.get(0).getV1Idx() == 1 && segments.get(0).getV2Idx() == 0);
     }
@@ -95,7 +95,7 @@ public class RoadGenTest {
         // Create corresponding cities
         Graph g = cgen.generate(aMesh, tiles, 3, new Random());
 
-        List<Segment> segments = rgen.generate(aMesh, tiles, g);
+        List<Segment> segments = rgen.generate(aMesh, g);
         for (Segment s : segments) {
             assertTrue(!(s.getV1Idx() == 0 && s.getV2Idx() == 2 || s.getV1Idx() == 0 && s.getV2Idx() == 2));
         }
