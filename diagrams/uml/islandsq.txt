@@ -62,6 +62,15 @@ MeshConfiguration -> HeatmapGen : transform()
 HeatmapGen -> MeshConfiguration
 deactivate HeatmapGen
 
+activate CityGen
+MeshConfiguration -> CityGen : generate()
+CityGen -> MeshConfiguration
+deactivate CityGen
+activate RoadGen
+MeshConfiguration -> RoadGen : generate()
+RoadGen -> MeshConfiguration
+deactivate RoadGen
+
 activate Mesh
 activate MeshFactory
 MeshConfiguration -> MeshConfiguration : mutateMesh
