@@ -97,7 +97,7 @@ public class RoadGenTest {
 
         List<Segment> segments = rgen.generate(aMesh, g);
         for (Segment s : segments) {
-            assertTrue(!(s.getV1Idx() == 0 && s.getV2Idx() == 2 || s.getV1Idx() == 0 && s.getV2Idx() == 2));
+            assertTrue(!(s.getV1Idx() == 0 && s.getV2Idx() == 2 || s.getV1Idx() == 2 && s.getV2Idx() == 0));
         }
     }
 
