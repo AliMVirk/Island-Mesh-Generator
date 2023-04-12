@@ -61,6 +61,7 @@ public class RoadGen {
                         end = m;
                     }
                 }
+                if (end == null) continue;
                 // Create road
                 List<Node> path = g.path.findPath(n, end);
                 if (path == null) continue; // no path exists
