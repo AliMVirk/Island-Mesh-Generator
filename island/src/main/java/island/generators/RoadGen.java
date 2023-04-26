@@ -59,6 +59,7 @@ public class RoadGen {
                     Vertex v2 = oMesh.getVertices(Integer.parseInt(m.get("vertexIndex")));
                     if (!n.equals(m) && !m.equals(capital) && Math.sqrt(Math.pow(v1.getX() - v2.getX(), 2) + Math.pow(v1.getY() - v2.getY(), 2)) < minDistance) {
                         end = m;
+			minDistance = Math.sqrt(Math.pow(v1.getX() - v2.getX(), 2) + Math.pow(v1.getY() - v2.getY(), 2));
                     }
                 }
                 if (end == null) continue;
