@@ -1,4 +1,4 @@
-# Assignment A2: Mesh Generator
+# Mesh Generator
 
 - Ali Virk [virka9@mcmaster.ca]
 - Hamza Abou Jaib [aboujaih@mcmaster.ca]
